@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const walletConfig = require('./wallet-utils-config');
+const appConfig = require('./app-config');
 const initializerConfig = require('./initializer-config');
 const prepareOutputConfig = require('./prepare-output-config');
 
@@ -26,6 +26,6 @@ const prepareModule = (baseConfig, outputPath, jsPattern, cssPattern) =>
     merge(merge(baseConfig, prepareOutputConfig(outputPath, jsPattern, cssPattern)), commonProdConfig);
 
 module.exports = [
-    prepareModule(walletConfig, `${baseOutput}/v1`, '[name].[hash:20]', '[hash:20]'),
+    prepareModule(appConfig, `${baseOutput}/v1`, '[name].[hash:20]', '[hash:20]'),
     prepareModule(initializerConfig, baseOutput)
 ];

@@ -1,7 +1,7 @@
 const path = require('path');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 const merge = require('webpack-merge');
-const walletConfig = require('./wallet-utils-config');
+const appConfig = require('./app-config');
 const initializerConfig = require('./initializer-config');
 const prepareOutputConfig = require('./prepare-output-config');
 
@@ -26,6 +26,6 @@ const prepareModule = (baseConfig, outputPath) =>
     merge(merge(baseConfig, prepareOutputConfig(outputPath)), commonDevConfig);
 
 module.exports = [
-    prepareModule(walletConfig, `${baseOutput}/v1`),
+    prepareModule(appConfig, `${baseOutput}/v1`),
     prepareModule(initializerConfig, baseOutput)
 ];

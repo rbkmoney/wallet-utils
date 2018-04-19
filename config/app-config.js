@@ -1,12 +1,11 @@
 const webpack = require('webpack');
 const path = require('path');
-// const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const rules = require('./common-rules');
 
 module.exports = {
-    name: 'wallet-utils',
+    name: 'app',
     stats: {
         children: false,
         moduleTrace: false,
@@ -22,7 +21,7 @@ module.exports = {
         modules: ['node_modules', path.join(__dirname, 'src/app')],
         extensions: ['.ts', '.tsx', '.js'],
         alias: {
-            wallet: __dirname + '/../src/app'
+            app: __dirname + '/../src/app'
         }
     },
     module: {
@@ -41,9 +40,5 @@ module.exports = {
             template: './src/app/index.html',
             filename: 'app.html'
         })
-        // new CopyWebpackPlugin(
-        //     [],
-        //     {debug: 'warning'}
-        // )
     ]
 };
