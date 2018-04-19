@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "module": "es2015",
+    "target": "es5",
+    "jsx": "react",
+    "lib": ["es2015", "dom"],
+    "baseUrl": ".",
+    "paths": {
+      "wallet/*": ["./src/app/*", "./src/locale/*"]
+    },
+    "pretty": true
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}
