@@ -5,7 +5,9 @@ import './styles/main.scss';
 
 const app = document.getElementById('app');
 
-const reactDom = ReactDOM.render(
+/* tslint:disable:no-expression-statement */
+ReactDOM.render(
     <div>start</div>,
     app
 );
+/* tslint:enable:no-expression-statement */
