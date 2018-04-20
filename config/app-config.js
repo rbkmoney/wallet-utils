@@ -12,7 +12,7 @@ module.exports = {
     },
     entry: {
         app: './src/app/index.tsx',
-        react: './src/app/react.ts',
+        react: ['react', 'react-dom'],
         vendor: './src/app/vendor.ts',
         polyfills: './src/app/polyfills.ts'
     },

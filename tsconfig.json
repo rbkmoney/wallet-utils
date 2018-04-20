@@ -10,7 +10,7 @@
     "lib": ["es2015", "dom"],
     "baseUrl": ".",
     "paths": {
-      "wallet/*": ["./src/app/*"]
+      "app/*": ["./src/app/*"]
     },
     "pretty": true
   },
