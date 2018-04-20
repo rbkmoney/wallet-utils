@@ -10,7 +10,7 @@ const commonProdConfig = {
     plugins: [
         new webpack.optimize.ModuleConcatenationPlugin(),
         new BundleAnalyzerPlugin({
-            // analyzerMode: 'disabled'
+            analyzerMode: 'disabled'
         })
     ]
 };
