@@ -13,8 +13,8 @@ module.exports = {
     entry: {
         app: './src/app/index.tsx',
         react: ['react', 'react-dom'],
-        vendor: './src/app/vendor.ts',
-        polyfills: './src/app/polyfills.ts'
+        // vendor: [],
+        // polyfills: []
     },
     resolve: {
         modules: ['node_modules', path.join(__dirname, 'src/app')],
