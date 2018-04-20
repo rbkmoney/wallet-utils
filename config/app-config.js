@@ -27,10 +27,12 @@ module.exports = {
     module: {
         rules
     },
+    optimization: {
+        splitChunks: {
+            chunks: "all"
+        }
+    },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: ['app', 'react', 'vendor', 'polyfills']
-        }),
         new ForkTsCheckerWebpackPlugin({
             checkSyntacticErrors: true,
             formatter: 'codeframe',

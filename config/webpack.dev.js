@@ -7,6 +7,7 @@ const prepareOutputConfig = require('./prepare-output-config');
 
 const commonDevConfig = {
     devtool: 'source-map',
+    mode: 'development',
     plugins: [
         new WriteFilePlugin({
             log: false

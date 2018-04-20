@@ -6,14 +6,9 @@ const initializerConfig = require('./initializer-config');
 const prepareOutputConfig = require('./prepare-output-config');
 
 const commonProdConfig = {
+    mode: 'production',
     plugins: [
         new webpack.optimize.ModuleConcatenationPlugin(),
-        new webpack.optimize.UglifyJsPlugin(),
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify('production')
-            }
-        }),
         new BundleAnalyzerPlugin({
             analyzerMode: 'disabled'
         })
