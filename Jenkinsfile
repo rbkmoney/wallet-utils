@@ -1,7 +1,7 @@
 #!groovy
 
-build('wallet', 'docker-host') {
-  checkoutRepo() // TODO
+build('wallet-utils', 'docker-host') {
+  checkoutRepo()
   loadBuildUtils()
 
   def pipeDefault
