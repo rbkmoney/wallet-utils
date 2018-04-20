@@ -5,7 +5,7 @@ import './styles/main.scss';
 
 const app = document.getElementById('app');
 
-ReactDOM.render(
+const reactDom = ReactDOM.render(
     <div>start</div>,
     app
 );
