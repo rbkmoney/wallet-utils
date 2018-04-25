@@ -25,7 +25,7 @@
     "no-this": true,
     "no-class": true,
     "no-mixed-interface": true,
-    "no-expression-statement": true,
-    "no-if-statement": true
+    "no-expression-statement": false,
+    "no-if-statement": false
   }
 }
