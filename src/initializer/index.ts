@@ -14,9 +14,7 @@ import {
 } from './model';
 import { getOrigin } from '../get-origin';
 import { PossibleEvents, Transport } from '../communication';
-import { ActionType } from '../communication/model';
-import { UserIdentityInitializerData } from '../communication/model';
-import { CreateOutputInitializerData } from '../communication/model/create-output-initializer-data';
+import { ActionType, UserIdentityInitializerData, CreateOutputInitializerData } from '../communication/model';
 
 const logPrefix = '[RBKmoney wallet utils]';
 
@@ -79,21 +77,18 @@ export class RbkmoneyWalletUtils {
         const data = toIdentityInitializerData(this.token, params);
         this.initializer.open(data)
             .then((transport: Transport) => {
-                transport.on(PossibleEvents.onCompleteIdentityChallenge, (e) => {
+                transport.on(PossibleEvents.onCompleteIdentityChallenge, (e) =>
                     this.provideCallback(this.onCompleteIdentityChallenge, {
                         data: e.data
-                    });
-                });
-                transport.on(PossibleEvents.onFailIdentityChallenge, (e) => {
+                    }));
+                transport.on(PossibleEvents.onFailIdentityChallenge, (e) =>
                     this.provideCallback(this.onFailIdentityChallenge, {
                         data: e.data
-                    });
-                });
-                transport.on(PossibleEvents.onCancelIdentityChallenge, (e) => {
+                    }));
+                transport.on(PossibleEvents.onCancelIdentityChallenge, (e) =>
                     this.provideCallback(this.onCancelIdentityChallenge, {
                         data: e.data
-                    });
-                });
+                    }));
                 transport.on(PossibleEvents.onCancel, () => {
                     this.provideCallback(this.onCancel, {});
                 });
@@ -105,11 +100,10 @@ export class RbkmoneyWalletUtils {
         const data = toOutputInitializerData(this.token, params);
         this.initializer.open(data)
             .then((transport: Transport) => {
-                transport.on(PossibleEvents.onCreateOutput, (e) => {
+                transport.on(PossibleEvents.onCreateOutput, (e) =>
                     this.provideCallback(this.onCreateOutput, {
                         data: e.data
-                    });
-                });
+                    }));
             })
             .catch((e) => this.provideCallback(this.onCancel, {error: e}));
     }
