@@ -19,6 +19,9 @@
   },
   "homepage": "https://github.com/rbkmoney/wallet-utils#readme",
   "devDependencies": {
+    "@types/ismobilejs": "~0.4.1",
+    "@types/lodash-es": "~4.17.0",
+    "@types/ramda": "~0.25.24",
     "@types/react": "~16.3.11",
     "@types/react-dom": "~16.0.5",
     "cache-loader": "~1.2.2",
@@ -47,6 +50,9 @@
     "write-file-webpack-plugin": "~4.2.0"
   },
   "dependencies": {
+    "ismobilejs": "~0.4.1",
+    "lodash-es": "~4.17.8",
+    "ramda": "~0.25.0",
     "react": "~16.3.2",
     "react-dom": "~16.3.2",
     "redux-form": "~7.3.0",
