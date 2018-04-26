@@ -1,6 +1,7 @@
 import { IframeContainer } from './iframe-container';
-import { PossibleEvents, Parent, Transport } from '../communication';
-import { ActionType, Initializer } from './initializer';
+import { Parent, PossibleEvents, Transport } from '../communication';
+import { Initializer } from './initializer';
+import { InitializerData } from '../communication/model';
 
 export class IframeInitializer extends Initializer {
 
@@ -11,13 +12,13 @@ export class IframeInitializer extends Initializer {
         this.container = new IframeContainer(origin);
     }
 
-    open(type: ActionType): Promise<Transport> {
+    open(data: InitializerData): Promise<Transport> {
         const target = (window.frames as any)[this.container.getName()];
         this.container.show();
         const parent = new Parent(target, this.origin);
-        return new Promise((resolve, reject) => {
-            parent.sendHandshake().then((transport) => {
-                transport.emit(PossibleEvents.init, type);
+        return new Promise((resolve) => {
+            return parent.sendHandshake().then((transport) => {
+                transport.emit(PossibleEvents.init, {data});
                 resolve(transport);
             });
         });

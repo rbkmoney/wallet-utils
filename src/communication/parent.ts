@@ -1,6 +1,6 @@
 import { RealTransport } from './real-transport';
-import { Transport } from './transport';
-import { TransportInfo } from './transport-info';
+import { Transport } from './model/transport';
+import { TransportInfo } from './model/transport-info';
 
 export class Parent {
 

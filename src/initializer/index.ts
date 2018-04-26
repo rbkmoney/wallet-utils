@@ -1,13 +1,16 @@
 import * as isMobile from 'ismobilejs';
 import isFunction from 'lodash-es/isFunction';
-import { ActionType, Initializer } from './initializer';
+import { Initializer } from './initializer';
 import { PopupInitializer } from './popup-initializer';
 import { IframeInitializer } from './iframe-initializer';
-import { StartIdentityChallengeParams } from './start-identity-challenge-params';
+import { StartIdentityChallengeParams } from './model/start-identity-challenge-params';
 import { getOrigin } from '../get-origin';
 import { PossibleEvents } from '../communication';
-import { CancelEvent, CancelEventType } from './cancel-event';
-import { IdentityChallengeEvent } from './identity-challenge-event';
+import { CancelEvent } from './model/cancel-event';
+import { IdentityChallengeEvent } from './model/identity-challenge-event';
+import { WalletUtilsEvent } from './model/wallet-utils-event';
+import { ActionType, Transport } from '../communication/model';
+import { CreateOutputEvent, CreateOutputParams } from './model';
 
 const origin = getOrigin();
 
@@ -20,6 +23,8 @@ export class RbkmoneyWalletUtils {
 
     onCompleteIdentityChallenge: (event: IdentityChallengeEvent) => void;
     onFailIdentityChallenge: (event: IdentityChallengeEvent) => void;
+    onCancelIdentityChallenge: (event: IdentityChallengeEvent) => void;
+    onCreateOutput: (event: CreateOutputEvent) => void;
     onCancel: (event: CancelEvent) => void;
     private initializer: Initializer;
 
@@ -29,33 +34,51 @@ export class RbkmoneyWalletUtils {
     }
 
     startIdentityChallenge(params: StartIdentityChallengeParams): void {
-        this.initializer.open(ActionType.userIdentity)
-            .then((transport) => {
-                transport.on(PossibleEvents.doneIdentityChallenge, (e) => {
-                    if (isFunction(this.onCompleteIdentityChallenge)) {
-                        this.onCompleteIdentityChallenge({
-                            target: this,
-                            identityChallenge: e.data
-                        });
-                    }
+        this.initializer.open({type: ActionType.userIdentity, token: this.token})
+            .then((transport: Transport) => {
+                transport.on(PossibleEvents.onCompleteIdentityChallenge, (e) => {
+                    this.provideCallback(this.onCompleteIdentityChallenge, {
+                        data: e.data
+                    });
                 });
-                transport.on(PossibleEvents.failIdentityChallenge, (e) => {
-                    if (isFunction(this.onFailIdentityChallenge)) {
-                        this.onFailIdentityChallenge({
-                            target: this,
-                            identityChallenge: e.data
-                        });
-                    }
+                transport.on(PossibleEvents.onFailIdentityChallenge, (e) => {
+                    this.provideCallback(this.onFailIdentityChallenge, {
+                        data: e.data
+                    });
                 });
-                transport.on(PossibleEvents.cancel, () => {
-                    if (isFunction(this.onCancel)) {
-                        this.onCancel({
-                            target: this,
-                            type: CancelEventType.cancel
-                        });
-                    }
+                transport.on(PossibleEvents.onCancelIdentityChallenge, (e) => {
+                    this.provideCallback(this.onCancelIdentityChallenge, {
+                        data: e.data
+                    });
                 });
+                transport.on(PossibleEvents.onCancel, () => {
+                    this.provideCallback(this.onCancel, {});
+                });
+            }).catch((e) => {
+            throw new Error(e);
+        });
+    }
+
+    createOutput(params: CreateOutputParams): void {
+        this.initializer.open({type: ActionType.createOutput, token: this.token})
+            .then((transport: Transport) => {
+                transport.on(PossibleEvents.onCreateOutput, (e) => {
+                    this.provideCallback(this.onCreateOutput, {
+                        data: e.data
+                    });
+                });
+            }).catch((e) => {
+            throw new Error(e);
+        });
+    }
+
+    private provideCallback(callback: (data: WalletUtilsEvent) => void, data: any): void {
+        if (isFunction(callback)) {
+            callback({
+                target: this,
+                ...data
             });
+        }
     }
 }
 

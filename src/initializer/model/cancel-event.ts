@@ -5,5 +5,5 @@ export interface CancelEvent extends WalletUtilsEvent {
 }
 
 export enum CancelEventType {
-    cancel
+    cancel = 'cancel'
 }

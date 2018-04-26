@@ -1,4 +1,4 @@
-import { Transport, TransportInfo, PossibleEvents, TransportMessage } from '.';
+import { PossibleEvents, Transport, TransportInfo, TransportMessage } from '.';
 
 export class RealTransport implements Transport {
 

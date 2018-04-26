@@ -1,14 +1,11 @@
 import { Transport } from '../communication';
-
-export enum ActionType {
-    userIdentity = 'userIdentity'
-}
+import { InitializerData } from '../communication/model';
 
 export abstract class Initializer {
 
     protected constructor(protected readonly token: string, protected readonly origin: string) {}
 
-    abstract open(type: ActionType): Promise<Transport>;
+    abstract open(data: InitializerData): Promise<Transport>;
 
     abstract close(): void;
 }

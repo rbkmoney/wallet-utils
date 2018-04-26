@@ -1,6 +1,5 @@
 import { PossibleEvents } from '.';
 
-/* tslint:disable */
 export interface Transport {
     emit(name: PossibleEvents, data?: any): void;
 
@@ -8,4 +7,3 @@ export interface Transport {
 
     destroy(): void;
 }
-/* tslint:enable */

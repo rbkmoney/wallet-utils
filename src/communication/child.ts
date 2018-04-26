@@ -1,10 +1,4 @@
-import {
-    RealTransport,
-    Transport,
-    ContextResolver,
-    StubTransport,
-    TransportInfo
-} from '.';
+import { ContextResolver, RealTransport, StubTransport, Transport, TransportInfo } from '.';
 import { isInFrame } from '../is-in-iframe';
 
 export class Child {

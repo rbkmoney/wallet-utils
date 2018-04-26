@@ -1,9 +1,7 @@
-import { TransportInfo } from '.';
+import { TransportInfo } from '../index';
 
-/* tslint:disable */
 export class TransportMessage {
     data: any;
     name: string;
     transport: TransportInfo;
 }
-/* tslint:enable */

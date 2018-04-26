@@ -1,4 +1,4 @@
-import { Transport, PossibleEvents } from '.';
+import { PossibleEvents, Transport } from '.';
 
 export class StubTransport implements Transport {
 

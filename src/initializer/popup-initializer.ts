@@ -1,5 +1,6 @@
 import { Parent, Transport } from '../communication';
-import { ActionType, Initializer } from './initializer';
+import { Initializer } from './initializer';
+import { InitializerData } from '../communication/model';
 
 const serialize = (params: any): string => {
     let urlParams = '';
@@ -24,12 +25,12 @@ export class PopupInitializer extends Initializer {
         super(accessToken, origin);
     }
 
-    open(type: ActionType): Promise<Transport> {
-        const url = `${this.origin}/v1/app.html?${serialize({type})}`;
+    open(data: InitializerData): Promise<Transport> {
+        const url = `${this.origin}/v1/app.html?${serialize(data)}`;
         const target = window.open(url);
         const parent = new Parent(target, this.origin);
         return new Promise((resolve) => {
-            parent.sendHandshake().then((transport) => {
+            return parent.sendHandshake().then((transport) => {
                 resolve(transport);
             });
         });
