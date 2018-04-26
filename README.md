@@ -9,6 +9,8 @@ declare class RbkmoneyWalletUtils {
 
     startIdentityChallenge(params: StartIdentityChallengeParams): void;
 
+    createOutput(params: CreateOutputParams): void;
+
     abort(): void;
 
     onCompleteIdentityChallenge(event: IdentityChallengeEvent) => void;
@@ -16,6 +18,8 @@ declare class RbkmoneyWalletUtils {
     onFailIdentityChallenge(event: IdentityChallengeEvent) => void;
 
     onCancelIdentityChallenge(event: IdentityChallengeEvent) => void;
+
+    onCreateOutput(event: CreateOutputEvent) => void;
 
     onCancel(event: CancelEvent) => void;
 }
@@ -29,6 +33,11 @@ declare enum IdentityLevel {
     partial = 'partial'
 }
 
+declare interface CreateOutputParams {
+    identityID: string;
+    name: string;
+}
+
 declare interface WalletUtilsEvent {
     target: RbkmoneyWalletUtils;
 }
@@ -37,15 +46,31 @@ declare interface IdentityChallengeEvent extends WalletUtilsEvent {
     identityChallenge: IdentityChallenge;
 }
 
+declare interface CreateOutputEvent extends WalletUtilsEvent {
+    output: Output;
+}
+
 declare interface CancelEvent extends WalletUtilsEvent {
     type: CancelEventType;
 }
 
 declare enum CancelEventType {
-    cancel: 'cancel'
+    uiDismissing: 'uiDismissing',
+    error: 'error'
 }
 
-declare interface IdentityChallenge = any; // see swagger definition
+declare interface ErrorCancelEvent extends CancelEvent {
+    error: LogicError;
+}
+
+declare interface LogicError {
+    code: string;
+    message: string;
+}
+
+declare type IdentityChallenge = any; // see swagger definition
+
+declare type Output = any; // see swagger definition
 ```
 
 ### Usage
