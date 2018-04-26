@@ -1,6 +1,6 @@
 export * from './child';
 export * from './context-resolver';
-export * from './model/transport';
+export * from './transport';
 export * from './real-transport';
 export * from './stub-transport';
 export * from './model/transport-info';

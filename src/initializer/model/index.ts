@@ -6,3 +6,5 @@ export * from './identity-challenge-event';
 export * from './start-identity-challenge-params';
 export * from './wallet-utils-event';
 export * from './output';
+export * from './error-cancel-event';
+export * from './logic-error';
