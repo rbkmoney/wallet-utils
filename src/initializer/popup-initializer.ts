@@ -1,7 +1,6 @@
-import { PossibleEvents, Parent } from '../communication';
-import { Initializer } from './initializer';
+import { Parent, Transport } from '../communication';
+import { ActionType, Initializer } from './initializer';
 
-/* tslint:disable */
 const serialize = (params: any): string => {
     let urlParams = '';
     for (const prop in params) {
@@ -21,28 +20,20 @@ const serialize = (params: any): string => {
 
 export class PopupInitializer extends Initializer {
 
-    constructor(accessToken: string, origin: string, userConfig: any) {
-        super(accessToken, origin, userConfig);
-        const url = `${this.origin}/v1/app.html?${serialize(this.config)}`;
+    constructor(protected accessToken: string, protected origin: string) {
+        super(accessToken, origin);
+    }
+
+    open(type: ActionType): Promise<Transport> {
+        const url = `${this.origin}/v1/app.html?${serialize({type})}`;
         const target = window.open(url);
         const parent = new Parent(target, this.origin);
-        parent.sendHandshake().then((transport) => {
-            transport.on(PossibleEvents.done, () => {
-                this.close();
-            });
-            transport.on(PossibleEvents.close, () => {
-                transport.destroy();
-                this.close();
+        return new Promise((resolve) => {
+            parent.sendHandshake().then((transport) => {
+                resolve(transport);
             });
         });
     }
 
-    open() {
-
-    }
-
-    close() {
-    }
+    close(): void {}
 }
-
-/* tslint:enable */

@@ -1,6 +1,5 @@
 import { Transport, TransportInfo, PossibleEvents, TransportMessage } from '.';
 
-/* tslint:disable */
 export class RealTransport implements Transport {
 
     private target: Window;
@@ -13,7 +12,7 @@ export class RealTransport implements Transport {
         source.addEventListener('message', this.listener.bind(this), false);
     }
 
-    emit(name: PossibleEvents, data?: any) {
+    emit(name: PossibleEvents, data?: any): void {
         const serialized = JSON.stringify({
             data,
             name,
@@ -22,15 +21,15 @@ export class RealTransport implements Transport {
         this.target.postMessage(serialized, this.origin);
     }
 
-    on(eventName: PossibleEvents, callback: (data: any) => any) {
+    on(eventName: PossibleEvents, callback: (data: any) => any): void {
         this.events[eventName] = callback;
     }
 
-    destroy() {
+    destroy(): void {
         window.removeEventListener('message', this.listener.bind(this), false);
     }
 
-    private listener(e: MessageEvent) {
+    private listener(e: MessageEvent): void {
         let parsed: TransportMessage;
         try {
             parsed = JSON.parse(e.data);
@@ -43,4 +42,3 @@ export class RealTransport implements Transport {
         }
     }
 }
-/* tslint:enable */

@@ -1,7 +1,7 @@
 import { RealTransport } from './real-transport';
 import { Transport } from './transport';
+import { TransportInfo } from './transport-info';
 
-/* tslint:disable */
 export class Parent {
 
     private target: Window;
@@ -18,7 +18,7 @@ export class Parent {
         let interval: any;
         return new Promise((resolve, reject) => {
             const reply = (e: any) => {
-                if (e.data === 'rbkmoney-payframe-handshake') {
+                if (e.data === TransportInfo.childHandshakeMessageName) {
                     clearInterval(interval);
                     return resolve(new RealTransport(this.target, this.origin, this.parent));
                 }
@@ -28,7 +28,7 @@ export class Parent {
             const maxHandshakeRequests = 20;
             const doSend = () => {
                 attempt++;
-                this.target.postMessage('rbkmoney-checkout-handshake', this.origin);
+                this.target.postMessage(TransportInfo.parentHandshakeMessageName, this.origin);
                 if (attempt === maxHandshakeRequests) {
                     clearInterval(interval);
                     return reject('failed handshake');
@@ -38,4 +38,3 @@ export class Parent {
         });
     }
 }
-/* tslint:enable */

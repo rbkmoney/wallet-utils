@@ -1,19 +1,17 @@
 import { Transport, PossibleEvents } from '.';
 
-/* tslint:disable */
 export class StubTransport implements Transport {
 
-    emit(name: PossibleEvents, data: any) {
+    emit(name: PossibleEvents, data: any): void {
         console.info('transport stub emit: ', name, data);
     }
 
-    on(eventName: PossibleEvents, callback: (data: any) => any) {
+    on(eventName: PossibleEvents, callback: (data: any) => any): void {
         callback({});
         console.info('transport stub on: ', eventName, callback);
     }
 
-    destroy() {
+    destroy(): void {
         console.info('transport stub destroy');
     }
 }
-/* tslint:enable */

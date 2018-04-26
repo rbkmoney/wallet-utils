@@ -1,33 +1,30 @@
 import { IframeContainer } from './iframe-container';
-import { PossibleEvents, Parent } from '../communication';
-import { Initializer } from './initializer';
+import { PossibleEvents, Parent, Transport } from '../communication';
+import { ActionType, Initializer } from './initializer';
 
-/* tslint:disable */
 export class IframeInitializer extends Initializer {
 
     private container: IframeContainer;
 
-    constructor(accessToken: string, origin: string, userConfig: any) {
-        super(accessToken, origin, userConfig);
+    constructor(protected accessToken: string, protected origin: string) {
+        super(accessToken, origin);
         this.container = new IframeContainer(origin);
+    }
 
+    open(type: ActionType): Promise<Transport> {
         const target = (window.frames as any)[this.container.getName()];
         this.container.show();
         const parent = new Parent(target, this.origin);
-        parent.sendHandshake().then((transport) => {
-            transport.emit(PossibleEvents.init, this.config);
-            transport.on(PossibleEvents.done, () => {
-                this.close();
-            });
-            transport.on(PossibleEvents.close, () => {
-                transport.destroy();
-                this.close();
+        return new Promise((resolve, reject) => {
+            parent.sendHandshake().then((transport) => {
+                transport.emit(PossibleEvents.init, type);
+                resolve(transport);
             });
         });
+
     }
 
-    close() {
+    close(): void {
         this.container.reinitialize();
     }
 }
-/* tslint:enable */

@@ -31,7 +31,6 @@ const create = (origin: string): HTMLIFrameElement => {
     return iframe;
 };
 
-/* tslint:disable */
 export class IframeContainer {
 
     private container: HTMLIFrameElement;
@@ -41,25 +40,25 @@ export class IframeContainer {
         this.render();
     }
 
-    reinitialize() {
+    reinitialize(): void {
         this.hide();
         this.destroy();
         this.render();
     }
 
-    render() {
+    render(): void {
         document.body.appendChild(this.container);
     }
 
-    destroy() {
+    destroy(): void {
         document.body.removeChild(this.container);
     }
 
-    show() {
+    show(): void {
         this.container.style.display = 'block';
     }
 
-    hide() {
+    hide(): void {
         this.container.style.display = 'none';
     }
 
@@ -67,4 +66,3 @@ export class IframeContainer {
         return this.container.getAttribute('name');
     }
 }
-/* tslint:enable */

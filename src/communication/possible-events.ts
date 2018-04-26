@@ -1,5 +1,6 @@
 export enum PossibleEvents {
-    init = 'init-payform',
-    done = 'payment-done',
-    close = 'close'
+    init = 'init',
+    cancel = 'cancel',
+    doneIdentityChallenge = 'done-identity',
+    failIdentityChallenge = 'fail-identity'
 }

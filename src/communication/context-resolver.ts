@@ -1,7 +1,6 @@
-/* tslint:disable */
 export class ContextResolver {
 
-    static set(context: any) {
+    static set(context: any): void {
         try {
             sessionStorage.setItem(this.key, JSON.stringify(context));
         } catch (e) {}
@@ -19,6 +18,5 @@ export class ContextResolver {
         } catch (e) {}
     }
 
-    private static key = 'checkout-context';
+    private static key = 'wallet-context';
 }
-/* tslint:enable */
