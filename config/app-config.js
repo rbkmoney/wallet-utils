@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const rules = require('./common-rules');
 
@@ -40,6 +41,12 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/app/index.html',
             filename: 'app.html'
-        })
+        }),
+        new CopyWebpackPlugin(
+            [
+                {from: './src/app/assets/icons', to: './assets/icons'}
+            ],
+            {debug: 'warning'}
+        )
     ]
 };

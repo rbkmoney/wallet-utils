@@ -1,0 +1,150 @@
+@import '../../../../../styles/variables';
+@import '../../../../../styles/responsive';
+@import '../../../../../styles/animations';
+
+.container {
+    padding: 0 5px;
+
+    @include responsive(sm) {
+        width: 360px;
+        padding: 0;
+    }
+}
+
+.form {
+    background: $white;
+    border-radius: 6px;
+    box-shadow: 0 2px 24px 0 rgba(0, 0, 0, 0.25);
+    padding: 30px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: height .4s;
+
+    @include responsive(sm) {
+        padding: 30px;
+        min-height: auto;
+    }
+
+    &._error {
+        animation: shake .82s;
+    }
+}
+
+.animationFormContainer {
+    height: 100%;
+    position: relative;
+
+    form {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}
+
+.header {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    position: relative;
+
+    .back_btn {
+        display: none;
+
+        @include responsive(sm) {
+            display: flex;
+        }
+    }
+}
+
+.back_btn {
+    height: 20px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    width: 20px;
+
+    svg {
+        height: 15px;
+        width: 9px;
+    }
+}
+
+.title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: $deep-gray;
+    letter-spacing: 0;
+    line-height: 20px;
+    width: 100%;
+
+    @include responsive(sm) {
+        text-align: center;
+    }
+}
+
+.text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 30px;
+    line-height: 20px;
+}
+
+.highlight {
+    background: $yellow;
+    border-radius: 3px;
+    padding: 0 3px;
+    margin: 0 3px;
+}
+
+.systemLogo {
+    max-height: 50px;
+    max-width: 105px;
+    margin-bottom: 25px;
+}
+
+.link_container {
+    display: inline-block;
+    margin: auto;
+    margin-top: 25px;
+
+    hr {
+        border-color: $light-blue;
+        border-bottom: 0;
+        opacity: 0.37;
+        padding: 0;
+        margin: 0 0 3px;
+    }
+}
+
+.link {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 11px;
+    color: $light-blue;
+    letter-spacing: 2px;
+    line-height: 15px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.appearLoader {
+    animation: fadein .5s;
+}
+
+.enterLoader {
+    animation: fadein .5s;
+}
+
+.leaveLoader {
+    animation: fadeout .25s;
+}
