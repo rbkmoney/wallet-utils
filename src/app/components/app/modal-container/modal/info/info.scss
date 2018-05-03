@@ -31,20 +31,6 @@
     }
 }
 
-.amount {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    font-size: 30px;
-    color: $white;
-    letter-spacing: 0;
-    line-height: 35px;
-    margin: 0 0 20px;
-
-    span {
-        font-weight: 400;
-    }
-}
-
 .order {
     font-family: 'Roboto', sans-serif;
     font-weight: 900;
@@ -75,76 +61,4 @@
     letter-spacing: 0;
     line-height: 20px;
     margin-bottom: 20px;
-}
-
-.dueDate {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    color: $white;
-    letter-spacing: 0;
-    line-height: 20px;
-    margin-bottom: 20px;
-}
-
-.subscription {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 900;
-    font-size: 11px;
-    color: $white;
-    letter-spacing: 2px;
-    line-height: 15px;
-    text-transform: uppercase;
-    cursor: pointer;
-
-    @include responsive(sm) {
-        cursor: auto;
-        margin-top: 60px;
-        margin-bottom: 5px;
-    }
-
-    span {
-        opacity: .4;
-    }
-
-    svg {
-        margin-left: 5px;
-        position: relative;
-        top: 3px;
-
-        text {
-            font-family: 'Roboto', sans-serif;
-            font-weight: 700;
-            font-size: 10px;
-            fill: $white;
-        }
-
-        circle {
-            stroke: $white;
-        }
-
-        @include responsive(sm) {
-            display: none;
-        }
-    }
-}
-
-.help {
-    font-family: 'Roboto', sans-serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: 13px;
-    color: $white;
-    letter-spacing: 0;
-    line-height: 18px;
-    margin: 5px 0 0;
-
-    &._hide {
-        display: none;
-    }
-
-    @include responsive(sm) {
-        margin: 0;
-        display: block !important;
-    }
 }

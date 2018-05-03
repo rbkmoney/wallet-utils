@@ -3,7 +3,6 @@ export enum IconType {
     checkmark = 'checkmark',
     redCross = 'red-cross',
     chevronLeft = 'chevron-left',
-    amount = 'amount',
     cross = 'cross',
     card = 'card',
     letter = 'letter',
@@ -11,6 +10,5 @@ export enum IconType {
     phone = 'phone',
     user = 'user',
     visa = 'visa',
-    mastercard = 'mastercard',
-    eurosetLogo = 'euroset-logo'
+    mastercard = 'mastercard'
 }

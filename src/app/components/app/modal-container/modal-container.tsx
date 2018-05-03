@@ -9,7 +9,6 @@ import { Close } from '../modal-container/modal/close';
 export const ModalContainer: React.SFC = () => (
     <ReactCSSTransitionGroup
         component='div'
-        className={styles.animationContainer}
         transitionName={{
             appear: styles.appearContainer,
             enter: styles.enterContainer,
