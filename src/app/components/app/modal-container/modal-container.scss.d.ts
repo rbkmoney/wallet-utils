@@ -1,4 +1,4 @@
-export const appearContainer: string;
-export const enterContainer: string;
-export const leaveContainer: string;
+export const appear: string;
+export const enter: string;
+export const leave: string;
 export const container: string;

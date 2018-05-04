@@ -1,17 +1,17 @@
 @import '../../../styles/responsive';
 @import '../../../styles/animations';
 
-.appearContainer {
+.appear {
     @include responsive(sm) {
         animation: popup .75s;
     }
 }
 
-.enterContainer {
+.enter {
     background: transparent;
 }
 
-.leaveContainer {
+.leave {
     @include responsive(sm) {
         animation: popout 1s;
     }

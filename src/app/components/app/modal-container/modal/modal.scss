@@ -2,17 +2,13 @@
 @import '../../../../styles/animations';
 @import '../../../../styles/variables';
 
-.appearFormContainer {
+.appear {
     @include responsive(sm) {
         animation: rotatein 0s;
     }
 }
 
-.enterFormContainer {
-    background: green;
-}
-
-.leaveFormContainer {
+.leave {
     @include responsive(sm) {
         animation: rotateout 0s;
     }

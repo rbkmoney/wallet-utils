@@ -15,7 +15,7 @@
     }
 }
 
-.company_name {
+.action_name {
     display: none;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
@@ -31,7 +31,7 @@
     }
 }
 
-.order {
+.label {
     font-family: 'Roboto', sans-serif;
     font-weight: 900;
     font-size: 11px;
@@ -43,17 +43,7 @@
     text-transform: uppercase;
 }
 
-.product_description {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    color: $white;
-    letter-spacing: 0;
-    line-height: 20px;
-    margin-bottom: 20px;
-}
-
-.email {
+.action_description {
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
     font-size: 16px;

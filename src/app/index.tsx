@@ -10,7 +10,7 @@ const app = document.getElementById('app');
 Child.resolve()
     .then(() => {
         ReactDOM.render(
-            <App />,
+            <App/>,
             app
         );
     });

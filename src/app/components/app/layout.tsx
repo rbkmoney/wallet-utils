@@ -1,11 +1,11 @@
 import * as React from 'react';
-import * as styles from './layout.scss';
+import { layout } from './layout.scss';
 
 import { Overlay } from './overlay';
 import { ModalContainer } from './modal-container';
 
 export const App: React.SFC = () => (
-    <div className={styles.layout}>
+    <div className={layout}>
         <Overlay/>
         <ModalContainer/>
     </div>

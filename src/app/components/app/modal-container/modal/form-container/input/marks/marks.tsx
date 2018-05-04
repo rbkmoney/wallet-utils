@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import * as styles from '../input.scss';
+import { appear, enter, leave, checkmark, errorCross } from '../input.scss';
 import { Icon, IconType } from 'app/components/ui';
 
 interface MarksProps {
@@ -12,11 +12,7 @@ interface MarksProps {
 export const Marks: React.SFC<MarksProps> = (props) => (
     <ReactCSSTransitionGroup
         component='div'
-        transitionName={{
-            appear: styles.appearMarks,
-            enter: styles.enterMarks,
-            leave: styles.leaveMarks
-        }}
+        transitionName={{ appear, enter, leave }}
         transitionEnterTimeout={450}
         transitionLeaveTimeout={450}
         transitionAppearTimeout={450}
@@ -24,7 +20,7 @@ export const Marks: React.SFC<MarksProps> = (props) => (
         transitionEnter={true}
         transitionLeave={true}
     >
-        {!props.active && !props.error && !props.pristine ? <Icon className={styles.checkmark} icon={IconType.checkmark}/> : false}
-        {!props.active && props.error ? <Icon className={styles.errorCross} icon={IconType.redCross}/> : false}
+        {!props.active && !props.error && !props.pristine ? <Icon className={checkmark} icon={IconType.checkmark}/> : false}
+        {!props.active && props.error ? <Icon className={errorCross} icon={IconType.redCross}/> : false}
     </ReactCSSTransitionGroup>
 );

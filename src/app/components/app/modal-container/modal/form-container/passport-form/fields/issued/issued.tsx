@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { Input } from '../../../input';
+import { formGroup } from '../../../forms.scss';
 
 export const Issued: React.SFC = () => (
-    <Input
-        placeholder='Когда выдан'
-        mark={true}
-        id='passport-issued-input'
-    />
+    <div className={formGroup}>
+        <Input
+            placeholder='Когда выдан'
+            mark={true}
+            id='passport-issued-input'
+        />
+    </div>
 );
