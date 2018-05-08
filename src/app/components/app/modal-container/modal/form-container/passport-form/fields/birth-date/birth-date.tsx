@@ -8,6 +8,7 @@ export const BirthDate: React.SFC = () => (
             placeholder='Дата рождения'
             mark={true}
             id='passport-birthdate-input'
+            type='date'
         />
     </div>
 );

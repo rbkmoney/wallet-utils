@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { title, header } from '../form-container.scss';
+import { title, header } from './header.scss';
 
 export interface HeaderProps {
     title: string;

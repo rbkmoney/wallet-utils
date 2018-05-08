@@ -8,6 +8,7 @@ export const Issued: React.SFC = () => (
             placeholder='Когда выдан'
             mark={true}
             id='passport-issued-input'
+            type='date'
         />
     </div>
 );

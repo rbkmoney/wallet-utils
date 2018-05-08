@@ -7,7 +7,7 @@ export interface InputProps {
     placeholder?: string;
     mark?: boolean; // TODO mark always true
     className?: string;
-    type?: 'text' | 'number' | 'value' | 'tel' | 'email' | 'password';
+    type?: 'text' | 'number' | 'value' | 'tel' | 'email' | 'password' | 'date';
     id?: string;
 }
 
