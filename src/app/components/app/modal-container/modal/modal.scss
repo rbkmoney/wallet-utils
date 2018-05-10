@@ -26,6 +26,12 @@
     }
 
     @include responsive(sm) {
+        footer {
+            display: none;
+        }
+    }
+
+    @include responsive(sm) {
         height: auto;
         min-height: auto;
         width: 680px;

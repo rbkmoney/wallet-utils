@@ -20,4 +20,14 @@
 .container {
     height: 100%;
     position: relative;
+
+    footer {
+        display: none;
+    }
+
+    @include responsive(sm) {
+        footer {
+            display: block;
+        }
+    }
 }

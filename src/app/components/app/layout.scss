@@ -6,10 +6,6 @@
     min-height: 100%;
     width: 100%;
 
-    footer {
-        display: none;
-    }
-
     @include responsive(sm) {
         display: flex;
         flex-direction: column;
@@ -19,9 +15,5 @@
         height: auto;
         padding: 45px 0;
         box-sizing: border-box;
-
-        footer {
-            display: block;
-        }
     }
 }
