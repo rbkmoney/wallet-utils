@@ -74,6 +74,10 @@
     appearance: none;
     transition: border-color .3s;
 
+    &[type=date] {
+        padding: 11px 30px 10px 13px;
+    }
+
     &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
         color: $light-gray;
         font-family: 'Roboto', sans-serif;
@@ -101,6 +105,10 @@
     &.mark {
         //padding: 13px 30px 13px 40px; padding with icons
         padding: 13px 30px 12px 13px;
+
+        &[type=date] {
+            padding: 11px 30px 10px 13px;
+        }
     }
 }
 
