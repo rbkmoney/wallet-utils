@@ -17,7 +17,10 @@ export interface ButtonProps {
 const getClass = (type: ButtonType) => type === 'primary' ? _primary : _default;
 
 export const Button: React.SFC<ButtonProps> = (props) => (
-    <button type={props.type} onClick={props.onClick} className={cx(button, getClass(props.style), props.className)} id={props.id}>
+    <button type={props.type}
+            onClick={props.onClick}
+            className={cx(button, getClass(props.style), props.className)}
+            id={props.id}>
         {props.children}
     </button>
 );
