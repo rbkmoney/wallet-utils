@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { container, _hasError, radio } from './radio-input.scss';
+import { container, _hasError, radio, checkmark } from './radio-input.scss';
 import * as cx from 'classnames';
 
 export class Radio {
@@ -8,8 +8,7 @@ export class Radio {
     readonly label: string;
 }
 
-export interface InputProps {
-    placeholder?: string;
+export interface RadioInputProps {
     className?: string;
     values: ReadonlyArray<Radio>;
 }
@@ -17,13 +16,13 @@ export interface InputProps {
 const renderButtons = (data: Radio, i: number) => (
     <div className={radio} key={i}>
         <input type='radio' name={data.name} value={data.value} id={data.value}/>
-        <span/>
+        <span className={checkmark}/>
         <label htmlFor={data.value}>{data.label}</label>
     </div>
 
 );
 
-export const RadioInput: React.SFC<InputProps> = (props) => (
+export const RadioInput: React.SFC<RadioInputProps> = (props) => (
     <div className={cx(container, props.className, {
         [_hasError]: false
     })}>

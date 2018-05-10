@@ -37,16 +37,16 @@
         width: 18px;
         margin: 0;
 
-        &:checked ~ span {
+        &:checked ~ .checkmark {
             border-color: $light-blue;
         }
 
-        &:checked ~ span:after {
+        &:checked ~ .checkmark:after {
             opacity: 1;
         }
     }
 
-    span {
+    .checkmark {
         position: absolute;
         top: 0;
         left: 0;
