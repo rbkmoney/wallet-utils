@@ -15,9 +15,11 @@ export interface RadioInputProps {
 
 const renderButtons = (data: Radio, i: number) => (
     <div className={radio} key={i}>
-        <input type='radio' name={data.name} value={data.value} id={data.value}/>
-        <span className={checkmark}/>
-        <label htmlFor={data.value}>{data.label}</label>
+        <label htmlFor={data.value}>
+            <input type='radio' name={data.name} value={data.value} id={data.value}/>
+            <span className={checkmark}/>
+            {data.label}
+        </label>
     </div>
 
 );
