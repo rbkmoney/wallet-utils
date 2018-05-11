@@ -1,0 +1,75 @@
+@import '../../../../../../styles/variables';
+@import '../../../../../../styles/animations';
+@import '../../../../../../styles/responsive';
+
+.container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    color: $deep-gray;
+    letter-spacing: 0;
+    user-select: none;
+
+    &:nth-child(2) {
+        margin-left: 10px;
+    }
+
+    &._hasError {
+        input {
+            border-color: red;
+        }
+    }
+}
+
+.radio {
+    position: relative;
+    margin: 14px 15px 14px 0;
+
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 18px;
+        width: 18px;
+        margin: 0;
+
+        &:checked ~ .checkmark {
+            border-color: $light-blue;
+        }
+
+        &:checked ~ .checkmark:after {
+            opacity: 1;
+        }
+    }
+
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: inline-block;
+        height: 15px;
+        width: 15px;
+        border: 2px solid $black;
+        border-radius: 3px;
+        cursor: pointer;
+
+        &:after {
+            display: block;
+            opacity: 0;
+            content: "✓";
+            position: absolute;
+            top: -1px;
+            left: 1px;
+            color: $light-blue;
+            transition: opacity .3s;
+        }
+    }
+
+    label {
+        padding-left: 25px;
+        cursor: pointer;
+    }
+}

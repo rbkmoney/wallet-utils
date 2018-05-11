@@ -1,17 +1,16 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { Child } from '../communication';
 import './styles/main.scss';
+import { Child } from '../communication';
+import { App } from './components/app';
 
 const app = document.getElementById('app');
 
 Child.resolve()
-    .then((transport) => {
-        /* tslint:disable:no-expression-statement */
+    .then(() => {
         ReactDOM.render(
-            <div>start</div>,
+            <App/>,
             app
         );
-        /* tslint:enable:no-expression-statement */
     });

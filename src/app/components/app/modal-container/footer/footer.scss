@@ -1,0 +1,120 @@
+@import '../../../../styles/variables';
+@import '../../../../styles/responsive';
+
+$local-white: rgba(255, 255, 255, .6);
+
+.footer {
+    padding: 30px 25px;
+    @include responsive(sm) {
+        padding: 15px 0;
+    }
+}
+
+.safe_payment_container {
+    @include responsive(sm) {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+    }
+}
+
+.safe_payment {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    margin: 0 0 15px;
+    .label {
+        font-family: 'Roboto', sans-serif;
+        font-size: 11px;
+        font-weight: 900;
+        color: $lightest-purple;
+        letter-spacing: 2px;
+        line-height: 15px;
+        text-transform: uppercase;
+        margin: 0;
+        @include responsive(sm) {
+            color: $local-white;
+        }
+    }
+    .secure_icon {
+        margin-right: 8px;
+        position: relative;
+        top: -2px;
+        path {
+            stroke: $lightest-purple2;
+        }
+        rect {
+            fill: $lightest-purple2;
+        }
+        @include responsive(sm) {
+            path {
+                stroke: $local-white;
+            }
+            rect {
+                fill: $local-white;
+            }
+        }
+    }
+}
+
+.safe_logos {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+
+    svg {
+        margin-right: 25px;
+    }
+    .align_fix {
+        position: relative;
+        top: 4px;
+    }
+    .fill_icons {
+        fill: $lightest-purple2;
+        @include responsive(sm) {
+            fill: $local-white;
+        }
+    }
+}
+
+.copyright {
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    font-style: italic;
+    color: $lightest-purple2;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin: 0 0 20px;
+    @include responsive(sm) {
+        color: $local-white;
+        max-width: 680px;
+    }
+}
+
+.offer {
+    display: inline-block;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 11px;
+    color: $lightest-purple2;
+    letter-spacing: 2px;
+    line-height: 15px;
+    padding: 0;
+    margin: 0;
+    hr {
+        border-color: $lightest-purple2;
+        border-bottom: 0;
+        padding: 0;
+        margin: 0 0 3px;
+    }
+    @include responsive(sm) {
+        color: $local-white;
+        hr {
+            border-color: $local-white;
+        }
+    }
+}
