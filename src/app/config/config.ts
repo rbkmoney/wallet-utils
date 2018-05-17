@@ -1,4 +1,4 @@
-import { AppConfig } from '../backend/app-config';
+import { AppConfig } from 'app/backend';
 import { InitConfig } from './init-config';
 
 export class Config {

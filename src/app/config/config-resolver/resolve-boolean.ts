@@ -1,6 +1,6 @@
 import isBoolean from 'lodash-es/isBoolean';
 import isString from 'lodash-es/isString';
-import { getMessageInvalidValue } from '../../log-messages';
+import { getMessageInvalidValue } from 'app/log-messages';
 
 const toBoolean = (str: string): boolean => {
     switch (str) {

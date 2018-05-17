@@ -1,4 +1,4 @@
-import { PossibleEvents } from './model/index';
+import { PossibleEvents } from './model';
 
 export interface Transport {
     emit(name: PossibleEvents, data?: any): void;

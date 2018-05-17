@@ -2,7 +2,7 @@ import isInteger from 'lodash-es/isInteger';
 import toNumber from 'lodash-es/toNumber';
 import isNumber from 'lodash-es/isNumber';
 import isString from 'lodash-es/isString';
-import { getMessageInvalidValue } from '../../log-messages';
+import { getMessageInvalidValue } from 'app/log-messages';
 
 const getFromNumber = (userInteger: number): number | null =>
     isInteger(userInteger) ? userInteger : undefined;
