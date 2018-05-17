@@ -26,6 +26,9 @@
     "@types/react": "~16.3.11",
     "@types/react-addons-css-transition-group": "~15.0.4",
     "@types/react-dom": "~16.0.5",
+    "@types/react-redux": "~5.0.14",
+    "@types/redux": "~3.6.0",
+    "@types/redux-form": "~7.2.5",
     "cache-loader": "~1.2.2",
     "copy-webpack-plugin": "~4.5.1",
     "css-loader": "~0.28.11",
@@ -59,6 +62,10 @@
     "react": "~16.3.2",
     "react-addons-css-transition-group": "~15.6.2",
     "react-dom": "~16.3.2",
+    "react-redux": "~5.0.5",
+    "redux": "~3.7.2",
+    "redux-devtools-extension": "~2.13.2",
+    "redux-form": "~7.3.0",
     "redux-saga": "~0.16.0"
   }
 }

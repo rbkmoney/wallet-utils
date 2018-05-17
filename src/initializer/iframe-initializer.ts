@@ -18,7 +18,7 @@ export class IframeInitializer extends Initializer {
         const parent = new Parent(target, this.origin);
         return new Promise((resolve) => {
             return parent.sendHandshake().then((transport) => {
-                transport.emit(PossibleEvents.init, {data});
+                transport.emit(PossibleEvents.init, data);
                 resolve(transport);
             });
         });

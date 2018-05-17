@@ -44,7 +44,8 @@ module.exports = {
         }),
         new CopyWebpackPlugin(
             [
-                {from: './src/app/assets/icons', to: './assets/icons'}
+                {from: './src/app/assets/icons', to: './assets/icons'},
+                {from: './src/appConfig.json', to: '..'}
             ],
             {debug: 'warning'}
         )
