@@ -1,3 +1,3 @@
 export class AppConfig {
-    capiEndpoint: string;
+    wapiEndpoint: string;
 }
