@@ -13,7 +13,7 @@ export function* resolveIdenity(endpoint: string, config: IdentityChallengeInitC
     return {identity};
 }
 
-export function* resolveIntegrationType(endpoint: string, config: InitConfig): Iterator<CallEffect> {
+export function* resolveActionType(endpoint: string, config: InitConfig): Iterator<CallEffect> {
     let chunk;
     switch (config.type) {
         case ActionType.userIdentity:
@@ -26,6 +26,6 @@ export function* resolveIntegrationType(endpoint: string, config: InitConfig): I
 export type InitializeEffect = CallEffect | PutEffect<InitializeModelCompleted>;
 
 export function* initializeModel(endpoint: string, config: InitConfig): Iterator<InitializeEffect> {
-    const modelChunk = yield call(resolveIntegrationType, endpoint, config);
+    const modelChunk = yield call(resolveActionType, endpoint, config);
     yield put({type: TypeKeys.INITIALIZE_MODEL_COMPLETED, payload: modelChunk} as InitializeModelCompleted);
 }
