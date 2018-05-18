@@ -1,6 +1,6 @@
 import { AbstractAction, TypeKeys } from 'app/actions';
 import { InitConfig } from 'app/config';
-import { LogicError } from 'app/backend/model';
+import { LogicError } from 'app/backend';
 
 export interface InitializeAppRequested extends AbstractAction<InitConfig> {
     type: TypeKeys.INITIALIZE_APP_REQUESTED;

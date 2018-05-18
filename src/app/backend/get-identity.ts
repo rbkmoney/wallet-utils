@@ -1,5 +1,4 @@
-import { Identity } from 'app/backend/model/identity';
-import { fetchWapi } from 'app/backend/fetch-wapi';
+import { Identity, fetchWapi } from 'app/backend';
 
 export const getIdentityByID = (wapiEndpoint: string, accessToken: string, identityID: string): Promise<Identity> =>
     fetchWapi({

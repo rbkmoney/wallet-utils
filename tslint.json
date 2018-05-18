@@ -17,7 +17,7 @@
 
     "no-var-keyword": true,
     "no-parameter-reassignment": true,
-    "typedef": [true, "call-signature"],
+    "typedef": false,
 
     "readonly-keyword": false,
     "readonly-array": true,

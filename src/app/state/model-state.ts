@@ -1,4 +1,4 @@
-import { Identity } from 'app/backend/model/identity';
+import { Identity } from 'app/backend';
 
 export class ModelState {
     identity?: Identity;

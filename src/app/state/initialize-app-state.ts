@@ -1,4 +1,4 @@
-import { LogicError } from 'app/backend/model';
+import { LogicError } from 'app/backend';
 
 type Error = LogicError;
 

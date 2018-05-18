@@ -1,1 +1,1 @@
-export * from './config-chunk-received';
+export * from './app-config-received';

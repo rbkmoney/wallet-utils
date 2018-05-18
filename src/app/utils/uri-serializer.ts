@@ -1,3 +1,11 @@
+const parseStringOrObject = (value: any) => {
+    try {
+        return JSON.parse(value);
+    } catch (e) {
+        return value;
+    }
+};
+
 export const deserialize = (url: string): any => {
     const split = (typeof url === 'string' && url !== '') && url.split('?');
     if (!split) {
@@ -19,11 +27,7 @@ export const deserialize = (url: string): any => {
             } else if (value !== '' && !isNaN(value as any)) {
                 result[prop] = parseFloat(value);
             } else {
-                try {
-                    result[prop] = JSON.parse(value);
-                } catch (e) {
-                    result[prop] = value;
-                }
+                result[prop] = parseStringOrObject(value);
             }
         }
     }
