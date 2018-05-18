@@ -6,7 +6,7 @@ import {
     TypeKeys
 } from 'app/actions';
 import { State } from 'app/state';
-import { initializeModel } from 'app/sagas/initialize-model/initialize-model';
+import { initializeModel } from './initialize-model';
 
 type InitializeAppPutEffect =
     InitializeAppCompleted |
