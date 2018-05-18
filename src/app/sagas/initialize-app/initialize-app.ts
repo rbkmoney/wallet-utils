@@ -21,8 +21,7 @@ export function* initializeApp(): Iterator<InitializeAppEffect> {
     try {
         yield call(loadAppConfig);
         const config = yield select((state: State) => state.config);
-        const endpoint = config.appConfig.wapiEndpoint;
-        const initConfig = config.initConfig;
+        const {appConfig: {endpoint}, initConfig} = config;
         yield call(initializeModel, endpoint, initConfig);
         yield put({
             type: TypeKeys.INITIALIZE_APP_COMPLETED
