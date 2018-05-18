@@ -13,8 +13,6 @@ const app = document.getElementById('app');
 Child.resolve()
     .then((transport) => {
         resolveConfig(transport).then((config) => {
-            console.log(transport);
-            console.log(config);
             const store = configureStore({config});
             ReactDOM.render(
                 <Provider store={store}>
