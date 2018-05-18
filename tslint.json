@@ -17,7 +17,7 @@
 
     "no-var-keyword": true,
     "no-parameter-reassignment": true,
-    "typedef": [true, "call-signature"],
+    "typedef": false,
 
     "readonly-keyword": false,
     "readonly-array": true,
@@ -28,7 +28,7 @@
 
     "no-this": false,
     "no-class": false,
-    "no-mixed-interface": true,
+    "no-mixed-interface": false,
     "no-expression-statement": false,
     "no-if-statement": false
   }

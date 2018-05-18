@@ -42,10 +42,6 @@
         padding: 30px;
         box-sizing: border-box;
         background-image: linear-gradient(90deg, $deep-blue 0%, $blue 39%, $lightest-blue 100%);
-
-        footer {
-            display: none;
-        }
     }
 
     &.with_shadow {

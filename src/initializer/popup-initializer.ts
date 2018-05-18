@@ -1,14 +1,18 @@
 import { Parent, Transport } from '../communication';
 import { Initializer } from './initializer';
 import { InitializerData } from '../communication/model';
+import isObject from 'lodash-es/isObject';
 
 const serialize = (params: any): string => {
     let urlParams = '';
     for (const prop in params) {
         if (params.hasOwnProperty(prop)) {
-            const value = params[prop];
+            let value = params[prop];
             if ((typeof value === 'function') || (value === undefined) || (value === null)) {
                 continue;
+            }
+            if (isObject(value)) {
+                value = JSON.stringify(value);
             }
             if (urlParams !== '') {
                 urlParams += '&';
