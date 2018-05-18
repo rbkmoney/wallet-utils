@@ -9,7 +9,8 @@ import { getIdentityByID } from 'app/backend/get-identity';
 export function* resolveIdenity(endpoint: string, config: IdentityChallengeInitConfig): Iterator<CallEffect> {
     const token = config.token;
     const id = config.params.identityID;
-    return yield call(getIdentityByID, endpoint, token, id);
+    const identity = yield call(getIdentityByID, endpoint, token, id);
+    return {identity};
 }
 
 export function* resolveIntegrationType(endpoint: string, config: InitConfig): Iterator<CallEffect> {
