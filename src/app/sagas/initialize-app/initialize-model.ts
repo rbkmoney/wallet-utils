@@ -1,8 +1,8 @@
 import { call, CallEffect, put, PutEffect } from 'redux-saga/effects';
 import { InitConfig, IdentityChallengeInitConfig } from 'src/app/config/index';
 import { ActionType } from '../../../communication/model';
-import { getIdentityByID, Identity } from 'src/app/backend/index';
-import { InitializeModelCompleted, TypeKeys } from 'src/app/actions/index';
+import { getIdentityByID, Identity } from 'app/backend/index';
+import { InitializeModelCompleted, TypeKeys } from 'app/actions';
 
 export function* resolveIdentity(endpoint: string, config: IdentityChallengeInitConfig): Iterator<CallEffect | Identity> {
     const token = config.token;
