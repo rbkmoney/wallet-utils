@@ -2,11 +2,11 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import * as cx from 'classnames';
 import * as ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { State } from 'app/state';
+import { ActionType } from '../../../../../../communication/model';
 import { container, form, animationFormContainer, _error } from './form-container.scss';
 import { PassportForm } from './passport-form';
 import { CardForm } from './card-form';
-import { State } from 'app/state';
-import { ActionType } from '../../../../../../communication/model';
 
 interface FormContainerProps {
     actionType: ActionType;
