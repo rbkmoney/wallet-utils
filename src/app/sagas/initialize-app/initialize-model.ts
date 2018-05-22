@@ -18,6 +18,7 @@ interface ResolvedActionType {
 export function* resolveActionType(endpoint: string, config: InitConfig): Iterator<CallEffect | ResolvedActionType | ModelState> {
     switch (config.type) {
         case ActionType.userIdentity:
+        case ActionType.createOutput:
             const identity = yield call(resolveIdentity, endpoint, config);
             return {identity};
     }

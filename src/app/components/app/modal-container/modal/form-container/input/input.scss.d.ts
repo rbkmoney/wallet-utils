@@ -2,6 +2,8 @@ export const container: string;
 export const checkmark: string;
 export const errorCross: string;
 export const _hasError: string;
+export const _withIcon: string;
+export const _withIconAndMark: string;
 export const icon: string;
 export const input: string;
 export const mark: string;

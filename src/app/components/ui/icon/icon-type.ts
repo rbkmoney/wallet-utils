@@ -3,4 +3,8 @@ export enum IconType {
     redCross = 'red-cross',
     chevronLeft = 'chevron-left',
     cross = 'cross',
+    card = 'card',
+    calendar = 'calendar',
+    visa = 'visa',
+    mastercard = 'mastercard'
 }

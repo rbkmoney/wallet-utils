@@ -39,20 +39,20 @@
     }
 }
 
-//.icon {
-//    position: absolute;
-//    top: 0;
-//    left: 0;
-//    margin: 15px 0 15px 15px;
-//    width: 19px;
-//    height: 18px;
-//    display: flex;
-//    flex-direction: row;
-//    flex-wrap: nowrap;
-//    align-items: center;
-//    //opacity: .75;
-//    opacity: 1;
-//}
+.icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 15px 0 15px 15px;
+    width: 19px;
+    height: 18px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    //opacity: .75;
+    opacity: 1;
+}
 
 .input {
     margin: 0;
@@ -67,7 +67,6 @@
     color: $deep-gray;
     letter-spacing: 0;
     line-height: 20px;
-    //padding: 14px 13px 12px 40px; padding with icons
     padding: 14px 13px 12px 13px;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -103,12 +102,19 @@
     }
 
     &.mark {
-        //padding: 13px 30px 13px 40px; padding with icons
         padding: 13px 30px 12px 13px;
 
         &[type=date] {
             padding: 11px 30px 10px 13px;
         }
+    }
+
+    &._withIcon {
+        padding: 14px 13px 12px 40px;
+    }
+
+    &._withIconAndMark {
+        padding: 13px 30px 13px 40px;
     }
 }
 
