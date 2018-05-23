@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { info, action_name, label, action_description } from './info.scss';
 import { State } from 'app/state';
-import { ActionType } from '../../../../../../communication/model';
+import { ActionType } from 'app/config';
 
 class InfoContent {
     title: string;

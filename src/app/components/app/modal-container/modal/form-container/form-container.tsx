@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as cx from 'classnames';
 import * as ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { State } from 'app/state';
-import { ActionType } from '../../../../../../communication/model';
+import { ActionType } from 'app/config';
 import { container, form, animationFormContainer, _error } from './form-container.scss';
 import { PassportForm } from './passport-form';
 import { CardForm } from './card-form';

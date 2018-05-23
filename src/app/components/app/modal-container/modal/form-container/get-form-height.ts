@@ -1,4 +1,4 @@
-import { ActionType } from '../../../../../../communication/model';
+import { ActionType } from 'app/config';
 
 export const getFormHeight = (type: ActionType): number => {
     switch (type) {

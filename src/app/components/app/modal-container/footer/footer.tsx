@@ -12,11 +12,11 @@ import {
     copyright
 } from './footer.scss';
 import { State } from 'app/state';
+import { ActionType } from 'app/config';
 import { SecureIcon } from './secure-icon';
 import { PciDssIcon } from './pci-dss-icon';
 import { McIcon } from './mc-icon';
 import { VisaIcon } from './visa-icon';
-import { ActionType } from '../../../../../communication/model';
 
 const cardIcons = () => (
     <div className={safe_payment_container}>
