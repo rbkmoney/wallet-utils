@@ -1,4 +1,4 @@
-import { ActionType } from '../../communication/model';
+import { ActionType } from './action-type';
 
 export class InitConfig {
     token: string;
