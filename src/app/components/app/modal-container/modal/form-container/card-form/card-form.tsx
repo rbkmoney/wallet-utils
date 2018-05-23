@@ -6,7 +6,7 @@ import { CardNumber, ExpireDate } from './fields';
 export const CardForm: React.SFC = () => (
     <form>
         <div>
-            <Header title='Карта для вывода средств'/>
+            <Header title='Банковская карта'/>
             <CardNumber/>
             <ExpireDate/>
         </div>

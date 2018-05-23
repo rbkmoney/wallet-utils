@@ -9,12 +9,11 @@ export const ExpireDate: React.SFC = () => (
             icon={IconType.calendar}
             type='tel'
             id='expire-month-input'
-            placeholder='MM'
-        />
+            placeholder='MM'/>
         <Input
+            icon={IconType.calendar}
             type='tel'
             id='expire-year-input'
-            placeholder='YY'
-        />
+            placeholder='YYYY'/>
     </div>
 );
