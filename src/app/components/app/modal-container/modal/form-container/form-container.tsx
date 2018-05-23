@@ -7,6 +7,7 @@ import { ActionType } from '../../../../../../communication/model';
 import { container, form, animationFormContainer, _error } from './form-container.scss';
 import { PassportForm } from './passport-form';
 import { CardForm } from './card-form';
+import { getFormHeight } from './get-form-height';
 
 interface FormContainerProps {
     actionType: ActionType;
@@ -15,7 +16,7 @@ interface FormContainerProps {
 export const FormContainerDef: React.SFC<FormContainerProps> = (props) => (
     <div className={container}>
         <div className={cx(form, {[_error]: false})}
-             style={{height: 629}}> {/* TODO: высота должна задаваться в зависимости от стейта */}
+             style={{height: getFormHeight(props.actionType)}}>
             <ReactCSSTransitionGroup
                 component='div'
                 className={animationFormContainer}

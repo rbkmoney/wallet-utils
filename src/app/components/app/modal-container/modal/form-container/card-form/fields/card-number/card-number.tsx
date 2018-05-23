@@ -12,7 +12,8 @@ export const CardNumber: React.SFC = () => (
             <Input
                 className={cardNumberInput}
                 icon={IconType.card}
-                id='card-number-input'/>
+                id='card-number-input'
+                placeholder='Номер карты'/>
             <CardTypeIcon cardNumber='4242 4242 4242 4242'/>
         </div>
     </div>

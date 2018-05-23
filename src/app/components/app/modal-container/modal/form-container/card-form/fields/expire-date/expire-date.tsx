@@ -7,9 +7,14 @@ export const ExpireDate: React.SFC = () => (
     <div className={formGroup}>
         <Input
             icon={IconType.calendar}
-            mark={true}
             type='tel'
-            id='expire-date-input'
+            id='expire-month-input'
+            placeholder='MM'
+        />
+        <Input
+            type='tel'
+            id='expire-year-input'
+            placeholder='YY'
         />
     </div>
 );

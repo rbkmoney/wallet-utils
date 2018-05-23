@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import {
     footer,
     safe_payment_container,
@@ -10,10 +11,12 @@ import {
     align_fix,
     copyright
 } from './footer.scss';
+import { State } from 'app/state';
 import { SecureIcon } from './secure-icon';
 import { PciDssIcon } from './pci-dss-icon';
 import { McIcon } from './mc-icon';
 import { VisaIcon } from './visa-icon';
+import { ActionType } from '../../../../../communication/model';
 
 const cardIcons = () => (
     <div className={safe_payment_container}>
@@ -29,11 +32,13 @@ const cardIcons = () => (
     </div>
 );
 
-const isCardBinding = false;
+interface FooterDef {
+    actionType: ActionType;
+}
 
-export const Footer: React.SFC = () => (
+export const FooterDef: React.SFC<FooterDef> = (props) => (
     <footer className={footer}>
-        {isCardBinding ?
+        {props.actionType === ActionType.createOutput ?
             cardIcons()
             : null
         }
@@ -44,3 +49,9 @@ export const Footer: React.SFC = () => (
         </p>
     </footer>
 );
+
+const mapStateToProps = (state: State) => ({
+    actionType: state.config.initConfig.type
+});
+
+export const Footer = connect(mapStateToProps)(FooterDef);
