@@ -1,5 +1,5 @@
 import { call, CallEffect, put, PutEffect } from 'redux-saga/effects';
-import { InitConfig, IdentityChallengeInitConfig, ActionType } from 'src/app/config';
+import { InitConfig, IdentityChallengeInitConfig, ActionType } from 'app/config';
 import { getIdentityByID, Identity } from 'app/backend/index';
 import { InitializeModelCompleted, TypeKeys } from 'app/actions';
 import { ModelState } from 'app/state';
