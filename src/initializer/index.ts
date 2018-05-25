@@ -89,9 +89,7 @@ export class RbkmoneyWalletUtils {
                     this.provideCallback(this.onCancelIdentityChallenge, {
                         data: e.data
                     }));
-                transport.on(PossibleEvents.onCancel, () => {
-                    this.provideCallback(this.onCancel, {});
-                });
+                this.activateCancelEvent(transport);
             })
             .catch((e) => this.provideCallback(this.onCancel, {error: e}));
     }
@@ -104,8 +102,16 @@ export class RbkmoneyWalletUtils {
                     this.provideCallback(this.onCreateOutput, {
                         data: e.data
                     }));
+                this.activateCancelEvent(transport);
             })
             .catch((e) => this.provideCallback(this.onCancel, {error: e}));
+    }
+
+    private activateCancelEvent(transport: Transport): void {
+        transport.on(PossibleEvents.close, () => {
+            this.initializer.close();
+            this.provideCallback(this.onCancel, {});
+        });
     }
 
     private provideCallback(callback: (data: WalletUtilsEvent) => void, data: any): void {
