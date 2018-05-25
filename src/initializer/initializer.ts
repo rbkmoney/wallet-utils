@@ -3,7 +3,8 @@ import { InitializerData } from '../communication/model';
 
 export abstract class Initializer {
 
-    protected constructor(protected readonly token: string, protected readonly origin: string) {}
+    protected constructor(protected readonly token: string, protected readonly origin: string) {
+    }
 
     abstract open(data: InitializerData): Promise<Transport>;
 

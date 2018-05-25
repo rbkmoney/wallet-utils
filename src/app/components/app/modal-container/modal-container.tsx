@@ -5,8 +5,14 @@ import { appear, leave, enter, container } from './modal-container.scss';
 import { Modal } from './modal';
 import { Footer } from './footer';
 import { Close } from '../modal-container/modal/close';
+import { connect } from 'react-redux';
+import { State } from 'app/state';
 
-export const ModalContainer: React.SFC = () => (
+interface ModalContainerDefProps {
+    inFrame: boolean;
+}
+
+export const ModalContainerDef: React.SFC<ModalContainerDefProps> = (props) => (
     <ReactCSSTransitionGroup
         component='div'
         transitionName={{enter, appear, leave}}
@@ -23,7 +29,7 @@ export const ModalContainer: React.SFC = () => (
                 transitionEnterTimeout={1000}
                 transitionLeaveTimeout={500}>
                 <div>
-                    <Close/>
+                    {props.inFrame ? <Close/> : null}
                     <Modal/>
                     <Footer/>
                 </div>
@@ -31,3 +37,9 @@ export const ModalContainer: React.SFC = () => (
         </div>
     </ReactCSSTransitionGroup>
 );
+
+const mapStateToProps = (state: State) => ({
+    inFrame: state.config.inFrame
+});
+
+export const ModalContainer = connect(mapStateToProps)(ModalContainerDef);

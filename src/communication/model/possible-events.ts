@@ -5,5 +5,5 @@ export enum PossibleEvents {
     onFailIdentityChallenge = 'onFailIdentityChallenge',
     onCancelIdentityChallenge = 'onCancelIdentityChallenge',
     onCreateOutput = 'onCreateOutput',
-    abort = 'abort'
+    close = 'close'
 }
