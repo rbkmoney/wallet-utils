@@ -19,7 +19,7 @@ type InputProps = WrappedFieldInputProps & WrappedFieldMetaProps & CustomProps;
 
 export const Input: React.SFC<InputProps> = (props) => (
     <div className={cx(styles.container, props.className, {
-        [styles._hasError]: false
+        [styles._hasError]: props.error
     })}>
         {props.icon ? <Icon className={styles.icon} icon={props.icon}/> : false}
         <input
@@ -39,6 +39,6 @@ export const Input: React.SFC<InputProps> = (props) => (
             value={props.value}
             id={props.id}
         />
-        {props.mark ? <Marks active={false} pristine={false} error={false}/> : false}
+        {props.mark ? <Marks active={props.active} pristine={props.pristine} error={props.error}/> : false}
     </div>
 );

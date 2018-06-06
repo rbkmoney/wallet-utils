@@ -4,7 +4,7 @@ import { connect, Dispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import get from 'lodash-es/get';
 import { Header } from '../header';
-import { BirthDate, BirthPlace, Gender, Issued, Issuer, Name, PassportNumber, Patronymic, Surname } from './fields';
+import { BirthDate, BirthPlace, IssuedAt, Issuer, Name, PassportNumber, Patronymic, FamilyName } from './fields';
 import { FormInfo, FormName, PassportFormValues, ResultFormInfo, State } from 'app/state';
 import { goToFormInfo, setViewInfoHeight } from 'app/actions';
 import { Button } from '../button';
@@ -24,7 +24,7 @@ class PassportFormDef extends React.Component<Props> {
     }
 
     componentDidMount() {
-        this.props.setViewInfoHeight(621);
+        this.props.setViewInfoHeight(560);
     }
 
     componentWillMount() {
@@ -38,15 +38,14 @@ class PassportFormDef extends React.Component<Props> {
             <form onSubmit={handleSubmit(this.submit)} id='passport-form'>
                 <div>
                     <Header key='header' title='Паспорт'/>
-                    <Surname/>
+                    <FamilyName/>
                     <Name/>
                     <Patronymic/>
-                    <Gender/>
                     <BirthDate/>
                     <BirthPlace/>
                     <PassportNumber/>
                     <Issuer/>
-                    <Issued/>
+                    <IssuedAt/>
                 </div>
                 <Button
                     type='submit'

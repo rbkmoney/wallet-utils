@@ -6,4 +6,4 @@ export * from './birth-place';
 export * from './gender';
 export * from './name';
 export * from './patronymic';
-export * from './surname';
+export * from './family-name';

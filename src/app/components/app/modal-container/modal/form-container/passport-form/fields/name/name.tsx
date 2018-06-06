@@ -3,6 +3,7 @@ import { Field, WrappedFieldProps } from 'redux-form';
 import { Input } from '../../../input';
 import { formGroup } from '../../../forms.scss';
 import { isError } from '../../../common-fields/error-predicate';
+import { validateName } from './validate-name';
 
 type CustomInputType =  WrappedFieldProps | any;
 
@@ -22,6 +23,7 @@ export const Name: React.SFC = () => (
     <div className={formGroup}>
         <Field
             name='name'
-            component={getCustomInput}/>
+            component={getCustomInput}
+            validate={validateName}/>
     </div>
 );
