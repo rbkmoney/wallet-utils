@@ -7,6 +7,7 @@ import {
 } from 'app/actions';
 import { State } from 'app/state';
 import { initializeModel } from './initialize-model';
+import { initializeModal } from './initialize-modal';
 
 type InitializeAppPutEffect =
     InitializeAppCompleted |
@@ -23,6 +24,7 @@ export function* initializeApp(): Iterator<InitializeAppEffect> {
         const config = yield select((state: State) => state.config);
         const {appConfig: {endpoint}, initConfig} = config;
         yield call(initializeModel, endpoint, initConfig);
+        yield call(initializeModal, initConfig);
         yield put({
             type: TypeKeys.INITIALIZE_APP_COMPLETED
         } as InitializeAppCompleted);

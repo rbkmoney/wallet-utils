@@ -4,7 +4,7 @@ import { reducer as formReducer } from 'redux-form';
 import createSagaMiddleware from 'redux-saga';
 import { State } from './state';
 import rootSaga from 'app/sagas/root-saga';
-import { configReducer, initializeAppReducer, modelReducer, resultReducer } from 'app/reducers';
+import { configReducer, initializeAppReducer, modelReducer, resultReducer, modalReducer } from 'app/reducers';
 
 export function configureStore(initState: any): Store<State> {
     const sagaMiddleware = createSagaMiddleware();
@@ -13,7 +13,8 @@ export function configureStore(initState: any): Store<State> {
         config: configReducer,
         model: modelReducer,
         form: formReducer,
-        result: resultReducer
+        result: resultReducer,
+        modals: modalReducer
     }), initState, composeWithDevTools(applyMiddleware(sagaMiddleware)));
     sagaMiddleware.run(rootSaga);
     return store;

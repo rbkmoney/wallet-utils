@@ -7,17 +7,17 @@ import { Icon, IconType } from 'app/components/ui';
 import { ResultAction, setResult } from 'app/actions';
 
 interface CloseDefProps {
-    setResult: (resultState: ResultState) => ResultAction;
+    setForm: (resultState: ResultState) => ResultAction;
 }
 
 export const CloseDef: React.SFC<CloseDefProps> = (props) => (
-    <div className={close} onClick={props.setResult.bind(null, ResultState.close)}>
+    <div className={close} onClick={props.setForm.bind(null, ResultState.close)}>
         <Icon icon={IconType.cross}/>
     </div>
 );
 
 const mapDispatchToProps = (dispatch: Dispatch<ResultAction>) => ({
-    setResult: bindActionCreators(setResult, dispatch)
+    setForm: bindActionCreators(setResult, dispatch)
 });
 
 export const Close = connect(null, mapDispatchToProps)(CloseDef);

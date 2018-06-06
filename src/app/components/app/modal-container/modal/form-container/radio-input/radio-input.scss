@@ -33,7 +33,9 @@
         opacity: 0;
         cursor: pointer;
         height: 18px;
-        width: 18px;
+        width: 100%;
+        left: 0;
+        z-index: 1;
         margin: 0;
 
         &:checked ~ .checkmark {

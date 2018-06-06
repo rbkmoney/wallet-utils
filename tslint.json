@@ -20,7 +20,6 @@
     "typedef": false,
 
     "readonly-keyword": false,
-    "readonly-array": true,
     "no-let": false,
     "no-object-mutation": false,
     "no-delete": true,
@@ -30,6 +29,7 @@
     "no-class": false,
     "no-mixed-interface": false,
     "no-expression-statement": false,
-    "no-if-statement": false
+    "no-if-statement": false,
+    "readonly-array": false
   }
 }
