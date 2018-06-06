@@ -17,7 +17,6 @@ interface FormContainerProps {
 
 export const FormContainerDef: React.SFC<FormContainerProps> = (props) => {
     const {activeFormInfo: {name}, viewInfo} = props;
-    console.log(viewInfo);
     return (
         <div className={container}>
             <div className={cx(form, { [_error]: false })}

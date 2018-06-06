@@ -4,7 +4,9 @@ import { formGroup } from '../../../forms.scss';
 import { Field, WrappedFieldProps } from 'redux-form';
 import { isError } from '../../../common-fields/error-predicate';
 
-const getCustomInput = (fieldProps: WrappedFieldProps) => (
+type CustomInputType =  WrappedFieldProps | any;
+
+const getCustomInput = (fieldProps: CustomInputType) => (
     <Input
         {...fieldProps.input}
         {...fieldProps.meta}

@@ -4,7 +4,9 @@ import { Input } from '../../../input';
 import { formGroup } from '../../../forms.scss';
 import { isError } from '../../../common-fields/error-predicate';
 
-const getCustomInput = (fieldProps: WrappedFieldProps) => (
+type CustomInputType =  WrappedFieldProps | any;
+
+const getCustomInput = (fieldProps: CustomInputType) => (
     <Input
         {...fieldProps.input}
         {...fieldProps.meta}
