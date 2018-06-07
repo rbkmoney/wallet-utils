@@ -3,10 +3,10 @@ import { InjectedFormProps, reduxForm } from 'redux-form';
 import { connect, Dispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import get from 'lodash-es/get';
-import { Header } from '../header';
-import { BirthDate, BirthPlace, IssuedAt, Issuer, Name, PassportNumber, Patronymic, FamilyName } from './fields';
 import { FormInfo, FormName, PassportFormValues, ResultFormInfo, State } from 'app/state';
-import { goToFormInfo, setViewInfoHeight } from 'app/actions';
+import { goToFormInfo, setViewInfoError, setViewInfoHeight } from 'app/actions';
+import { Header } from '../header';
+import { BirthDate, BirthPlace, FamilyName, IssuedAt, Issuer, Name, PassportNumber, Patronymic } from './fields';
 import { Button } from '../button';
 
 type Props = InjectedFormProps & PassportFormProps;
@@ -15,6 +15,7 @@ interface PassportFormProps {
     formValues: PassportFormValues;
     setForm: (formInfo: FormInfo) => {};
     setViewInfoHeight: (height: number) => any;
+    setViewInfoError: (hasError: boolean) => any;
 }
 
 class PassportFormDef extends React.Component<Props> {
@@ -28,8 +29,15 @@ class PassportFormDef extends React.Component<Props> {
     }
 
     componentWillMount() {
+        this.props.setViewInfoError(false);
         const { formValues } = this.props;
         this.init(formValues);
+    }
+
+    componentWillReceiveProps(props: Props) {
+        if (props.submitFailed) {
+            props.setViewInfoError(true);
+        }
     }
 
     render() {
@@ -75,7 +83,8 @@ const mapStateToProps = (state: State) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     setForm: bindActionCreators(goToFormInfo, dispatch),
-    setViewInfoHeight: bindActionCreators(setViewInfoHeight, dispatch)
+    setViewInfoHeight: bindActionCreators(setViewInfoHeight, dispatch),
+    setViewInfoError: bindActionCreators(setViewInfoError, dispatch)
 });
 
 const ReduxForm = reduxForm({

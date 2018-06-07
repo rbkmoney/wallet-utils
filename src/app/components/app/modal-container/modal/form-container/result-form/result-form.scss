@@ -1,0 +1,61 @@
+@import '../../../../../../styles/responsive';
+@import '../../../../../../styles/variables';
+@import '../../../../../../styles/animations';
+
+.form {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+
+    @include responsive(sm) {
+        padding-top: 50px;
+    }
+
+    & > div {
+        width: 100%;
+    }
+}
+
+.title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    color: $deep-gray;
+    letter-spacing: 0;
+    line-height: 35px;
+    text-align: center;
+    padding: 0;
+    margin: 0 0 30px;
+}
+
+.image {
+    width: 75%;
+}
+
+.text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: $deep-gray;
+    letter-spacing: 0;
+    line-height: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.try_with_other {
+    margin-top: 10px;
+}
+
+.help {
+    margin-bottom: 60px;
+}
+
+.errorBlock {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+}
