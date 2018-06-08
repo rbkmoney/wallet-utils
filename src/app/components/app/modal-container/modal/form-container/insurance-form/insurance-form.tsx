@@ -26,7 +26,7 @@ class InsuranceFormDef extends React.Component<Props> {
     }
 
     componentDidMount() {
-        this.props.setViewInfoHeight(240);
+        this.props.setViewInfoHeight(210);
     }
 
     componentWillMount() {
@@ -47,6 +47,9 @@ class InsuranceFormDef extends React.Component<Props> {
             <form onSubmit={handleSubmit(this.submit)} id='insurance-sertificate-form'>
                 <div>
                     <Header key='header' title='СНИЛС'/>
+                    <p className={text}>
+                        СНИЛС потребуется для проверки паспортных данных
+                    </p>
                     <InsuranceNumber/>
                 </div>
                 <Button
