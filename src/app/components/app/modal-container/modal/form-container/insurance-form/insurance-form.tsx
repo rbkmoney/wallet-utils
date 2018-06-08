@@ -47,9 +47,6 @@ class InsuranceFormDef extends React.Component<Props> {
             <form onSubmit={handleSubmit(this.submit)} id='insurance-sertificate-form'>
                 <div>
                     <Header key='header' title='СНИЛС'/>
-                    <p className={text}>
-                        Номер СНИЛС потребуется для проверки паспортных данных
-                    </p>
                     <InsuranceNumber/>
                 </div>
                 <Button
