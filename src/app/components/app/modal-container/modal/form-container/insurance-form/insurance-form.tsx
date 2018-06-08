@@ -3,11 +3,12 @@ import { InjectedFormProps, reduxForm } from 'redux-form';
 import { connect, Dispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import get from 'lodash-es/get';
-import { FormInfo, FormName, PassportFormValues, State, InsuranceFormInfo } from 'app/state';
+import { FormInfo, FormName, InsuranceFormValues, PassportFormValues, ResultFormInfo, State } from 'app/state';
 import { goToFormInfo, setViewInfoError, setViewInfoHeight } from 'app/actions';
 import { Header } from '../header';
-import { BirthDate, BirthPlace, FamilyName, IssuedAt, Issuer, Name, PassportNumber, Patronymic } from './fields';
+import { InsuranceNumber } from './fields';
 import { Button } from '../button';
+import { text } from '../form-container.scss';
 
 type Props = InjectedFormProps & PassportFormProps;
 
@@ -18,14 +19,14 @@ interface PassportFormProps {
     setViewInfoError: (hasError: boolean) => any;
 }
 
-class PassportFormDef extends React.Component<Props> {
+class InsuranceFormDef extends React.Component<Props> {
     constructor(props: Props) {
         super(props);
         this.submit = this.submit.bind(this);
     }
 
     componentDidMount() {
-        this.props.setViewInfoHeight(560);
+        this.props.setViewInfoHeight(240);
     }
 
     componentWillMount() {
@@ -43,17 +44,13 @@ class PassportFormDef extends React.Component<Props> {
     render() {
         const { handleSubmit } = this.props;
         return (
-            <form onSubmit={handleSubmit(this.submit)} id='passport-form'>
+            <form onSubmit={handleSubmit(this.submit)} id='insurance-sertificate-form'>
                 <div>
-                    <Header key='header' title='Паспорт'/>
-                    <FamilyName/>
-                    <Name/>
-                    <Patronymic/>
-                    <BirthDate/>
-                    <BirthPlace/>
-                    <PassportNumber/>
-                    <Issuer/>
-                    <IssuedAt/>
+                    <Header key='header' title='СНИЛС'/>
+                    <p className={text}>
+                        Номер СНИЛС потребуется для проверки паспортных данных
+                    </p>
+                    <InsuranceNumber/>
                 </div>
                 <Button
                     type='submit'
@@ -65,12 +62,12 @@ class PassportFormDef extends React.Component<Props> {
         );
     }
 
-    private submit(values: PassportFormValues) {
+    private submit(values: InsuranceFormValues) {
         (document.activeElement as HTMLElement).blur();
-        this.props.setForm(new InsuranceFormInfo());
+        this.props.setForm(new ResultFormInfo());
     }
 
-    private init(values: PassportFormValues) {
+    private init(values: InsuranceFormValues) {
         this.props.initialize({
             ...values
         });
@@ -78,7 +75,7 @@ class PassportFormDef extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: State) => ({
-    formValues: get(state.form, 'passportForm.values')
+    formValues: get(state.form, 'insuranceForm.values')
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
@@ -88,8 +85,8 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
 });
 
 const ReduxForm = reduxForm({
-    form: FormName.passportForm,
+    form: FormName.insuranceForm,
     destroyOnUnmount: false
-})(PassportFormDef);
+})(InsuranceFormDef);
 
-export const PassportForm = connect(mapStateToProps, mapDispatchToProps)(ReduxForm as any);
+export const InsuranceForm = connect(mapStateToProps, mapDispatchToProps)(ReduxForm as any);

@@ -9,6 +9,7 @@ import { CardForm } from './card-form';
 import { FormInfo } from 'app/state/modal';
 import { ResultForm } from './result-form';
 import { findNamed } from 'app/utils/find-named';
+import { InsuranceForm } from './insurance-form';
 
 interface FormContainerProps {
     activeFormInfo: FormInfo;
@@ -19,7 +20,7 @@ export const FormContainerDef: React.SFC<FormContainerProps> = (props) => {
     const {activeFormInfo: {name}, viewInfo} = props;
     return (
         <div className={container}>
-            <div className={cx(form, { [_error]: false })}
+            <div className={cx(form, { [_error]: viewInfo.error })}
                 style={{height: viewInfo.height}}>
                 <ReactCSSTransitionGroup
                     component='div'
@@ -30,6 +31,7 @@ export const FormContainerDef: React.SFC<FormContainerProps> = (props) => {
                     {name === FormName.passportForm ? <PassportForm/> : null}
                     {name === FormName.resultForm ? <ResultForm/> : null}
                     {name === FormName.cardForm ? <CardForm/> : null}
+                    {name === FormName.insuranceForm ? <InsuranceForm/> : null}
                 </ReactCSSTransitionGroup>
             </div>
         </div>
