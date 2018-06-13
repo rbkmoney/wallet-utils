@@ -19,9 +19,10 @@ export const formatInsuranceNumber = (e: FormEvent<HTMLInputElement>): number | 
     const target = e.currentTarget;
     const value = target.value;
     const nativeEvent = e.nativeEvent as any;
+    const numberRegexp = /[0-9]/;
     if (nativeEvent.inputType === 'deleteContentBackward') {
         return value;
-    } else {
+    } else if (numberRegexp.test(nativeEvent.data)) {
         return safeVal(format(value), target);
     }
 };
