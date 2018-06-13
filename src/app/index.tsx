@@ -14,7 +14,7 @@ const app = document.getElementById('app');
 Child.resolve()
     .then((transport) => {
         resolveConfig(transport).then((config) => {
-            const store = configureStore({config});
+            const store = configureStore({ config });
             store.subscribe(() => {
                 const state = store.getState();
                 if (state.result) {

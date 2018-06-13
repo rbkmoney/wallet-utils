@@ -14,10 +14,11 @@ interface ResolvedActionType {
     identity?: Identity;
 }
 
-export function* resolveActionType(endpoint: string, config: InitConfig): Iterator<CallEffect | ResolvedActionType | ModelState> {
+function* resolveActionType(endpoint: string, config: InitConfig): Iterator<CallEffect | ResolvedActionType | ModelState> {
     switch (config.type) {
         case ActionType.userIdentity:
-            const identity = yield call(resolveIdentity, endpoint, config);
+            // const identity = yield call(resolveIdentity, endpoint, config);
+            const identity = {hhaha: 'no'};
             return {identity};
         case ActionType.createOutput:
             return;

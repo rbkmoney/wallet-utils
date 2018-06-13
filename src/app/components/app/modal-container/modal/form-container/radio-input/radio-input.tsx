@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { container, _hasError, radio, checkmark } from './radio-input.scss';
 import * as cx from 'classnames';
+import { Field } from 'redux-form';
 
 export class Radio {
     readonly name: string;
@@ -13,21 +14,24 @@ export interface RadioInputProps {
     values: ReadonlyArray<Radio>;
 }
 
-const renderButtons = (data: Radio, i: number) => (
+const renderFields = (data: Radio, i: number) => (
     <div className={radio} key={i}>
         <label htmlFor={data.value}>
-            <input type='radio' name={data.name} value={data.value} id={data.value}/>
+            <Field
+                name={data.name}
+                component='input'
+                type='radio'
+                value={data.value}/>
             <span className={checkmark}/>
             {data.label}
         </label>
     </div>
-
 );
 
 export const RadioInput: React.SFC<RadioInputProps> = (props) => (
     <div className={cx(container, props.className, {
         [_hasError]: false
     })}>
-        {props.values.map(renderButtons)}
+        {props.values.map(renderFields)}
     </div>
 );

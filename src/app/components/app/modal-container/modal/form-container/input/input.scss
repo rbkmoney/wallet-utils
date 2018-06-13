@@ -105,7 +105,11 @@
         padding: 13px 30px 12px 13px;
 
         &[type=date] {
-            padding: 11px 30px 10px 13px;
+            -webkit-padding-before: 11px;
+            -webkit-padding-end: 30px;
+            -webkit-padding-after: 10px;
+            -webkit-padding-start: 13px;
+            //padding: 11px 30px 10px 13px;
         }
     }
 

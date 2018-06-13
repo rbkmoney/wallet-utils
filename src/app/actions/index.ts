@@ -4,3 +4,4 @@ export * from './initialize-actions';
 export * from './config-actions';
 export * from './model-actions';
 export * from './result-action';
+export * from './modal-actions';
