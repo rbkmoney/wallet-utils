@@ -22,7 +22,7 @@ export const formatInsuranceNumber = (e: FormEvent<HTMLInputElement>): number | 
     const numberRegexp = /[0-9]/;
     if (nativeEvent.inputType === 'deleteContentBackward') {
         return value;
-    } else if (numberRegexp.test(nativeEvent.data) && value.length < 15) {
+    } else if (numberRegexp.test(nativeEvent.data || value) && value.length <= 14) {
         return safeVal(format(value), target);
     } else {
         return safeVal(value.slice(0, -1), target);
