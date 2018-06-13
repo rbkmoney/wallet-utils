@@ -17,7 +17,7 @@ const getCustomInput = (fieldProps: CustomInputType) => (
         mark={true}
         id='insurance-number-input'
         type='text'
-    />
+        onInput={formatInsuranceNumber}/>
 );
 
 export const InsuranceNumber: React.SFC = () => (
@@ -25,7 +25,6 @@ export const InsuranceNumber: React.SFC = () => (
         <Field
             name='number'
             component={getCustomInput}
-            validate={validateInsuranceNumber}
-            format={formatInsuranceNumber}/>
+            validate={validateInsuranceNumber}/>
     </div>
 );
