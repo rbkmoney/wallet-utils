@@ -2,15 +2,14 @@ import { call, CallEffect, put } from 'redux-saga/effects';
 import { ModalForms, ModalState } from 'app/state';
 import { ActionType, InitConfig } from 'app/config';
 import { InitializeModalCompleted, TypeKeys } from 'app/actions';
-import { PassportFormInfo } from 'app/state/modal';
+import { PassportFormInfo, CardFormInfo } from 'app/state/modal';
 
 function* resolveActionType(config: InitConfig): Iterator<CallEffect | ModalState> {
     switch (config.type) {
         case ActionType.userIdentity:
-            const formInfo = new PassportFormInfo();
-            return new ModalForms([formInfo], true);
+            return new ModalForms([new PassportFormInfo()], true);
         case ActionType.createOutput:
-            return {};
+            return new ModalForms([new CardFormInfo()], true);
     }
 }
 

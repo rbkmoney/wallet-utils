@@ -3,19 +3,58 @@
 .inputContainer {
     width: 100%;
     position: relative;
+    display: flex;
+    border: 1px solid $gray;
+    border-radius: 3px;
+
+    .numberInputContainer {
+        margin-left: 0;
+
+        input {
+            border-radius: 3px 0 0 3px;
+            border: 1px solid transparent;
+            box-shadow: none;
+
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+
+    .expiryInputContainer {
+        margin-left: 0;
+        width: 107px;
+
+        input {
+            border-radius: 0 3px 3px 0;
+            width: 100%;
+            border: 1px solid transparent;
+            box-shadow: none;
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
 }
 
-.cardNumberInput {
+._hasError {
     input {
-        padding: 14px 45px 12px 40px !important;
+        border: 1px solid red !important;
+
+        &:focus {
+            border-color: transparent !important;
+        }
     }
 }
 
 .cardTypeIcon {
     position: absolute;
     top: 15px;
-    right: 15px;
+    left: 9px;
     width: 31px;
     height: 19px;
     animation: growth .5s;
+    z-index: 1;
 }

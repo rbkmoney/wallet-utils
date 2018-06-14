@@ -5,7 +5,7 @@ import { form, title } from './result-form.scss';
 import { setViewInfoHeight } from 'app/actions';
 import { State } from 'app/state';
 import { ActionType } from '../../../../../../../communication/model';
-import { makeContentFromUserIdentity, ResultFormContent } from './make-content';
+import { makeContentFromUserIdentity, makeContentFromCreateOutput, ResultFormContent } from './make-content';
 import { ActionBlock } from './action-block';
 
 interface ResultFormDefProps {
@@ -37,7 +37,7 @@ export class ResultFormDef extends React.Component<ResultFormDefProps> {
             case ActionType.userIdentity:
                 return makeContentFromUserIdentity();
             case ActionType.createOutput:
-                return;
+                return makeContentFromCreateOutput();
         }
     }
 }
