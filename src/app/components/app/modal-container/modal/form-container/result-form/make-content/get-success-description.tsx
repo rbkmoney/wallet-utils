@@ -1,8 +1,18 @@
 import * as React from 'react';
 import { text } from '../result-form.scss';
+import { ActionType } from 'app/config';
 
-export const getSuccessDescription = (): JSX.Element => (
+const getDescription = (type: ActionType): string => {
+    switch (type) {
+        case ActionType.userIdentity:
+            return 'Идентификация прошла успешно.';
+        case ActionType.createOutput:
+            return 'Привязка карты вывода прошла успешно.';
+    }
+};
+
+export const getSuccessDescription = (type: ActionType): JSX.Element => (
     <p className={text}>
-        Идентификация прошла успешно.
+        {getDescription(type)}
     </p>
 );

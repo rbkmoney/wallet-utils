@@ -7,18 +7,18 @@ import { ActionType } from 'app/config';
 const success = (): ResultFormContent => ({
     hasActions: false,
     hasDone: true,
-    header: 'Успешная идентификация',
-    description: getSuccessDescription(ActionType.userIdentity),
+    header: 'Успешная привязка',
+    description: getSuccessDescription(ActionType.createOutput),
     icon: <Checkmark/>
 });
 
 const failed = (): ResultFormContent => ({
     hasActions: true,
     hasDone: false,
-    header: 'Идентификация не удалась',
+    header: 'Привязка карты не удалась',
     icon: <Cross/>
 });
 
-export const makeContentFromUserIdentity = () => {
+export const makeContentFromCreateOutput = () => {
     return success();
 };
