@@ -3,7 +3,7 @@ import { Field, WrappedFieldProps } from 'redux-form';
 import { Input } from '../../../input';
 import { formGroup } from '../../../forms.scss';
 import { isError } from '../../../common-fields/error-predicate';
-import { validateBirthDate } from './validate-birth-date';
+import { validateIssuerCode } from './validate-issuer-code';
 
 type CustomInputType =  WrappedFieldProps | any;
 
@@ -12,18 +12,18 @@ const getCustomInput = (fieldProps: CustomInputType) => (
         {...fieldProps.input}
         {...fieldProps.meta}
         error={isError(fieldProps.meta)}
-        placeholder='Дата рождения'
+        placeholder='Код подразделения'
         mark={true}
-        id='passport-birthdate-input'
-        type='date'
+        id='issuer-code-input'
+        type='text'
     />
 );
 
-export const BirthDate: React.SFC = () => (
+export const IssuerCode: React.SFC = () => (
     <div className={formGroup}>
         <Field
-            name='birthDate'
+            name='issuerCode'
             component={getCustomInput}
-            validate={validateBirthDate}/>
+            validate={validateIssuerCode}/>
     </div>
 );

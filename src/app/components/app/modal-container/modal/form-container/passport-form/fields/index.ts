@@ -4,6 +4,7 @@ export * from './passport-number';
 export * from './birth-date';
 export * from './birth-place';
 export * from './gender';
-export * from './name';
+export * from './first-name';
 export * from './patronymic';
 export * from './family-name';
+export * from './issuer-code';

@@ -10,6 +10,7 @@ import { FormInfo } from 'app/state/modal';
 import { ResultForm } from './result-form';
 import { findNamed } from 'app/utils/find-named';
 import { InsuranceForm } from './insurance-form';
+import { FormLoader } from './form-loader';
 
 interface FormContainerProps {
     activeFormInfo: FormInfo;
@@ -33,6 +34,7 @@ export const FormContainerDef: React.SFC<FormContainerProps> = (props) => {
                     {name === FormName.cardForm ? <CardForm/> : null}
                     {name === FormName.insuranceForm ? <InsuranceForm/> : null}
                 </ReactCSSTransitionGroup>
+                {viewInfo.inProcess ? <FormLoader/> : null}
             </div>
         </div>
     );

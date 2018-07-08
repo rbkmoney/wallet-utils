@@ -4,11 +4,17 @@ import { connect, Dispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import get from 'lodash-es/get';
 import { FormInfo, FormName, InsuranceFormValues, PassportFormValues, ResultFormInfo, State } from 'app/state';
-import { goToFormInfo, setViewInfoError, setViewInfoHeight } from 'app/actions';
+import {
+    goToFormInfo,
+    saveInsurance,
+    SaveInsuranceRequestedPayload,
+    setViewInfoError,
+    setViewInfoHeight
+} from 'app/actions';
 import { Header } from '../header';
 import { InsuranceNumber } from './fields';
 import { Button } from '../button';
-import { text } from '../form-container.scss';
+import { DocumentType } from 'app/backend';
 
 type Props = InjectedFormProps & PassportFormProps;
 
@@ -17,6 +23,7 @@ interface PassportFormProps {
     setForm: (formInfo: FormInfo) => {};
     setViewInfoHeight: (height: number) => any;
     setViewInfoError: (hasError: boolean) => any;
+    saveDocument: (payload: SaveInsuranceRequestedPayload) => any;
 }
 
 class InsuranceFormDef extends React.Component<Props> {
@@ -62,6 +69,7 @@ class InsuranceFormDef extends React.Component<Props> {
     private submit(values: InsuranceFormValues) {
         (document.activeElement as HTMLElement).blur();
         this.props.setForm(new ResultFormInfo());
+        this.props.saveDocument({ values, type: DocumentType.RUSRetireeInsuranceCertificateData });
     }
 
     private init(values: InsuranceFormValues) {
@@ -78,7 +86,8 @@ const mapStateToProps = (state: State) => ({
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     setForm: bindActionCreators(goToFormInfo, dispatch),
     setViewInfoHeight: bindActionCreators(setViewInfoHeight, dispatch),
-    setViewInfoError: bindActionCreators(setViewInfoError, dispatch)
+    setViewInfoError: bindActionCreators(setViewInfoError, dispatch),
+    saveDocument: bindActionCreators(saveInsurance, dispatch)
 });
 
 const ReduxForm = reduxForm({

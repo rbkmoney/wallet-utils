@@ -1,25 +1,27 @@
 import { RegisteredField } from 'redux-form';
 
 export interface PassportFormFields {
-    surName: RegisteredField;
-    name: RegisteredField;
+    familyName: RegisteredField;
+    firstName: RegisteredField;
     patronymic: RegisteredField;
     gender: RegisteredField;
     birthDate: RegisteredField;
-    BirthPlace: RegisteredField;
+    birthPlace: RegisteredField;
     number: RegisteredField;
     issuer: RegisteredField;
+    issuerCode: RegisteredField;
     issued: RegisteredField;
 }
 
 export interface PassportFormValues {
-    surName: string;
-    name: string;
+    familyName: string;
+    firstName: string;
     patronymic: string;
     gender: string;
     birthDate: string;
-    BirthPlace: string;
+    birthPlace: string;
     number: string;
     issuer: string;
+    issuerCode: string;
     issued: string;
 }
