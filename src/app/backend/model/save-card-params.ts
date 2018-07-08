@@ -1,4 +1,4 @@
-export class CardBindingParams {
+export class SaveCardParams {
     type: 'BankCard';
     cardNumber: string;
     expDate: string;

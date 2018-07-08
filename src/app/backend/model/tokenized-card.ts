@@ -1,4 +1,4 @@
-export class CardBinding {
+export class TokenizedCard {
     authData: string;
     bin: string;
     lastDigits: string;

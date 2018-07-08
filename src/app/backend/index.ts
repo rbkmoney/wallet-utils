@@ -4,4 +4,6 @@ export * from './app-config';
 export * from './get-app-config';
 export * from './get-identity';
 export * from './save-document';
-export * from './create-card-binding';
+export * from './save-card';
+export * from './bind-documents';
+export * from './bind-card';

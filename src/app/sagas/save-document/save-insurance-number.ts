@@ -1,16 +1,16 @@
 import {
-    Direction,
-    GoToFormInfo,
     SaveInsuranceCompleted,
     SaveInsuranceFailed,
     SavePassportRequested,
-    TypeKeys
+    SetInProgressState,
+    TypeKeys,
+    BindDocumentsRequested
 } from 'app/actions';
 import { call, CallEffect, ForkEffect, put, PutEffect, select, SelectEffect, takeLatest } from 'redux-saga/effects';
-import { ResultFormInfo, State } from 'app/state';
+import { State } from 'app/state';
 import { saveDocument } from 'app/backend';
 
-type SavePutEffect = SaveInsuranceCompleted | SaveInsuranceFailed | GoToFormInfo;
+type SavePutEffect = SaveInsuranceCompleted | SaveInsuranceFailed | SetInProgressState | BindDocumentsRequested;
 
 type SaveEffect = SelectEffect |
     CallEffect |
@@ -18,6 +18,10 @@ type SaveEffect = SelectEffect |
 
 function* save(action: SavePassportRequested): Iterator<SaveEffect> {
     try {
+        yield put({
+            type: TypeKeys.SET_IN_PROGRESS,
+            payload: true
+        } as SetInProgressState);
         const { config } = yield select((s: State) => ({ config: s.config }));
         const { values, type } = action.payload;
         const savedDocument = yield call(saveDocument, config.appConfig.wapiEndpoint, config.initConfig.token, {
@@ -29,9 +33,8 @@ function* save(action: SavePassportRequested): Iterator<SaveEffect> {
             payload: savedDocument
         } as SaveInsuranceCompleted);
         yield put({
-            type: TypeKeys.GO_TO_FORM_INFO,
-            payload: { formInfo: new ResultFormInfo(), direction: Direction.forward }
-        } as GoToFormInfo);
+            type: TypeKeys.DOCUMENTS_BINDING_REQUESTED
+        } as BindDocumentsRequested);
     } catch (e) {
         yield put({
             type: TypeKeys.SAVE_INSURANCE_FAILED,

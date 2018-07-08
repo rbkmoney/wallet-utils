@@ -19,3 +19,13 @@ export const setViewInfoError = (hasError: boolean): SetViewInfoError => ({
     type: TypeKeys.SET_VIEW_INFO_ERROR,
     payload: hasError
 });
+
+export interface SetInProgressState extends AbstractAction<boolean> {
+    type: TypeKeys.SET_IN_PROGRESS;
+    payload: boolean;
+}
+
+export const setInProgress = (isInProgress: boolean): SetInProgressState => ({
+    type: TypeKeys.SET_IN_PROGRESS,
+    payload: isInProgress
+});

@@ -6,7 +6,7 @@ import get from 'lodash-es/get';
 import { Button } from '../button';
 import { Header } from '../header';
 import { CardNumber } from './fields';
-import { bind, goToFormInfo, setViewInfoError, setViewInfoHeight, BindingRequestedPayload } from 'app/actions';
+import { saveCard, goToFormInfo, setViewInfoError, setViewInfoHeight, SaveCardRequestedPayload } from 'app/actions';
 import { CardFormValues, FormInfo, FormName, State } from 'app/state';
 
 interface CardFormDefProps {
@@ -14,7 +14,7 @@ interface CardFormDefProps {
     setForm: (formInfo: FormInfo) => any;
     setViewInfoHeight: (height: number) => any;
     setViewInfoError: (hasError: boolean) => any;
-    bind: (payload: BindingRequestedPayload) => any;
+    save: (payload: SaveCardRequestedPayload) => any;
 }
 
 type Props = InjectedFormProps & CardFormDefProps;
@@ -61,7 +61,7 @@ class CardFormDef extends React.Component<Props> {
 
     private submit(values: CardFormValues) {
         (document.activeElement as HTMLElement).blur();
-        this.props.bind({ values });
+        this.props.save({ values });
     }
 
     private init(values: CardFormValues) {
@@ -79,7 +79,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     setForm: bindActionCreators(goToFormInfo, dispatch),
     setViewInfoHeight: bindActionCreators(setViewInfoHeight, dispatch),
     setViewInfoError: bindActionCreators(setViewInfoError, dispatch),
-    bind: bindActionCreators(bind, dispatch)
+    save: bindActionCreators(saveCard, dispatch)
 });
 
 const ReduxForm = reduxForm({
