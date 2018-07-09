@@ -1,16 +1,9 @@
-import {
-    BindDocumentsCompleted,
-    BindDocumentsFailed,
-    Direction,
-    GoToFormInfo,
-    SetInProgressState,
-    TypeKeys
-} from 'app/actions';
+import { BindDocumentsCompleted, BindDocumentsFailed, SetInProcessState, TypeKeys } from 'app/actions';
 import { call, CallEffect, ForkEffect, put, PutEffect, select, SelectEffect, takeLatest } from 'redux-saga/effects';
-import { ResultFormInfo, State } from 'app/state';
+import { State } from 'app/state';
 import { bindDocuments } from 'app/backend';
 
-type BindPutEffect = BindDocumentsCompleted | BindDocumentsFailed | GoToFormInfo | SetInProgressState;
+type BindPutEffect = BindDocumentsCompleted | BindDocumentsFailed | SetInProcessState;
 
 type BindEffect = SelectEffect |
     CallEffect |
@@ -34,14 +27,6 @@ function* bind(): Iterator<BindEffect> {
         yield put({
             type: TypeKeys.DOCUMENTS_BINDING_COMPLETED
         } as BindDocumentsCompleted);
-        yield put({
-            type: TypeKeys.SET_IN_PROGRESS,
-            payload: false
-        } as SetInProgressState);
-        yield put({
-            type: TypeKeys.GO_TO_FORM_INFO,
-            payload: { formInfo: new ResultFormInfo(), direction: Direction.forward }
-        } as GoToFormInfo);
     } catch (e) {
         yield put({
             type: TypeKeys.DOCUMENTS_BINDING_FAILED,

@@ -25,11 +25,8 @@ class CardFormDef extends React.Component<Props> {
         this.submit = this.submit.bind(this);
     }
 
-    componentDidMount() {
-        this.props.setViewInfoHeight(236);
-    }
-
     componentWillMount() {
+        this.props.setViewInfoHeight(236);
         this.props.setViewInfoError(false);
         const { formValues } = this.props;
         this.init(formValues);

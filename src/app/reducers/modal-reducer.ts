@@ -2,12 +2,12 @@ import cloneDeep from 'lodash-es/cloneDeep';
 import { FormInfo, ModalForms, ModalName, ModalState, SlideDirection } from 'app/state';
 import {
     Direction,
-    InitializeModalCompleted,
-    SetModalState,
-    TypeKeys,
     GoToFormInfo,
+    InitializeModalCompleted,
+    SetInProcessState,
+    SetModalState,
     SetViewInfoHeight,
-    SetInProgressState
+    TypeKeys
 } from 'app/actions';
 import { Named } from 'app/state/modal';
 import { findNamed } from 'app/utils/find-named';
@@ -85,11 +85,16 @@ const setInProgress = (s: ModalState[], isInProgress: boolean): ModalState[] => 
         viewInfo: {
             ...modal.viewInfo,
             inProcess: isInProgress
-        },
+        }
     } as ModalForms);
 };
 
-type ModalReducerAction = InitializeModalCompleted | SetModalState | GoToFormInfo | SetViewInfoHeight | SetInProgressState;
+type ModalReducerAction =
+    InitializeModalCompleted
+    | SetModalState
+    | GoToFormInfo
+    | SetViewInfoHeight
+    | SetInProcessState;
 
 export function modalReducer(s: ModalState[] = null, action: ModalReducerAction): ModalState[] {
     switch (action.type) {
@@ -97,11 +102,11 @@ export function modalReducer(s: ModalState[] = null, action: ModalReducerAction)
         case TypeKeys.INITIALIZE_MODAL_COMPLETED:
             return addOrUpdate(s, action.payload);
         case TypeKeys.GO_TO_FORM_INFO:
-            const {formInfo, direction} = action.payload;
+            const { formInfo, direction } = action.payload;
             return goToFormInfo(s, formInfo, direction);
         case TypeKeys.SET_VIEW_INFO_HEIGHT:
             return updateViewInfo(s, 'height', action.payload);
-        case TypeKeys.SET_IN_PROGRESS:
+        case TypeKeys.SET_IN_PROCESS:
             return setInProgress(s, action.payload);
     }
     return s;

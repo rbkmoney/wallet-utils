@@ -13,4 +13,5 @@ export interface LogicError {
     errorType: LogicErrorTypes;
     name: string;
     description: string;
+    message: string;
 }

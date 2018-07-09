@@ -2,7 +2,7 @@ import {
     SaveInsuranceCompleted,
     SaveInsuranceFailed,
     SavePassportRequested,
-    SetInProgressState,
+    SetInProcessState,
     TypeKeys,
     BindDocumentsRequested
 } from 'app/actions';
@@ -10,7 +10,7 @@ import { call, CallEffect, ForkEffect, put, PutEffect, select, SelectEffect, tak
 import { State } from 'app/state';
 import { saveDocument } from 'app/backend';
 
-type SavePutEffect = SaveInsuranceCompleted | SaveInsuranceFailed | SetInProgressState | BindDocumentsRequested;
+type SavePutEffect = SaveInsuranceCompleted | SaveInsuranceFailed | SetInProcessState | BindDocumentsRequested;
 
 type SaveEffect = SelectEffect |
     CallEffect |
@@ -19,15 +19,19 @@ type SaveEffect = SelectEffect |
 function* save(action: SavePassportRequested): Iterator<SaveEffect> {
     try {
         yield put({
-            type: TypeKeys.SET_IN_PROGRESS,
+            type: TypeKeys.SET_IN_PROCESS,
             payload: true
-        } as SetInProgressState);
+        } as SetInProcessState);
         const { config } = yield select((s: State) => ({ config: s.config }));
         const { values, type } = action.payload;
         const savedDocument = yield call(saveDocument, config.appConfig.wapiEndpoint, config.initConfig.token, {
             ...values,
             type
         });
+        yield put({
+            type: TypeKeys.SET_IN_PROCESS,
+            payload: false
+        } as SetInProcessState);
         yield put({
             type: TypeKeys.SAVE_INSURANCE_COMPLETED,
             payload: savedDocument

@@ -57,11 +57,8 @@ class PassportFormDef extends React.Component<Props> {
         this.submit = this.submit.bind(this);
     }
 
-    componentDidMount() {
-        this.props.setViewInfoHeight(607);
-    }
-
     componentWillMount() {
+        this.props.setViewInfoHeight(607);
         this.props.setViewInfoError(false);
         const { formValues } = this.props;
         this.init(formValues);

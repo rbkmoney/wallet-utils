@@ -1,9 +1,9 @@
-import { BindCardCompleted, BindCardFailed, Direction, GoToFormInfo, SetInProgressState, TypeKeys } from 'app/actions';
+import { BindCardCompleted, BindCardFailed, TypeKeys } from 'app/actions';
 import { call, CallEffect, ForkEffect, put, PutEffect, select, SelectEffect, takeLatest } from 'redux-saga/effects';
-import { ResultFormInfo, State } from 'app/state';
+import { State } from 'app/state';
 import { bindCard, DestinationResource } from 'app/backend';
 
-type BindPutEffect = BindCardCompleted | BindCardFailed | GoToFormInfo | SetInProgressState;
+type BindPutEffect = BindCardCompleted | BindCardFailed;
 
 type BindEffect = SelectEffect |
     CallEffect |
@@ -31,14 +31,6 @@ function* bind(): Iterator<BindEffect> {
         yield put({
             type: TypeKeys.CARD_BINDING_COMPLETED
         } as BindCardCompleted);
-        yield put({
-            type: TypeKeys.SET_IN_PROGRESS,
-            payload: false
-        } as SetInProgressState);
-        yield put({
-            type: TypeKeys.GO_TO_FORM_INFO,
-            payload: { formInfo: new ResultFormInfo(), direction: Direction.forward }
-        } as GoToFormInfo);
     } catch (e) {
         yield put({
             type: TypeKeys.CARD_BINDING_FAILED,

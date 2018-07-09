@@ -1,5 +1,12 @@
 import { call, CallEffect, ForkEffect, put, PutEffect, select, SelectEffect, takeLatest } from 'redux-saga/effects';
-import { BindCardRequested, SaveCardCompleted, SaveCardFailed, SaveCardRequested, TypeKeys } from 'app/actions';
+import {
+    BindCardRequested,
+    SaveCardCompleted,
+    SaveCardFailed,
+    SaveCardRequested,
+    SetInProcessState,
+    TypeKeys
+} from 'app/actions';
 import { CardFormValues, State } from 'app/state';
 import { saveCard } from 'app/backend';
 import { replaceSpaces } from 'app/sagas/save-card/replace-spaces';
@@ -14,7 +21,7 @@ const formatCardData = (values: any): CardFormValues => {
     return result;
 };
 
-type SavePutEffect = SaveCardCompleted | SaveCardFailed | BindCardRequested;
+type SavePutEffect = SaveCardCompleted | SaveCardFailed | BindCardRequested | SetInProcessState;
 
 type SaveEffect = SelectEffect |
     CallEffect |
@@ -22,6 +29,10 @@ type SaveEffect = SelectEffect |
 
 function* save(action: SaveCardRequested): Iterator<SaveEffect> {
     try {
+        yield put({
+            type: TypeKeys.SET_IN_PROCESS,
+            payload: true
+        } as SetInProcessState);
         const { config } = yield select((s: State) => ({ config: s.config }));
         const { values } = action.payload;
         const cardBinding = yield call(saveCard, config.appConfig.wapiEndpoint, config.initConfig.token, formatCardData(values));

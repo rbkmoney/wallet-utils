@@ -32,11 +32,8 @@ class InsuranceFormDef extends React.Component<Props> {
         this.submit = this.submit.bind(this);
     }
 
-    componentDidMount() {
-        this.props.setViewInfoHeight(210);
-    }
-
     componentWillMount() {
+        this.props.setViewInfoHeight(210);
         this.props.setViewInfoError(false);
         const { formValues } = this.props;
         this.init(formValues);
