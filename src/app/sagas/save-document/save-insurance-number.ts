@@ -29,10 +29,6 @@ function* save(action: PassportSavingRequested): Iterator<SaveEffect> {
             type
         });
         yield put({
-            type: TypeKeys.SET_VIEW_INFO_PROCESS,
-            payload: false
-        } as SetViewInfoProcess);
-        yield put({
             type: TypeKeys.INSURANCE_SAVING_COMPLETED,
             payload: savedDocument
         } as InsuranceSavingCompleted);

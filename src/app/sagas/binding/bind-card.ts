@@ -17,16 +17,14 @@ function* bind(): Iterator<BindEffect> {
             identityID: s.config.initConfig.params.identityID
         }));
         yield call(bindCard, config.appConfig.wapiEndpoint, config.initConfig.token, {
-            name: 'Squarey plastic thingy',
+            name: config.initConfig.params.name,
             identity: identityID,
-            currency: 'RUB',
+            currency: 'RUB', // TODO: Ожидаем ручку для получения валюты
             resource: {
                 type: DestinationResourceEnum.BankCardDestinationResource,
                 token: tokenizedCard.token
             },
-            metadata: {
-                display_name: 'Картофан СБЕР'
-            }
+            metadata: {}
         });
         yield put({
             type: TypeKeys.CARD_BINDING_COMPLETED

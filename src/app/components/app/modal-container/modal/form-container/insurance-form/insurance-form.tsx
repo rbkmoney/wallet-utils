@@ -65,7 +65,6 @@ class InsuranceFormDef extends React.Component<Props> {
 
     private submit(values: InsuranceFormValues) {
         (document.activeElement as HTMLElement).blur();
-        this.props.setForm(new ResultFormInfo());
         this.props.saveDocument({ values, type: DocumentTypeEnum.RUSRetireeInsuranceCertificateData });
     }
 

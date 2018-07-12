@@ -24,8 +24,8 @@ export function errorReducer(s: ErrorState = null, action: ErrorReducerAction): 
         case TypeKeys.INSURANCE_SAVING_FAILED:
         case TypeKeys.PASSPORT_SAVING_FAILED:
         case TypeKeys.CARD_SAVING_FAILED:
-            console.error(action.payload);
             return {
+                ...s,
                 error: action.payload
             };
     }

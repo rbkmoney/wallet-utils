@@ -4,7 +4,7 @@ import { ResultFormContent } from './result-form-content';
 import { Checkmark, Cross } from '../result-icons';
 import { ActionType } from 'app/config';
 import { ErrorState } from 'app/state';
-import { text } from 'app/components/app/modal-container/modal/form-container/result-form/result-form.scss';
+import { text } from '../result-form.scss';
 
 const success = (): ResultFormContent => ({
     hasActions: false,

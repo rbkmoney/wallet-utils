@@ -4,9 +4,9 @@ import {
     Direction,
     GoToFormInfo,
     InitializeModalCompleted,
-    SetViewInfoProcess,
     SetModalState,
     SetViewInfoHeight,
+    SetViewInfoProcess,
     TypeKeys
 } from 'app/actions';
 import { Named } from 'app/state/modal';
@@ -78,13 +78,13 @@ const addOrUpdate = (items: Named[], item: Named): Named[] => {
     return index === -1 ? add(items, item) : update(items, item, index);
 };
 
-const setInProgress = (s: ModalState[], isInProgress: boolean): ModalState[] => {
+const setProcess = (s: ModalState[], inProcess: boolean): ModalState[] => {
     const modal = findNamed(s, ModalName.modalForms) as ModalForms;
     return addOrUpdate(s, {
         ...modal,
         viewInfo: {
             ...modal.viewInfo,
-            inProcess: isInProgress
+            inProcess
         }
     } as ModalForms);
 };
@@ -107,7 +107,7 @@ export function modalReducer(s: ModalState[] = null, action: ModalReducerAction)
         case TypeKeys.SET_VIEW_INFO_HEIGHT:
             return updateViewInfo(s, 'height', action.payload);
         case TypeKeys.SET_VIEW_INFO_PROCESS:
-            return setInProgress(s, action.payload);
+            return setProcess(s, action.payload);
     }
     return s;
 }
