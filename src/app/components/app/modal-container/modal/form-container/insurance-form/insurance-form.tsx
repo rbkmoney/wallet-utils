@@ -3,7 +3,7 @@ import { InjectedFormProps, reduxForm } from 'redux-form';
 import { connect, Dispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import get from 'lodash-es/get';
-import { FormInfo, FormName, InsuranceFormValues, PassportFormValues, ResultFormInfo, State } from 'app/state';
+import { FormInfo, FormName, InsuranceFormValues, PassportFormValues, State } from 'app/state';
 import {
     goToFormInfo,
     saveInsurance,

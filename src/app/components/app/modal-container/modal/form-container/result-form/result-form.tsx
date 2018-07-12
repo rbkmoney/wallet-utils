@@ -6,7 +6,6 @@ import { setViewInfoHeight } from 'app/actions';
 import { ErrorState, State } from 'app/state';
 import { ActionType } from '../../../../../../../communication/model';
 import { makeContentFromUserIdentity, makeContentFromCreateOutput, ResultFormContent } from './make-content';
-import { ActionBlock } from './action-block';
 
 interface ResultFormDefProps {
     actionType: ActionType;
@@ -20,14 +19,13 @@ export class ResultFormDef extends React.Component<ResultFormDefProps> {
     }
 
     render() {
-        const { header, description, icon, hasActions } = this.makeContent();
+        const { header, description, icon } = this.makeContent();
         return (
             <form className={form}>
                 <div>
                     <h2 className={title}>{header}</h2>
                     {icon}
                     {description ? description : false}
-                    {/*{hasActions ? <ActionBlock/> : false}*/}
                 </div>
             </form>
         );
