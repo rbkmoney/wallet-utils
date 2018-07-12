@@ -7,7 +7,7 @@ import { FormInfo, FormName, PassportFormValues, State } from 'app/state';
 import {
     goToFormInfo,
     savePassport,
-    SavePassportRequestedPayload,
+    PassportSavingRequestedPayload,
     setViewInfoError,
     setViewInfoHeight
 } from 'app/actions';
@@ -24,7 +24,7 @@ import {
     IssuerCode
 } from './fields';
 import { Button } from '../button';
-import { DocumentType } from 'app/backend';
+import { DocumentTypeEnum } from 'app/backend';
 
 const transformPassportValues = (values: any) => {
     const result: any = {};
@@ -48,7 +48,7 @@ interface PassportFormProps {
     setForm: (formInfo: FormInfo) => {};
     setViewInfoHeight: (height: number) => any;
     setViewInfoError: (hasError: boolean) => any;
-    saveDocument: (payload: SavePassportRequestedPayload) => any;
+    saveDocument: (payload: PassportSavingRequestedPayload) => any;
 }
 
 class PassportFormDef extends React.Component<Props> {
@@ -98,8 +98,7 @@ class PassportFormDef extends React.Component<Props> {
 
     private submit(values: PassportFormValues) {
         (document.activeElement as HTMLElement).blur();
-        transformPassportValues(values);
-        this.props.saveDocument({ values: transformPassportValues(values), type: DocumentType.RUSDomesticPassportData });
+        this.props.saveDocument({ values: transformPassportValues(values), type: DocumentTypeEnum.RUSDomesticPassportData });
     }
 
     private init(values: PassportFormValues) {

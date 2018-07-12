@@ -1,51 +1,51 @@
 import {
     Direction,
     GoToFormInfo,
-    SavePassportCompleted,
-    SavePassportFailed,
-    SavePassportRequested,
-    SetInProcessState,
+    PassportSavingCompleted,
+    PassportSavingFailed,
+    PassportSavingRequested,
+    SetViewInfoProcess,
     TypeKeys
 } from 'app/actions';
 import { call, CallEffect, ForkEffect, put, PutEffect, select, SelectEffect, takeLatest } from 'redux-saga/effects';
 import { InsuranceFormInfo, State } from 'app/state';
 import { saveDocument } from 'app/backend';
 
-type SavePutEffect = SavePassportCompleted | SavePassportFailed | GoToFormInfo | SetInProcessState;
+type SavePutEffect = PassportSavingCompleted | PassportSavingFailed | GoToFormInfo | SetViewInfoProcess;
 
 type SaveEffect = SelectEffect |
     CallEffect |
     PutEffect<SavePutEffect>;
 
-function* save(action: SavePassportRequested): Iterator<SaveEffect> {
+function* save(action: PassportSavingRequested): Iterator<SaveEffect> {
     try {
         yield put({
-            type: TypeKeys.SET_IN_PROCESS,
+            type: TypeKeys.SET_VIEW_INFO_PROCESS,
             payload: true
-        } as SetInProcessState);
+        } as SetViewInfoProcess);
         const { config } = yield select((s: State) => ({ config: s.config }));
         const { values, type } = action.payload;
         const savedDocument = yield call(saveDocument, config.appConfig.wapiEndpoint, config.initConfig.token, {...values, type});
         yield put({
-            type: TypeKeys.SAVE_PASSPORT_COMPLETED,
+            type: TypeKeys.PASSPORT_SAVING_COMPLETED,
             payload: savedDocument
-        } as SavePassportCompleted);
+        } as PassportSavingCompleted);
         yield put({
-            type: TypeKeys.SET_IN_PROCESS,
+            type: TypeKeys.SET_VIEW_INFO_PROCESS,
             payload: false
-        } as SetInProcessState);
+        } as SetViewInfoProcess);
         yield put({
             type: TypeKeys.GO_TO_FORM_INFO,
             payload: { formInfo: new InsuranceFormInfo(), direction: Direction.forward }
         } as GoToFormInfo);
     } catch (e) {
         yield put({
-            type: TypeKeys.SAVE_PASSPORT_FAILED,
+            type: TypeKeys.PASSPORT_SAVING_FAILED,
             payload: e
-        } as SavePassportFailed);
+        } as PassportSavingFailed);
     }
 }
 
 export function* watchSavePassportRequest(): Iterator<ForkEffect> {
-    yield takeLatest(TypeKeys.SAVE_PASSPORT_REQUESTED, save);
+    yield takeLatest(TypeKeys.PASSPORT_SAVING_REQUESTED, save);
 }

@@ -1,11 +1,11 @@
 import { ModelState } from 'app/state';
-import { SaveCardCompleted, SaveInsuranceCompleted, SavePassportCompleted, TypeKeys, InitializeModelCompleted } from 'app/actions';
+import { CardSavingCompleted, InsuranceSavingCompleted, PassportSavingCompleted, TypeKeys, InitializeModelCompleted } from 'app/actions';
 
 type ModelReducerAction =
     InitializeModelCompleted
-    | SavePassportCompleted
-    | SaveInsuranceCompleted
-    | SaveCardCompleted;
+    | PassportSavingCompleted
+    | InsuranceSavingCompleted
+    | CardSavingCompleted;
 
 export function modelReducer(s: ModelState = null, action: ModelReducerAction): ModelState {
     switch (action.type) {
@@ -14,17 +14,17 @@ export function modelReducer(s: ModelState = null, action: ModelReducerAction): 
                 ...s,
                 ...action.payload
             };
-        case TypeKeys.SAVE_INSURANCE_COMPLETED:
+        case TypeKeys.INSURANCE_SAVING_COMPLETED:
             return {
                 ...s,
                 tokenizedInsurance: action.payload
             };
-        case TypeKeys.SAVE_PASSPORT_COMPLETED:
+        case TypeKeys.PASSPORT_SAVING_COMPLETED:
             return {
                 ...s,
                 tokenizedPassport: action.payload
             };
-        case TypeKeys.SAVE_CARD_COMPLETED:
+        case TypeKeys.CARD_SAVING_COMPLETED:
             return {
                 ...s,
                 tokenizedCard: action.payload

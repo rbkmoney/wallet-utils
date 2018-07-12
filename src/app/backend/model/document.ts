@@ -1,6 +1,9 @@
-import { DocumentType } from './document-type';
+export enum DocumentTypeEnum {
+    RUSDomesticPassportData = 'RUSDomesticPassportData',
+    RUSRetireeInsuranceCertificateData = 'RUSRetireeInsuranceCertificateData'
+}
 
 export class Document {
-    type: DocumentType;
+    type: DocumentTypeEnum;
     token: string;
 }

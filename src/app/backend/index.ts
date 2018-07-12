@@ -7,3 +7,4 @@ export * from './save-document';
 export * from './save-card';
 export * from './bind-documents';
 export * from './bind-card';
+export * from './destination-resource';

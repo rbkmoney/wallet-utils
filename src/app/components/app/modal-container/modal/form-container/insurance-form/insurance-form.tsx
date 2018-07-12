@@ -7,14 +7,14 @@ import { FormInfo, FormName, InsuranceFormValues, PassportFormValues, ResultForm
 import {
     goToFormInfo,
     saveInsurance,
-    SaveInsuranceRequestedPayload,
+    InsuranceSavingRequestedPayload,
     setViewInfoError,
     setViewInfoHeight
 } from 'app/actions';
 import { Header } from '../header';
 import { InsuranceNumber } from './fields';
 import { Button } from '../button';
-import { DocumentType } from 'app/backend';
+import { DocumentTypeEnum } from 'app/backend';
 
 type Props = InjectedFormProps & PassportFormProps;
 
@@ -23,7 +23,7 @@ interface PassportFormProps {
     setForm: (formInfo: FormInfo) => {};
     setViewInfoHeight: (height: number) => any;
     setViewInfoError: (hasError: boolean) => any;
-    saveDocument: (payload: SaveInsuranceRequestedPayload) => any;
+    saveDocument: (payload: InsuranceSavingRequestedPayload) => any;
 }
 
 class InsuranceFormDef extends React.Component<Props> {
@@ -66,7 +66,7 @@ class InsuranceFormDef extends React.Component<Props> {
     private submit(values: InsuranceFormValues) {
         (document.activeElement as HTMLElement).blur();
         this.props.setForm(new ResultFormInfo());
-        this.props.saveDocument({ values, type: DocumentType.RUSRetireeInsuranceCertificateData });
+        this.props.saveDocument({ values, type: DocumentTypeEnum.RUSRetireeInsuranceCertificateData });
     }
 
     private init(values: InsuranceFormValues) {

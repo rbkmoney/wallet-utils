@@ -1,69 +1,69 @@
 import { AbstractAction, TypeKeys } from 'app/actions';
-import { DocumentType, LogicError, TokenizedInsurance, TokenizedPassport } from 'app/backend';
+import { DocumentTypeEnum, LogicError, TokenizedInsurance, TokenizedPassport } from 'app/backend';
 import { InsuranceFormValues, PassportFormValues } from 'app/state';
 
-export interface SavePassportRequestedPayload {
+export interface PassportSavingRequestedPayload {
     values: PassportFormValues;
-    type: DocumentType;
+    type: DocumentTypeEnum;
 }
 
-export interface SaveInsuranceRequestedPayload {
+export interface InsuranceSavingRequestedPayload {
     values: InsuranceFormValues;
-    type: DocumentType;
+    type: DocumentTypeEnum;
 }
 
-type SaveInsuranceCompletedPayload = TokenizedInsurance;
-type SavePassportCompletedPayload = TokenizedPassport;
+type InsuranceSavingCompletedPayload = TokenizedInsurance;
+type PassportSavingCompletedPayload = TokenizedPassport;
 
-export interface SavePassportRequested extends AbstractAction<SavePassportRequestedPayload> {
-    type: TypeKeys.SAVE_PASSPORT_REQUESTED;
-    payload: SavePassportRequestedPayload;
+export interface PassportSavingRequested extends AbstractAction<PassportSavingRequestedPayload> {
+    type: TypeKeys.PASSPORT_SAVING_REQUESTED;
+    payload: PassportSavingRequestedPayload;
 }
 
-export interface SavePassportCompleted extends AbstractAction<SavePassportCompletedPayload> {
-    type: TypeKeys.SAVE_PASSPORT_COMPLETED;
-    payload: SavePassportCompletedPayload;
+export interface PassportSavingCompleted extends AbstractAction<PassportSavingCompletedPayload> {
+    type: TypeKeys.PASSPORT_SAVING_COMPLETED;
+    payload: PassportSavingCompletedPayload;
 }
 
-export interface SavePassportFailed extends AbstractAction<LogicError> {
-    type: TypeKeys.SAVE_PASSPORT_FAILED;
+export interface PassportSavingFailed extends AbstractAction<LogicError> {
+    type: TypeKeys.PASSPORT_SAVING_FAILED;
     payload: LogicError;
 }
 
-export const savePassport = (payload: SavePassportRequestedPayload): SavePassportRequested => ({
-    type: TypeKeys.SAVE_PASSPORT_REQUESTED,
+export const savePassport = (payload: PassportSavingRequestedPayload): PassportSavingRequested => ({
+    type: TypeKeys.PASSPORT_SAVING_REQUESTED,
     payload
 });
 
-export interface SaveInsuranceRequested extends AbstractAction<SaveInsuranceRequestedPayload> {
-    type: TypeKeys.SAVE_INSURANCE_REQUESTED;
-    payload: SaveInsuranceRequestedPayload;
+export interface InsuranceSavingRequested extends AbstractAction<InsuranceSavingRequestedPayload> {
+    type: TypeKeys.INSURANCE_SAVING_REQUESTED;
+    payload: InsuranceSavingRequestedPayload;
 }
 
-export interface SaveInsuranceCompleted extends AbstractAction<SaveInsuranceCompletedPayload> {
-    type: TypeKeys.SAVE_INSURANCE_COMPLETED;
-    payload: SaveInsuranceCompletedPayload;
+export interface InsuranceSavingCompleted extends AbstractAction<InsuranceSavingCompletedPayload> {
+    type: TypeKeys.INSURANCE_SAVING_COMPLETED;
+    payload: InsuranceSavingCompletedPayload;
 }
 
-export interface SaveInsuranceFailed extends AbstractAction<LogicError> {
-    type: TypeKeys.SAVE_INSURANCE_FAILED;
+export interface InsuranceSavingFailed extends AbstractAction<LogicError> {
+    type: TypeKeys.INSURANCE_SAVING_FAILED;
     payload: LogicError;
 }
 
-export const saveInsurance = (payload: SaveInsuranceRequestedPayload): SaveInsuranceRequested => ({
-    type: TypeKeys.SAVE_INSURANCE_REQUESTED,
+export const saveInsurance = (payload: InsuranceSavingRequestedPayload): InsuranceSavingRequested => ({
+    type: TypeKeys.INSURANCE_SAVING_REQUESTED,
     payload
 });
 
-export interface BindDocumentsRequested extends AbstractAction {
+export interface DocumentsBindingRequested extends AbstractAction {
     type: TypeKeys.DOCUMENTS_BINDING_REQUESTED;
 }
 
-export interface BindDocumentsCompleted extends AbstractAction {
+export interface DocumentsBindingCompleted extends AbstractAction {
     type: TypeKeys.DOCUMENTS_BINDING_COMPLETED;
 }
 
-export interface BindDocumentsFailed extends AbstractAction<LogicError> {
+export interface DocumentsBindingFailed extends AbstractAction<LogicError> {
     type: TypeKeys.DOCUMENTS_BINDING_FAILED;
     payload: LogicError;
 }

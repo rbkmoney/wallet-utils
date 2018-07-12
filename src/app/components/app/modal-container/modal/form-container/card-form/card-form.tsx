@@ -6,7 +6,7 @@ import get from 'lodash-es/get';
 import { Button } from '../button';
 import { Header } from '../header';
 import { CardNumber } from './fields';
-import { saveCard, goToFormInfo, setViewInfoError, setViewInfoHeight, SaveCardRequestedPayload } from 'app/actions';
+import { CardSavingRequestedPayload, goToFormInfo, saveCard, setViewInfoError, setViewInfoHeight } from 'app/actions';
 import { CardFormValues, FormInfo, FormName, State } from 'app/state';
 
 interface CardFormDefProps {
@@ -14,7 +14,7 @@ interface CardFormDefProps {
     setForm: (formInfo: FormInfo) => any;
     setViewInfoHeight: (height: number) => any;
     setViewInfoError: (hasError: boolean) => any;
-    save: (payload: SaveCardRequestedPayload) => any;
+    save: (payload: CardSavingRequestedPayload) => any;
 }
 
 type Props = InjectedFormProps & CardFormDefProps;

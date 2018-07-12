@@ -1,14 +1,14 @@
 import { put, PutEffect, takeLatest } from 'redux-saga/effects';
-import { Direction, GoToFormInfo, SetInProcessState, TypeKeys } from 'app/actions';
+import { Direction, GoToFormInfo, SetViewInfoProcess, TypeKeys } from 'app/actions';
 import { ResultFormInfo } from 'app/state';
 
-type FinishEffect = PutEffect<GoToFormInfo | SetInProcessState>;
+type FinishEffect = PutEffect<GoToFormInfo | SetViewInfoProcess>;
 
 function* finish(): Iterator<FinishEffect> {
     yield put({
-        type: TypeKeys.SET_IN_PROCESS,
+        type: TypeKeys.SET_VIEW_INFO_PROCESS,
         payload: false
-    } as SetInProcessState);
+    } as SetViewInfoProcess);
     yield put({
         type: TypeKeys.GO_TO_FORM_INFO,
         payload: { formInfo: new ResultFormInfo(), direction: Direction.forward }

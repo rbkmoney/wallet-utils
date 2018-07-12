@@ -4,7 +4,7 @@ import {
     Direction,
     GoToFormInfo,
     InitializeModalCompleted,
-    SetInProcessState,
+    SetViewInfoProcess,
     SetModalState,
     SetViewInfoHeight,
     TypeKeys
@@ -94,7 +94,7 @@ type ModalReducerAction =
     | SetModalState
     | GoToFormInfo
     | SetViewInfoHeight
-    | SetInProcessState;
+    | SetViewInfoProcess;
 
 export function modalReducer(s: ModalState[] = null, action: ModalReducerAction): ModalState[] {
     switch (action.type) {
@@ -106,7 +106,7 @@ export function modalReducer(s: ModalState[] = null, action: ModalReducerAction)
             return goToFormInfo(s, formInfo, direction);
         case TypeKeys.SET_VIEW_INFO_HEIGHT:
             return updateViewInfo(s, 'height', action.payload);
-        case TypeKeys.SET_IN_PROCESS:
+        case TypeKeys.SET_VIEW_INFO_PROCESS:
             return setInProgress(s, action.payload);
     }
     return s;

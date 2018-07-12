@@ -1,9 +1,9 @@
-import { BindCardCompleted, BindCardFailed, TypeKeys } from 'app/actions';
+import { CardBindingCompleted, CardBindingFailed, TypeKeys } from 'app/actions';
 import { call, CallEffect, ForkEffect, put, PutEffect, select, SelectEffect, takeLatest } from 'redux-saga/effects';
 import { State } from 'app/state';
-import { bindCard, DestinationResource } from 'app/backend';
+import { bindCard, DestinationResourceEnum } from 'app/backend';
 
-type BindPutEffect = BindCardCompleted | BindCardFailed;
+type BindPutEffect = CardBindingCompleted | CardBindingFailed;
 
 type BindEffect = SelectEffect |
     CallEffect |
@@ -21,7 +21,7 @@ function* bind(): Iterator<BindEffect> {
             identity: identityID,
             currency: 'RUB',
             resource: {
-                type: DestinationResource.BankCardDestinationResource,
+                type: DestinationResourceEnum.BankCardDestinationResource,
                 token: tokenizedCard.token
             },
             metadata: {
@@ -30,15 +30,15 @@ function* bind(): Iterator<BindEffect> {
         });
         yield put({
             type: TypeKeys.CARD_BINDING_COMPLETED
-        } as BindCardCompleted);
+        } as CardBindingCompleted);
     } catch (e) {
         yield put({
             type: TypeKeys.CARD_BINDING_FAILED,
             payload: e
-        } as BindCardFailed);
+        } as CardBindingFailed);
     }
 }
 
 export function* watchBindCardRequest(): Iterator<ForkEffect> {
-    yield takeLatest(TypeKeys.CARD_BINDING_REQUEST, bind);
+    yield takeLatest(TypeKeys.CARD_BINDING_REQUESTED, bind);
 }

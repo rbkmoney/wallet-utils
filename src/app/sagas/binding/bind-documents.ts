@@ -1,9 +1,9 @@
-import { BindDocumentsCompleted, BindDocumentsFailed, SetInProcessState, TypeKeys } from 'app/actions';
+import { DocumentsBindingCompleted, DocumentsBindingFailed, SetViewInfoProcess, TypeKeys } from 'app/actions';
 import { call, CallEffect, ForkEffect, put, PutEffect, select, SelectEffect, takeLatest } from 'redux-saga/effects';
 import { State } from 'app/state';
 import { bindDocuments } from 'app/backend';
 
-type BindPutEffect = BindDocumentsCompleted | BindDocumentsFailed | SetInProcessState;
+type BindPutEffect = DocumentsBindingCompleted | DocumentsBindingFailed | SetViewInfoProcess;
 
 type BindEffect = SelectEffect |
     CallEffect |
@@ -26,12 +26,12 @@ function* bind(): Iterator<BindEffect> {
         });
         yield put({
             type: TypeKeys.DOCUMENTS_BINDING_COMPLETED
-        } as BindDocumentsCompleted);
+        } as DocumentsBindingCompleted);
     } catch (e) {
         yield put({
             type: TypeKeys.DOCUMENTS_BINDING_FAILED,
             payload: e
-        } as BindDocumentsFailed);
+        } as DocumentsBindingFailed);
     }
 }
 

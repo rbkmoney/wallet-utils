@@ -20,7 +20,7 @@ export const setViewInfoError = (hasError: boolean): SetViewInfoError => ({
     payload: hasError
 });
 
-export interface SetInProcessState extends AbstractAction<boolean> {
-    type: TypeKeys.SET_IN_PROCESS;
+export interface SetViewInfoProcess extends AbstractAction<boolean> {
+    type: TypeKeys.SET_VIEW_INFO_PROCESS;
     payload: boolean;
 }

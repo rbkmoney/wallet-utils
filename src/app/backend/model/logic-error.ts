@@ -13,5 +13,5 @@ export interface LogicError {
     errorType: LogicErrorTypes;
     name: string;
     description: string;
-    message: string;
+    message: string; // TODO: Ошибки чет не аллё с бека сейчас приходят
 }
