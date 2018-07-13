@@ -4,6 +4,7 @@ import { InitializeAppCompleted, InitializeAppFailed, TypeKeys } from 'app/actio
 import { State } from 'app/state';
 import { initializeModel } from './initialize-model';
 import { initializeModal } from './initialize-modal';
+import { ActionType } from 'app/config';
 
 type InitializeAppPutEffect =
     InitializeAppCompleted |
@@ -14,12 +15,22 @@ export type InitializeAppEffect =
     PutEffect<InitializeAppPutEffect> |
     SelectEffect;
 
+const isInitializeModelNeeded = (type: ActionType) => {
+    switch (type) {
+        case ActionType.userIdentity:
+            return true;
+    }
+    return false;
+};
+
 export function* initializeApp(): Iterator<InitializeAppEffect> {
     try {
         yield call(loadAppConfig);
         const config = yield select((state: State) => state.config);
         const { appConfig: { wapiEndpoint }, initConfig } = config;
-        yield call(initializeModel, wapiEndpoint, initConfig);
+        if (isInitializeModelNeeded(initConfig.type)) {
+            yield call(initializeModel, wapiEndpoint, initConfig);
+        }
         yield call(initializeModal, initConfig);
         yield put({
             type: TypeKeys.INITIALIZE_APP_COMPLETED

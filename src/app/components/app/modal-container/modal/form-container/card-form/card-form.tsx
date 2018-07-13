@@ -6,7 +6,13 @@ import get from 'lodash-es/get';
 import { Button } from '../button';
 import { Header } from '../header';
 import { CardNumber } from './fields';
-import { CardSavingRequestedPayload, goToFormInfo, saveCard, setViewInfoError, setViewInfoHeight } from 'app/actions';
+import {
+    bindCard,
+    CardSavingRequestedPayload,
+    goToFormInfo,
+    setViewInfoError,
+    setViewInfoHeight
+} from 'app/actions';
 import { CardFormValues, FormInfo, FormName, State } from 'app/state';
 
 interface CardFormDefProps {
@@ -76,7 +82,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     setForm: bindActionCreators(goToFormInfo, dispatch),
     setViewInfoHeight: bindActionCreators(setViewInfoHeight, dispatch),
     setViewInfoError: bindActionCreators(setViewInfoError, dispatch),
-    save: bindActionCreators(saveCard, dispatch)
+    save: bindActionCreators(bindCard, dispatch)
 });
 
 const ReduxForm = reduxForm({

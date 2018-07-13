@@ -10,17 +10,11 @@ export function* resolveIdentity(endpoint: string, config: IdentityChallengeInit
     return yield call(getIdentityByID, endpoint, token, id);
 }
 
-interface ResolvedActionType {
-    identity?: Identity;
-}
-
-function* resolveActionType(endpoint: string, config: InitConfig): Iterator<CallEffect | ResolvedActionType | ModelState> {
+function* resolveActionType(endpoint: string, config: InitConfig): Iterator<CallEffect | ModelState> {
     switch (config.type) {
         case ActionType.userIdentity:
             const identity = yield call(resolveIdentity, endpoint, config);
             return { identity };
-        case ActionType.createOutput:
-            return;
     }
 }
 

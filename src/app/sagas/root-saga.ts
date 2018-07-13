@@ -1,17 +1,12 @@
 import { all } from 'redux-saga/effects';
 import { watchInitializeApp } from './initialize-app';
-import { watchBindingRequest } from './save-card';
-import { watchSaveInsuranceRequest, watchSavePassportRequest } from './save-document';
-import { watchBindCardRequest, watchBindDocumentsRequest, watchFinishedBinding } from './binding';
+import { watchStartIdentityChallenge } from './identity-challenge';
+import { watchCreateOutput } from './create-output';
 
 export default function* rootSaga(): any {
     yield all([
         watchInitializeApp(),
-        watchSavePassportRequest(),
-        watchSaveInsuranceRequest(),
-        watchBindingRequest(),
-        watchBindDocumentsRequest(),
-        watchBindCardRequest(),
-        watchFinishedBinding()
+        watchStartIdentityChallenge(),
+        watchCreateOutput()
     ]);
 }

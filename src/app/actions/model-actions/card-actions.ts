@@ -23,11 +23,6 @@ export interface CardSavingFailed extends AbstractAction<LogicError> {
     payload: LogicError;
 }
 
-export const saveCard = (payload: CardSavingRequestedPayload): CardSavingRequested => ({
-    type: TypeKeys.CARD_SAVING_REQUESTED,
-    payload
-});
-
 export interface CardBindingRequested extends AbstractAction {
     type: TypeKeys.CARD_BINDING_REQUESTED;
 }
@@ -40,3 +35,7 @@ export interface CardBindingFailed extends AbstractAction<LogicError> {
     type: TypeKeys.CARD_BINDING_FAILED;
     payload: LogicError;
 }
+
+export const bindCard = (): CardBindingRequested => ({
+    type: TypeKeys.CARD_BINDING_REQUESTED
+});

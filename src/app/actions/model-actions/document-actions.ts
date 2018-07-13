@@ -30,11 +30,6 @@ export interface PassportSavingFailed extends AbstractAction<LogicError> {
     payload: LogicError;
 }
 
-export const savePassport = (payload: PassportSavingRequestedPayload): PassportSavingRequested => ({
-    type: TypeKeys.PASSPORT_SAVING_REQUESTED,
-    payload
-});
-
 export interface InsuranceSavingRequested extends AbstractAction<InsuranceSavingRequestedPayload> {
     type: TypeKeys.INSURANCE_SAVING_REQUESTED;
     payload: InsuranceSavingRequestedPayload;
@@ -50,11 +45,6 @@ export interface InsuranceSavingFailed extends AbstractAction<LogicError> {
     payload: LogicError;
 }
 
-export const saveInsurance = (payload: InsuranceSavingRequestedPayload): InsuranceSavingRequested => ({
-    type: TypeKeys.INSURANCE_SAVING_REQUESTED,
-    payload
-});
-
 export interface DocumentsBindingRequested extends AbstractAction {
     type: TypeKeys.DOCUMENTS_BINDING_REQUESTED;
 }
@@ -67,3 +57,7 @@ export interface DocumentsBindingFailed extends AbstractAction<LogicError> {
     type: TypeKeys.DOCUMENTS_BINDING_FAILED;
     payload: LogicError;
 }
+
+export const bindDocuments = (): DocumentsBindingRequested => ({
+    type: TypeKeys.DOCUMENTS_BINDING_REQUESTED
+});

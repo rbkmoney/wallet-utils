@@ -3,43 +3,21 @@ import { InjectedFormProps, reduxForm } from 'redux-form';
 import { connect, Dispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import get from 'lodash-es/get';
-import { FormInfo, FormName, PassportFormValues, State } from 'app/state';
-import {
-    goToFormInfo,
-    savePassport,
-    PassportSavingRequestedPayload,
-    setViewInfoError,
-    setViewInfoHeight
-} from 'app/actions';
+import { FormInfo, FormName, InsuranceFormInfo, PassportFormValues, State } from 'app/state';
+import { goToFormInfo, PassportSavingRequestedPayload, setViewInfoError, setViewInfoHeight } from 'app/actions';
 import { Header } from '../header';
 import {
     BirthDate,
     BirthPlace,
     FamilyName,
+    FirstName,
     IssuedAt,
     Issuer,
-    FirstName,
+    IssuerCode,
     PassportNumber,
-    Patronymic,
-    IssuerCode
+    Patronymic
 } from './fields';
 import { Button } from '../button';
-import { DocumentTypeEnum } from 'app/backend';
-
-const transformPassportValues = (values: any) => {
-    const result: any = {};
-    for (const key in values) {
-        if (values.hasOwnProperty(key)) {
-            if (key === 'number') {
-                result.series = values[key].slice(0, 4);
-                result.number = values[key].slice(4, 10);
-            } else {
-                result[key] = values[key];
-            }
-        }
-    }
-    return result;
-};
 
 type Props = InjectedFormProps & PassportFormProps;
 
@@ -96,9 +74,9 @@ class PassportFormDef extends React.Component<Props> {
         );
     }
 
-    private submit(values: PassportFormValues) {
+    private submit() {
         (document.activeElement as HTMLElement).blur();
-        this.props.saveDocument({ values: transformPassportValues(values), type: DocumentTypeEnum.RUSDomesticPassportData });
+        this.props.setForm(new InsuranceFormInfo());
     }
 
     private init(values: PassportFormValues) {
@@ -115,8 +93,7 @@ const mapStateToProps = (state: State) => ({
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     setForm: bindActionCreators(goToFormInfo, dispatch),
     setViewInfoHeight: bindActionCreators(setViewInfoHeight, dispatch),
-    setViewInfoError: bindActionCreators(setViewInfoError, dispatch),
-    saveDocument: bindActionCreators(savePassport, dispatch)
+    setViewInfoError: bindActionCreators(setViewInfoError, dispatch)
 });
 
 const ReduxForm = reduxForm({
