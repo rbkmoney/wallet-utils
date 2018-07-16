@@ -28,10 +28,11 @@ export function* initializeApp(): Iterator<InitializeAppEffect> {
         yield call(loadAppConfig);
         const config = yield select((state: State) => state.config);
         const { appConfig: { wapiEndpoint }, initConfig } = config;
+        let model;
         if (isInitializeModelNeeded(initConfig.type)) {
-            yield call(initializeModel, wapiEndpoint, initConfig);
+            model = yield call(initializeModel, wapiEndpoint, initConfig);
         }
-        yield call(initializeModal, initConfig);
+        yield call(initializeModal, initConfig, model);
         yield put({
             type: TypeKeys.INITIALIZE_APP_COMPLETED
         } as InitializeAppCompleted);

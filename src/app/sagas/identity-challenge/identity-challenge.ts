@@ -1,5 +1,4 @@
 import {
-    Direction,
     DocumentsBindingFailed,
     DocumentsBindingRequested,
     GoToFormInfo,
@@ -7,10 +6,12 @@ import {
     TypeKeys
 } from 'app/actions';
 import { call, CallEffect, ForkEffect, put, PutEffect, select, SelectEffect, takeLatest } from 'redux-saga/effects';
-import { ResultFormInfo, State } from 'app/state';
+import { State } from 'app/state';
 import { saveInsurance } from './save-insurance-number';
 import { savePassport } from './save-passport';
 import { bind } from './bind-documents';
+import { pollIdentityChallengeEvents } from '../poll-events';
+import { provideFromIdentityChallengeEvent } from '../provide-modal';
 
 type FinishEffect = PutEffect<GoToFormInfo | SetViewInfoProcess>;
 
@@ -31,15 +32,9 @@ function* start(action: DocumentsBindingRequested): Iterable<BindEffect | Finish
         }));
         const tokenizedInsurance = yield call(saveInsurance, action.payload.insuranceFormValues, wapiEndpoint, accessToken);
         const tokenizedPassport = yield call(savePassport, action.payload.passportFormValues, wapiEndpoint, accessToken);
-        yield call(bind, [tokenizedInsurance, tokenizedPassport], wapiEndpoint, accessToken, identityID);
-        yield put({
-            type: TypeKeys.SET_VIEW_INFO_PROCESS,
-            payload: false
-        } as SetViewInfoProcess);
-        yield put({
-            type: TypeKeys.GO_TO_FORM_INFO,
-            payload: { formInfo: new ResultFormInfo(), direction: Direction.forward }
-        } as GoToFormInfo);
+        const identityChallenge = yield call(bind, [tokenizedInsurance, tokenizedPassport], wapiEndpoint, accessToken, identityID);
+        const event = yield call(pollIdentityChallengeEvents, wapiEndpoint, accessToken, identityID, identityChallenge.id);
+        yield call(provideFromIdentityChallengeEvent, event);
     } catch (e) {
         yield put({
             type: TypeKeys.DOCUMENTS_BINDING_FAILED,

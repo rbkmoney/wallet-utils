@@ -8,3 +8,4 @@ export * from './save-card';
 export * from './bind-documents';
 export * from './bind-card';
 export * from './destination-resource';
+export * from './get-identity-events-by-id';

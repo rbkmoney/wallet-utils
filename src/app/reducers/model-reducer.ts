@@ -1,10 +1,20 @@
 import { ModelState } from 'app/state';
-import { CardSavingCompleted, InsuranceSavingCompleted, PassportSavingCompleted, TypeKeys, InitializeModelCompleted } from 'app/actions';
+import {
+    CardSavingCompleted,
+    EventPolled,
+    InitializeModelCompleted,
+    InsuranceSavingCompleted,
+    PassportSavingCompleted,
+    TypeKeys
+} from 'app/actions';
+import { mergeEvents } from 'app/utils/event-utils';
+import { IdentityChallengeEvent } from 'app/backend';
 
 type ModelReducerAction =
     InitializeModelCompleted
     | PassportSavingCompleted
     | InsuranceSavingCompleted
+    | EventPolled
     | CardSavingCompleted;
 
 export function modelReducer(s: ModelState = null, action: ModelReducerAction): ModelState {
@@ -28,6 +38,11 @@ export function modelReducer(s: ModelState = null, action: ModelReducerAction): 
             return {
                 ...s,
                 tokenizedCard: action.payload
+            };
+        case TypeKeys.EVENTS_POLLED:
+            return {
+                ...s,
+                identityChallengeEvents: mergeEvents(s.identityChallengeEvents, action.payload) as IdentityChallengeEvent[]
             };
     }
     return s;
