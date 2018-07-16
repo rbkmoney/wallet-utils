@@ -1,3 +1,4 @@
+import { call, CallEffect, ForkEffect, put, PutEffect, select, SelectEffect, takeLatest } from 'redux-saga/effects';
 import {
     CardBindingCompleted,
     CardBindingFailed,
@@ -7,7 +8,6 @@ import {
     SetViewInfoProcess,
     TypeKeys
 } from 'app/actions';
-import { call, CallEffect, ForkEffect, put, PutEffect, select, SelectEffect, takeLatest } from 'redux-saga/effects';
 import { ResultFormInfo, State } from 'app/state';
 import { tokenizeCard } from './save-card';
 import { bind } from './bind-card';

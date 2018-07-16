@@ -1,5 +1,5 @@
-import { CardBindingCompleted, CardBindingFailed, TypeKeys } from 'app/actions';
 import { call, CallEffect, put, PutEffect, SelectEffect } from 'redux-saga/effects';
+import { CardBindingCompleted, CardBindingFailed, TypeKeys } from 'app/actions';
 import { bindCard, DestinationResourceEnum, TokenizedCard } from 'app/backend';
 
 type BindPutEffect = CardBindingCompleted | CardBindingFailed;

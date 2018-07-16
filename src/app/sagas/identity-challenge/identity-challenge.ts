@@ -1,3 +1,4 @@
+import { call, CallEffect, ForkEffect, put, PutEffect, select, SelectEffect, takeLatest } from 'redux-saga/effects';
 import {
     DocumentsBindingFailed,
     DocumentsBindingRequested,
@@ -5,7 +6,6 @@ import {
     SetViewInfoProcess,
     TypeKeys
 } from 'app/actions';
-import { call, CallEffect, ForkEffect, put, PutEffect, select, SelectEffect, takeLatest } from 'redux-saga/effects';
 import { State } from 'app/state';
 import { saveInsurance } from './save-insurance-number';
 import { savePassport } from './save-passport';

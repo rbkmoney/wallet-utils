@@ -1,3 +1,4 @@
+import { call, CallEffect, put, PutEffect, SelectEffect } from 'redux-saga/effects';
 import {
     DocumentsBindingRequested,
     InsuranceSavingCompleted,
@@ -5,7 +6,6 @@ import {
     SetViewInfoProcess,
     TypeKeys
 } from 'app/actions';
-import { call, CallEffect, put, PutEffect, SelectEffect } from 'redux-saga/effects';
 import { InsuranceFormValues } from 'app/state';
 import { DocumentTypeEnum, saveDocument } from 'app/backend';
 

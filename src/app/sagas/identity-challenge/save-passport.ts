@@ -1,5 +1,5 @@
-import { GoToFormInfo, PassportSavingCompleted, PassportSavingFailed, SetViewInfoProcess, TypeKeys } from 'app/actions';
 import { call, CallEffect, put, PutEffect, SelectEffect } from 'redux-saga/effects';
+import { GoToFormInfo, PassportSavingCompleted, PassportSavingFailed, SetViewInfoProcess, TypeKeys } from 'app/actions';
 import { PassportFormValues } from 'app/state';
 import { DocumentTypeEnum, saveDocument } from 'app/backend';
 

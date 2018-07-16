@@ -1,4 +1,4 @@
-import { fetchWapi } from 'app/backend/fetch-wapi';
+import { fetchWapi } from './fetch-wapi';
 import v from './wapi-version';
 
 export class SaveCardParams {

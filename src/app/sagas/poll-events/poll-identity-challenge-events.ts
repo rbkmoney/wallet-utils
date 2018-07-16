@@ -1,7 +1,7 @@
+import { call, CallEffect, put, PutEffect, race, RaceEffect, select, SelectEffect } from 'redux-saga/effects';
 import last from 'lodash-es/last';
 import uniqWith from 'lodash-es/uniqWith';
 import { delay } from 'redux-saga';
-import { call, CallEffect, put, PutEffect, race, RaceEffect, select, SelectEffect } from 'redux-saga/effects';
 import { State } from 'app/state';
 import { EventPolled, TypeKeys } from 'app/actions';
 import { getIdentityEventsByID, Event, IdentityChallengeStatus } from 'app/backend';

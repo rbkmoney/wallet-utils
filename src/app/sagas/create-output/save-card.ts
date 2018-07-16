@@ -1,5 +1,5 @@
-import { CardSavingCompleted, CardSavingFailed, TypeKeys } from 'app/actions';
 import { call, CallEffect, put, PutEffect, SelectEffect } from 'redux-saga/effects';
+import { CardSavingCompleted, CardSavingFailed, TypeKeys } from 'app/actions';
 import { CardFormValues } from 'app/state';
 import { saveCard } from 'app/backend';
 import { replaceSpaces } from './replace-spaces';

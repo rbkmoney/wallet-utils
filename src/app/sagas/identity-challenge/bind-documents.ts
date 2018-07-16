@@ -1,5 +1,5 @@
-import { DocumentsBindingCompleted, DocumentsBindingFailed, SetViewInfoProcess, TypeKeys } from 'app/actions';
 import { call, CallEffect, put, PutEffect, SelectEffect } from 'redux-saga/effects';
+import { DocumentsBindingCompleted, DocumentsBindingFailed, SetViewInfoProcess, TypeKeys } from 'app/actions';
 import { bindDocuments, Document, TokenizedProofs } from 'app/backend';
 
 type BindPutEffect = DocumentsBindingCompleted | DocumentsBindingFailed | SetViewInfoProcess;

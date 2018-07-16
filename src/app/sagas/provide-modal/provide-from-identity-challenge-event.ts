@@ -1,7 +1,7 @@
-import { Direction, GoToFormInfo, SetModalState, SetViewInfoProcess, TypeKeys } from 'app/actions';
-import { last } from 'lodash-es';
-import { Event, IdentityChallengeStatus } from 'app/backend';
 import { put, PutEffect } from 'redux-saga/effects';
+import { last } from 'lodash-es';
+import { Direction, GoToFormInfo, SetModalState, SetViewInfoProcess, TypeKeys } from 'app/actions';
+import { Event, IdentityChallengeStatus } from 'app/backend';
 import { ResultFormInfo } from 'app/state';
 
 type SetStateFromEvents = GoToFormInfo | SetModalState | SetViewInfoProcess;
