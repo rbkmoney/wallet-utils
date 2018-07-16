@@ -1,6 +1,6 @@
 import {
-    IdentityChallengeEvent,
-    IdentityChallengeEventChange,
+    Event,
+    IdentityChallengeChange,
     IdentityChallengeEventType,
     IdentityChallengeStatus
 } from 'app/backend';
@@ -8,7 +8,7 @@ import { getLastChange } from 'app/utils/event-utils';
 import { ModalState } from 'app/state';
 import { toModalResult } from './to-modal-result';
 
-const initFormPaymentStatusChanged = (change: IdentityChallengeEventChange): ModalState => {
+const initFormPaymentStatusChanged = (change: IdentityChallengeChange): ModalState => {
     switch (change.status) {
         case IdentityChallengeStatus.Cancelled:
         case IdentityChallengeStatus.Completed:
@@ -17,10 +17,10 @@ const initFormPaymentStatusChanged = (change: IdentityChallengeEventChange): Mod
     }
 };
 
-export const initFromIdentityChallengeEvents = (events: IdentityChallengeEvent[]): ModalState => {
+export const initFromIdentityChallengeEvents = (events: Event[]): ModalState => {
     const change = getLastChange(events);
     switch (change.type) {
         case IdentityChallengeEventType.IdentityChallengeStatusChanged:
-            return initFormPaymentStatusChanged(change as IdentityChallengeEventChange);
+            return initFormPaymentStatusChanged(change as IdentityChallengeChange);
     }
 };

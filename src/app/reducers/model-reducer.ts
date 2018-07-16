@@ -8,7 +8,7 @@ import {
     TypeKeys
 } from 'app/actions';
 import { mergeEvents } from 'app/utils/event-utils';
-import { IdentityChallengeEvent } from 'app/backend';
+import { Event } from 'app/backend';
 
 type ModelReducerAction =
     InitializeModelCompleted
@@ -42,7 +42,7 @@ export function modelReducer(s: ModelState = null, action: ModelReducerAction): 
         case TypeKeys.EVENTS_POLLED:
             return {
                 ...s,
-                identityChallengeEvents: mergeEvents(s.identityChallengeEvents, action.payload) as IdentityChallengeEvent[]
+                identityChallengeEvents: mergeEvents(s.identityChallengeEvents, action.payload) as Event[]
             };
     }
     return s;

@@ -9,7 +9,7 @@ export enum IdentityChallengeEventType {
     IdentityChallengeStatusChanged = 'IdentityChallengeStatusChanged'
 }
 
-export class IdentityChallengeEventChange {
+export class IdentityChallengeChange {
     type: IdentityChallengeEventType;
     status: IdentityChallengeStatus;
     validUntil?: string;

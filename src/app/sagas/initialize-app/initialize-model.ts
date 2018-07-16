@@ -1,11 +1,11 @@
 import { call, CallEffect, put, PutEffect } from 'redux-saga/effects';
 import { ActionType, IdentityChallengeInitConfig, InitConfig } from 'app/config';
-import { getIdentityByID, getIdentityEventsByID, Identity, IdentityChallengeEvent } from 'app/backend';
+import { getIdentityByID, getIdentityEventsByID, Identity, Event } from 'app/backend';
 import { InitializeModelCompleted, TypeKeys } from 'app/actions';
 
 interface ModelChunk {
     identity?: Identity;
-    identityChallengeEvents?: IdentityChallengeEvent[];
+    identityChallengeEvents?: Event[];
 }
 
 export function* resolveIdentity(endpoint: string, config: IdentityChallengeInitConfig): Iterator<CallEffect | ModelChunk> {

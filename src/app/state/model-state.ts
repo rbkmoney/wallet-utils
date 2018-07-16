@@ -1,8 +1,8 @@
-import { Identity, IdentityChallengeEvent, TokenizedCard, TokenizedInsurance, TokenizedPassport } from 'app/backend';
+import { Identity, Event, TokenizedCard, TokenizedInsurance, TokenizedPassport } from 'app/backend';
 
 export class ModelState {
     identity?: Identity;
-    identityChallengeEvents?: IdentityChallengeEvent[];
+    identityChallengeEvents?: Event[];
     tokenizedInsurance?: TokenizedInsurance;
     tokenizedPassport?: TokenizedPassport;
     tokenizedCard?: TokenizedCard;

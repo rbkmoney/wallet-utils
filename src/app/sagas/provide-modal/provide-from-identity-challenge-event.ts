@@ -1,12 +1,12 @@
 import { Direction, GoToFormInfo, SetModalState, SetViewInfoProcess, TypeKeys } from 'app/actions';
 import { last } from 'lodash-es';
-import { IdentityChallengeEvent, IdentityChallengeStatus } from 'app/backend';
+import { Event, IdentityChallengeStatus } from 'app/backend';
 import { put, PutEffect } from 'redux-saga/effects';
 import { ResultFormInfo } from 'app/state';
 
 type SetStateFromEvents = GoToFormInfo | SetModalState | SetViewInfoProcess;
 
-const toPayload = (event: IdentityChallengeEvent): SetStateFromEvents => {
+const toPayload = (event: Event): SetStateFromEvents => {
     const change = last(event.changes);
     switch (change.status) {
         case IdentityChallengeStatus.Cancelled:
@@ -22,7 +22,7 @@ const toPayload = (event: IdentityChallengeEvent): SetStateFromEvents => {
     }
 };
 
-export function* provideFromIdentityChallengeEvent(event: IdentityChallengeEvent): Iterator<PutEffect<SetStateFromEvents>> {
+export function* provideFromIdentityChallengeEvent(event: Event): Iterator<PutEffect<SetStateFromEvents>> {
     yield put({
         type: TypeKeys.SET_VIEW_INFO_PROCESS,
         payload: false
