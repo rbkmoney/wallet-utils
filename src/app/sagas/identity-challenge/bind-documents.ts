@@ -1,7 +1,6 @@
 import { DocumentsBindingCompleted, DocumentsBindingFailed, SetViewInfoProcess, TypeKeys } from 'app/actions';
-import { call, CallEffect, put, PutEffect, select, SelectEffect } from 'redux-saga/effects';
-import { State } from 'app/state';
-import { bindDocuments } from 'app/backend';
+import { call, CallEffect, put, PutEffect, SelectEffect } from 'redux-saga/effects';
+import { bindDocuments, Document, TokenizedProofs } from 'app/backend';
 
 type BindPutEffect = DocumentsBindingCompleted | DocumentsBindingFailed | SetViewInfoProcess;
 
@@ -9,18 +8,11 @@ type BindEffect = SelectEffect |
     CallEffect |
     PutEffect<BindPutEffect>;
 
-export function* bind(): Iterator<BindEffect> {
-    const { config, tokenizedPassport, tokenizedInsurance, identityID } = yield select((s: State) => ({
-        config: s.config,
-        tokenizedPassport: s.model.tokenizedPassport,
-        tokenizedInsurance: s.model.tokenizedInsurance,
-        identityID: s.config.initConfig.params.identityID
-    }));
-    yield call(bindDocuments, config.appConfig.wapiEndpoint, config.initConfig.token, identityID, {
-        proofs: [
-            { token: tokenizedInsurance.token },
-            { token: tokenizedPassport.token }
-        ],
+const takeTokens = (documents: Document[]): TokenizedProofs[] => documents.reduce((acc, current) => [...acc, { token: current.token }], []);
+
+export function* bind(documents: Document[], wapiEndpoint: string, accessToken: string, identityID: string): Iterator<BindEffect> {
+    yield call(bindDocuments, wapiEndpoint, accessToken, identityID, {
+        proofs: takeTokens(documents),
         type: 'esia' // TODO: убрать хардкод
     });
     yield put({

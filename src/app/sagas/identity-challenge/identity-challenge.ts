@@ -1,4 +1,11 @@
-import { Direction, DocumentsBindingFailed, GoToFormInfo, SetViewInfoProcess, TypeKeys } from 'app/actions';
+import {
+    Direction,
+    DocumentsBindingFailed,
+    DocumentsBindingRequested,
+    GoToFormInfo,
+    SetViewInfoProcess,
+    TypeKeys
+} from 'app/actions';
 import { call, CallEffect, ForkEffect, put, PutEffect, select, SelectEffect, takeLatest } from 'redux-saga/effects';
 import { ResultFormInfo, State } from 'app/state';
 import { saveInsurance } from './save-insurance-number';
@@ -11,22 +18,20 @@ type BindEffect = CallEffect |
     SelectEffect |
     PutEffect<DocumentsBindingFailed>;
 
-function* start(): Iterable<BindEffect | FinishEffect> {
+function* start(action: DocumentsBindingRequested): Iterable<BindEffect | FinishEffect> {
     try {
         yield put({
             type: TypeKeys.SET_VIEW_INFO_PROCESS,
             payload: true
         } as SetViewInfoProcess);
-        const { form } = yield select((s: State) => ({
-            form: s.form
+        const { wapiEndpoint, accessToken, identityID } = yield select((s: State) => ({
+            wapiEndpoint: s.config.appConfig.wapiEndpoint,
+            accessToken: s.config.initConfig.token,
+            identityID: s.model.identity.id
         }));
-        if (form.insuranceForm) {
-            yield call(saveInsurance);
-        }
-        if (form.passportForm) {
-            yield call(savePassport);
-        }
-        yield call(bind);
+        const tokenizedInsurance = yield call(saveInsurance, action.payload.insuranceFormValues, wapiEndpoint, accessToken);
+        const tokenizedPassport = yield call(savePassport, action.payload.passportFormValues, wapiEndpoint, accessToken);
+        yield call(bind, [tokenizedInsurance, tokenizedPassport], wapiEndpoint, accessToken, identityID);
         yield put({
             type: TypeKeys.SET_VIEW_INFO_PROCESS,
             payload: false

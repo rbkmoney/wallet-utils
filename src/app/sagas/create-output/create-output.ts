@@ -1,13 +1,14 @@
 import {
     CardBindingCompleted,
     CardBindingFailed,
+    CardBindingRequested,
     Direction,
     GoToFormInfo,
     SetViewInfoProcess,
     TypeKeys
 } from 'app/actions';
-import { call, CallEffect, ForkEffect, put, PutEffect, takeLatest } from 'redux-saga/effects';
-import { ResultFormInfo } from 'app/state';
+import { call, CallEffect, ForkEffect, put, PutEffect, select, SelectEffect, takeLatest } from 'redux-saga/effects';
+import { ResultFormInfo, State } from 'app/state';
 import { tokenizeCard } from './save-card';
 import { bind } from './bind-card';
 
@@ -16,16 +17,23 @@ type FinishEffect = PutEffect<GoToFormInfo | SetViewInfoProcess>;
 type BindPutEffect = CardBindingCompleted | CardBindingFailed;
 
 type BindEffect = CallEffect |
+    SelectEffect |
     PutEffect<BindPutEffect>;
 
-function* start(): Iterable<BindEffect | FinishEffect> {
+function* start(action: CardBindingRequested): Iterable<BindEffect | FinishEffect> {
     try {
         yield put({
             type: TypeKeys.SET_VIEW_INFO_PROCESS,
             payload: true
         } as SetViewInfoProcess);
-        yield call(tokenizeCard);
-        yield call(bind);
+        const { wapiEndpoint, accessToken, identityID, name } = yield select((s: State) => ({
+            wapiEndpoint: s.config.appConfig.wapiEndpoint,
+            accessToken: s.config.initConfig.token,
+            identityID: s.config.initConfig.params.identityID,
+            name: s.config.initConfig.params.name
+        }));
+        const tokenizedCard = yield call(tokenizeCard, action.payload, wapiEndpoint, accessToken);
+        yield call(bind, tokenizedCard, name, wapiEndpoint, accessToken, identityID);
         yield put({
             type: TypeKeys.SET_VIEW_INFO_PROCESS,
             payload: false

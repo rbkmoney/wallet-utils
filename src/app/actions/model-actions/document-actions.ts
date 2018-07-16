@@ -12,6 +12,11 @@ export interface InsuranceSavingRequestedPayload {
     type: DocumentTypeEnum;
 }
 
+export interface DocumentsBindingRequestedPayload {
+    passportFormValues: PassportFormValues;
+    insuranceFormValues: InsuranceFormValues;
+}
+
 type InsuranceSavingCompletedPayload = TokenizedInsurance;
 type PassportSavingCompletedPayload = TokenizedPassport;
 
@@ -45,8 +50,9 @@ export interface InsuranceSavingFailed extends AbstractAction<LogicError> {
     payload: LogicError;
 }
 
-export interface DocumentsBindingRequested extends AbstractAction {
+export interface DocumentsBindingRequested extends AbstractAction<DocumentsBindingRequestedPayload> {
     type: TypeKeys.DOCUMENTS_BINDING_REQUESTED;
+    payload: DocumentsBindingRequestedPayload;
 }
 
 export interface DocumentsBindingCompleted extends AbstractAction {
@@ -58,6 +64,7 @@ export interface DocumentsBindingFailed extends AbstractAction<LogicError> {
     payload: LogicError;
 }
 
-export const bindDocuments = (): DocumentsBindingRequested => ({
-    type: TypeKeys.DOCUMENTS_BINDING_REQUESTED
+export const bindDocuments = (forms: DocumentsBindingRequestedPayload): DocumentsBindingRequested => ({
+    type: TypeKeys.DOCUMENTS_BINDING_REQUESTED,
+    payload: forms
 });

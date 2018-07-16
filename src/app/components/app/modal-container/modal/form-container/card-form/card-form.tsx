@@ -6,13 +6,7 @@ import get from 'lodash-es/get';
 import { Button } from '../button';
 import { Header } from '../header';
 import { CardNumber } from './fields';
-import {
-    bindCard,
-    CardSavingRequestedPayload,
-    goToFormInfo,
-    setViewInfoError,
-    setViewInfoHeight
-} from 'app/actions';
+import { bindCard, goToFormInfo, setViewInfoError, setViewInfoHeight } from 'app/actions';
 import { CardFormValues, FormInfo, FormName, State } from 'app/state';
 
 interface CardFormDefProps {
@@ -20,7 +14,7 @@ interface CardFormDefProps {
     setForm: (formInfo: FormInfo) => any;
     setViewInfoHeight: (height: number) => any;
     setViewInfoError: (hasError: boolean) => any;
-    save: (payload: CardSavingRequestedPayload) => any;
+    bindCard: (payload: CardFormValues) => any;
 }
 
 type Props = InjectedFormProps & CardFormDefProps;
@@ -64,7 +58,7 @@ class CardFormDef extends React.Component<Props> {
 
     private submit(values: CardFormValues) {
         (document.activeElement as HTMLElement).blur();
-        this.props.save({ values });
+        this.props.bindCard(values);
     }
 
     private init(values: CardFormValues) {
@@ -75,14 +69,14 @@ class CardFormDef extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: State) => ({
-    formValues: get(state.form, 'cardForm.values')
+    insurancecFormValues: get(state.form, 'cardForm.values')
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     setForm: bindActionCreators(goToFormInfo, dispatch),
     setViewInfoHeight: bindActionCreators(setViewInfoHeight, dispatch),
     setViewInfoError: bindActionCreators(setViewInfoError, dispatch),
-    save: bindActionCreators(bindCard, dispatch)
+    bindCard: bindActionCreators(bindCard, dispatch)
 });
 
 const ReduxForm = reduxForm({

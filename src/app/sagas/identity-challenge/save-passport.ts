@@ -1,6 +1,6 @@
 import { GoToFormInfo, PassportSavingCompleted, PassportSavingFailed, SetViewInfoProcess, TypeKeys } from 'app/actions';
-import { call, CallEffect, put, PutEffect, select, SelectEffect } from 'redux-saga/effects';
-import { State } from 'app/state';
+import { call, CallEffect, put, PutEffect, SelectEffect } from 'redux-saga/effects';
+import { PassportFormValues } from 'app/state';
 import { DocumentTypeEnum, saveDocument } from 'app/backend';
 
 type SavePutEffect = PassportSavingCompleted | PassportSavingFailed | GoToFormInfo | SetViewInfoProcess;
@@ -24,14 +24,10 @@ const transformPassportValues = (values: any) => {
     return result;
 };
 
-export function* savePassport(): Iterator<SaveEffect> {
+export function* savePassport(values: PassportFormValues, wapiEndpoint: string, accessToken: string): Iterator<SaveEffect> {
     try {
-        const { config, values } = yield select((s: State) => ({
-            config: s.config,
-            values: s.form.passportForm.values
-        }));
         const type = DocumentTypeEnum.RUSDomesticPassportData;
-        const savedDocument = yield call(saveDocument, config.appConfig.wapiEndpoint, config.initConfig.token, {
+        const savedDocument = yield call(saveDocument, wapiEndpoint, accessToken, {
             ...transformPassportValues(values),
             type
         });
@@ -39,6 +35,7 @@ export function* savePassport(): Iterator<SaveEffect> {
             type: TypeKeys.PASSPORT_SAVING_COMPLETED,
             payload: savedDocument
         } as PassportSavingCompleted);
+        return savedDocument;
     } catch (e) {
         yield put({
             type: TypeKeys.PASSPORT_SAVING_FAILED,

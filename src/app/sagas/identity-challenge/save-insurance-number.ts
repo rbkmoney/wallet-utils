@@ -5,8 +5,8 @@ import {
     SetViewInfoProcess,
     TypeKeys
 } from 'app/actions';
-import { call, CallEffect, put, PutEffect, select, SelectEffect } from 'redux-saga/effects';
-import { State } from 'app/state';
+import { call, CallEffect, put, PutEffect, SelectEffect } from 'redux-saga/effects';
+import { InsuranceFormValues } from 'app/state';
 import { DocumentTypeEnum, saveDocument } from 'app/backend';
 
 type SavePutEffect = InsuranceSavingCompleted | InsuranceSavingFailed | SetViewInfoProcess | DocumentsBindingRequested;
@@ -15,14 +15,10 @@ type SaveEffect = SelectEffect |
     CallEffect |
     PutEffect<SavePutEffect>;
 
-export function* saveInsurance(): Iterator<SaveEffect> {
+export function* saveInsurance(values: InsuranceFormValues, wapiEndpoint: string, accessToken: string): Iterator<SaveEffect> {
     try {
-        const { config, values } = yield select((s: State) => ({
-            config: s.config,
-            values: s.form.insuranceForm.values
-        }));
         const type = DocumentTypeEnum.RUSRetireeInsuranceCertificateData;
-        const savedDocument = yield call(saveDocument, config.appConfig.wapiEndpoint, config.initConfig.token, {
+        const savedDocument = yield call(saveDocument, wapiEndpoint, accessToken, {
             ...values,
             type
         });
@@ -30,6 +26,7 @@ export function* saveInsurance(): Iterator<SaveEffect> {
             type: TypeKeys.INSURANCE_SAVING_COMPLETED,
             payload: savedDocument
         } as InsuranceSavingCompleted);
+        return savedDocument;
     } catch (e) {
         yield put({
             type: TypeKeys.INSURANCE_SAVING_FAILED,

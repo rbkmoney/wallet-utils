@@ -4,19 +4,26 @@ import { connect, Dispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import get from 'lodash-es/get';
 import { FormInfo, FormName, InsuranceFormValues, PassportFormValues, State } from 'app/state';
-import { bindDocuments, goToFormInfo, setViewInfoError, setViewInfoHeight } from 'app/actions';
+import {
+    bindDocuments,
+    DocumentsBindingRequestedPayload,
+    goToFormInfo,
+    setViewInfoError,
+    setViewInfoHeight
+} from 'app/actions';
 import { Header } from '../header';
 import { InsuranceNumber } from './fields';
 import { Button } from '../button';
 
-type Props = InjectedFormProps & PassportFormProps;
+type Props = InjectedFormProps & InsuranceFormProps;
 
-interface PassportFormProps {
-    formValues: PassportFormValues;
+interface InsuranceFormProps {
+    insuranceFormValues: InsuranceFormValues;
+    passportFormValues: PassportFormValues;
     setForm: (formInfo: FormInfo) => {};
     setViewInfoHeight: (height: number) => any;
     setViewInfoError: (hasError: boolean) => any;
-    bindDocuments: () => any;
+    bindDocuments: (forms: DocumentsBindingRequestedPayload) => any;
 }
 
 class InsuranceFormDef extends React.Component<Props> {
@@ -28,8 +35,8 @@ class InsuranceFormDef extends React.Component<Props> {
     componentWillMount() {
         this.props.setViewInfoHeight(210);
         this.props.setViewInfoError(false);
-        const { formValues } = this.props;
-        this.init(formValues);
+        const { insuranceFormValues } = this.props;
+        this.init(insuranceFormValues);
     }
 
     componentWillReceiveProps(props: Props) {
@@ -58,7 +65,10 @@ class InsuranceFormDef extends React.Component<Props> {
 
     private submit() {
         (document.activeElement as HTMLElement).blur();
-        this.props.bindDocuments();
+        this.props.bindDocuments({
+            passportFormValues: this.props.passportFormValues,
+            insuranceFormValues: this.props.insuranceFormValues
+        });
     }
 
     private init(values: InsuranceFormValues) {
@@ -69,7 +79,8 @@ class InsuranceFormDef extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: State) => ({
-    formValues: get(state.form, 'insuranceForm.values')
+    insuranceFormValues: get(state.form, 'insuranceForm.values'),
+    passportFormValues: get(state.form, 'passportForm.values')
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({

@@ -87,7 +87,7 @@ class PassportFormDef extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: State) => ({
-    formValues: get(state.form, 'passportForm.values')
+    insurancecFormValues: get(state.form, 'passportFormValues.values')
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({

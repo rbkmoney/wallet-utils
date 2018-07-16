@@ -1,6 +1,6 @@
 import { CardSavingCompleted, CardSavingFailed, TypeKeys } from 'app/actions';
-import { call, CallEffect, put, PutEffect, select, SelectEffect } from 'redux-saga/effects';
-import { CardFormValues, State } from 'app/state';
+import { call, CallEffect, put, PutEffect, SelectEffect } from 'redux-saga/effects';
+import { CardFormValues } from 'app/state';
 import { saveCard } from 'app/backend';
 import { replaceSpaces } from './replace-spaces';
 
@@ -20,18 +20,14 @@ type SaveEffect = SelectEffect |
     CallEffect |
     PutEffect<SavePutEffect>;
 
-export function* tokenizeCard(): Iterable<SaveEffect> {
+export function* tokenizeCard(values: CardFormValues, wapiEndpoint: string, accessToken: string): Iterable<SaveEffect> {
     try {
-        const { config, values } = yield select((s: State) => ({
-            config: s.config,
-            identityID: s.config.initConfig.params.identityID,
-            values: s.form.cardForm.values
-        }));
-        const tokenizedCard = yield call(saveCard, config.appConfig.wapiEndpoint, config.initConfig.token, formatCardData(values));
+        const tokenizedCard = yield call(saveCard, wapiEndpoint, accessToken, formatCardData(values));
         yield put({
             type: TypeKeys.CARD_SAVING_COMPLETED,
             payload: tokenizedCard
         } as CardSavingCompleted);
+        return tokenizedCard;
     } catch (e) {
         yield put({
             type: TypeKeys.CARD_SAVING_FAILED,
