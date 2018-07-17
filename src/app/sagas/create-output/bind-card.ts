@@ -1,12 +1,8 @@
-import { call, CallEffect, put, PutEffect, SelectEffect } from 'redux-saga/effects';
-import { CardBindingCompleted, CardBindingFailed, TypeKeys } from 'app/actions';
+import { call, CallEffect, SelectEffect } from 'redux-saga/effects';
 import { bindCard, DestinationResourceEnum, TokenizedCard } from 'app/backend';
 
-type BindPutEffect = CardBindingCompleted | CardBindingFailed;
-
 type BindEffect = SelectEffect |
-    CallEffect |
-    PutEffect<BindPutEffect>;
+    CallEffect;
 
 export function* bind(tokenizedCard: TokenizedCard, name: string, wapiEndpoint: string, accessToken: string, identityID: string): Iterable<BindEffect> {
     yield call(bindCard, wapiEndpoint, accessToken, {
@@ -19,7 +15,4 @@ export function* bind(tokenizedCard: TokenizedCard, name: string, wapiEndpoint: 
         },
         metadata: {}
     });
-    yield put({
-        type: TypeKeys.CARD_BINDING_COMPLETED
-    } as CardBindingCompleted);
 }

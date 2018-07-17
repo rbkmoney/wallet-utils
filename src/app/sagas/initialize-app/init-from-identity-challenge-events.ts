@@ -1,9 +1,4 @@
-import {
-    Event,
-    IdentityChallengeChange,
-    IdentityChallengeEventType,
-    IdentityChallengeStatus
-} from 'app/backend';
+import { Event, IdentityChallengeChange, IdentityChallengeEventType, IdentityChallengeStatus } from 'app/backend';
 import { getLastChange } from 'app/utils/event-utils';
 import { ModalState } from 'app/state';
 import { toModalResult } from './to-modal-result';

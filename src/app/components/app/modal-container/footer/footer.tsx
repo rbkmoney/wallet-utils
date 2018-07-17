@@ -8,8 +8,7 @@ import {
     label,
     safe_logos,
     fill_icons,
-    align_fix,
-    copyright
+    align_fix
 } from './footer.scss';
 import { State } from 'app/state';
 import { ActionType } from 'app/config';
@@ -42,11 +41,6 @@ export const FooterDef: React.SFC<FooterDef> = (props) => (
             cardIcons()
             : null
         }
-        <p className={copyright}>
-            © 2008-2018 RBKmoney | НКО "ЭПС" (ООО). Лицензия Банка России №3509-К, выдана 11 февраля 2013 г.
-            Персональные данные защищены в соответствии с требованиями Федерального закона № 152-ФЗ «О персональных
-            данных» от 27.07.2006 г.
-        </p>
     </footer>
 );
 

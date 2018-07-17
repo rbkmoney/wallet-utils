@@ -15,7 +15,7 @@ export type InitializeAppEffect =
     PutEffect<InitializeAppPutEffect> |
     SelectEffect;
 
-const isInitializeModelNeeded = (type: ActionType) => {
+const isInitializeModelRequired = (type: ActionType) => {
     switch (type) {
         case ActionType.userIdentity:
             return true;
@@ -29,7 +29,7 @@ export function* initializeApp(): Iterator<InitializeAppEffect> {
         const config = yield select((state: State) => state.config);
         const { appConfig: { wapiEndpoint }, initConfig } = config;
         let model;
-        if (isInitializeModelNeeded(initConfig.type)) {
+        if (isInitializeModelRequired(initConfig.type)) {
             model = yield call(initializeModel, wapiEndpoint, initConfig);
         }
         yield call(initializeModal, initConfig, model);

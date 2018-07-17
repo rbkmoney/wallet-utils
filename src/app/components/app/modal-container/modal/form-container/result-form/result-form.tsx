@@ -3,7 +3,8 @@ import { connect, Dispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { form, title } from './result-form.scss';
 import { setViewInfoHeight } from 'app/actions';
-import { ErrorState, State } from 'app/state';
+import { ErrorState
+    , State } from 'app/state';
 import { ActionType } from '../../../../../../../communication/model';
 import { makeContentFromUserIdentity, makeContentFromCreateOutput, ResultFormContent } from './make-content';
 

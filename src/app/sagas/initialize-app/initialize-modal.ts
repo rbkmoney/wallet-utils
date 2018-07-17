@@ -1,15 +1,20 @@
-import { call, CallEffect, put } from 'redux-saga/effects';
+import { CallEffect, put, PutEffect } from 'redux-saga/effects';
+import { Event } from 'app/backend';
 import { ModalForms, ModalState, ModelState } from 'app/state';
 import { ActionType, InitConfig } from 'app/config';
 import { InitializeModalCompleted, TypeKeys } from 'app/actions';
-import { PassportFormInfo, CardFormInfo } from 'app/state/modal';
+import { CardFormInfo, PassportFormInfo } from 'app/state/modal';
 import { initFromIdentityChallengeEvents } from './init-from-identity-challenge-events';
 
-function* resolveActionType(config: InitConfig, model: ModelState): Iterator<CallEffect | ModalState> {
+type InitializeAppEffect =
+    CallEffect |
+    PutEffect<InitializeModalCompleted>;
+
+const resolveActionType = (config: InitConfig, identityChallengeEvents?: Event[]): ModalState => {
     switch (config.type) {
         case ActionType.userIdentity:
-            if (model.identityChallengeEvents) {
-                return yield call(initFromIdentityChallengeEvents, model.identityChallengeEvents);
+            if (identityChallengeEvents) {
+                return initFromIdentityChallengeEvents(identityChallengeEvents);
             } else {
                 return new ModalForms([new PassportFormInfo()], true);
             }
@@ -17,10 +22,10 @@ function* resolveActionType(config: InitConfig, model: ModelState): Iterator<Cal
         case ActionType.createOutput:
             return new ModalForms([new CardFormInfo()], true);
     }
-}
+};
 
-export function* initializeModal(config: InitConfig, model: ModelState): any {
-    const initializedModals = yield call(resolveActionType, config, model);
+export function* initializeModal(config: InitConfig, model?: ModelState): Iterator<InitializeAppEffect> {
+    const initializedModals = resolveActionType(config, model ? model.identityChallengeEvents : null);
     yield put({
         type: TypeKeys.INITIALIZE_MODAL_COMPLETED,
         payload: initializedModals

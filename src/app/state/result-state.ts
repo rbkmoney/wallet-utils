@@ -1,3 +1,4 @@
 export enum ResultState {
-    close = 'close'
+    close = 'close',
+    onIdentityChallengeCompleted = 'onIdentityChallengeCompleted'
 }
