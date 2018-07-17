@@ -3,10 +3,20 @@ import { InjectedFormProps, reduxForm } from 'redux-form';
 import { connect, Dispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import get from 'lodash-es/get';
-import { FormInfo, FormName, PassportFormValues, State, InsuranceFormInfo } from 'app/state';
-import { goToFormInfo, setViewInfoError, setViewInfoHeight } from 'app/actions';
+import { FormInfo, FormName, InsuranceFormInfo, PassportFormValues, State } from 'app/state';
+import { goToFormInfo, PassportSavingRequestedPayload, setViewInfoError, setViewInfoHeight } from 'app/actions';
 import { Header } from '../header';
-import { BirthDate, BirthPlace, FamilyName, IssuedAt, Issuer, Name, PassportNumber, Patronymic } from './fields';
+import {
+    BirthDate,
+    BirthPlace,
+    FamilyName,
+    FirstName,
+    IssuedAt,
+    Issuer,
+    IssuerCode,
+    PassportNumber,
+    Patronymic
+} from './fields';
 import { Button } from '../button';
 
 type Props = InjectedFormProps & PassportFormProps;
@@ -16,6 +26,7 @@ interface PassportFormProps {
     setForm: (formInfo: FormInfo) => {};
     setViewInfoHeight: (height: number) => any;
     setViewInfoError: (hasError: boolean) => any;
+    saveDocument: (payload: PassportSavingRequestedPayload) => any;
 }
 
 class PassportFormDef extends React.Component<Props> {
@@ -24,11 +35,8 @@ class PassportFormDef extends React.Component<Props> {
         this.submit = this.submit.bind(this);
     }
 
-    componentDidMount() {
-        this.props.setViewInfoHeight(560);
-    }
-
     componentWillMount() {
+        this.props.setViewInfoHeight(607);
         this.props.setViewInfoError(false);
         const { formValues } = this.props;
         this.init(formValues);
@@ -47,12 +55,13 @@ class PassportFormDef extends React.Component<Props> {
                 <div>
                     <Header key='header' title='Паспорт'/>
                     <FamilyName/>
-                    <Name/>
+                    <FirstName/>
                     <Patronymic/>
                     <BirthDate/>
                     <BirthPlace/>
                     <PassportNumber/>
                     <Issuer/>
+                    <IssuerCode/>
                     <IssuedAt/>
                 </div>
                 <Button
@@ -65,7 +74,7 @@ class PassportFormDef extends React.Component<Props> {
         );
     }
 
-    private submit(values: PassportFormValues) {
+    private submit() {
         (document.activeElement as HTMLElement).blur();
         this.props.setForm(new InsuranceFormInfo());
     }
@@ -78,7 +87,7 @@ class PassportFormDef extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: State) => ({
-    formValues: get(state.form, 'passportForm.values')
+    formValues: get(state.form, 'passportFormValues.values')
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({

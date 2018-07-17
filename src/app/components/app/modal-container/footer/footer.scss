@@ -78,21 +78,6 @@ $local-white: rgba(255, 255, 255, .6);
     }
 }
 
-.copyright {
-    font-family: 'Roboto', sans-serif;
-    font-size: 13px;
-    font-weight: 400;
-    font-style: italic;
-    color: $lightest-purple2;
-    letter-spacing: 0;
-    line-height: 18px;
-    margin: 0 0 20px;
-    @include responsive(sm) {
-        color: $local-white;
-        max-width: 680px;
-    }
-}
-
 .offer {
     display: inline-block;
     font-family: 'Roboto', sans-serif;

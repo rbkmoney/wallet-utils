@@ -7,3 +7,4 @@ export * from './forms-state';
 export * from './modal-state';
 export * from './forms';
 export * from './modal';
+export * from './error-state';

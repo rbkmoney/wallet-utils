@@ -6,15 +6,15 @@ import get from 'lodash-es/get';
 import { Button } from '../button';
 import { Header } from '../header';
 import { CardNumber } from './fields';
-import { goToFormInfo, setViewInfoError, setViewInfoHeight } from 'app/actions';
-import { FormInfo, FormName, ResultFormInfo, State } from 'app/state';
-import { CardFormValues } from 'app/state/forms/card-form';
+import { bindCard, goToFormInfo, setViewInfoError, setViewInfoHeight } from 'app/actions';
+import { CardFormValues, FormInfo, FormName, State } from 'app/state';
 
 interface CardFormDefProps {
     formValues: CardFormValues;
     setForm: (formInfo: FormInfo) => any;
     setViewInfoHeight: (height: number) => any;
     setViewInfoError: (hasError: boolean) => any;
+    bindCard: (payload: CardFormValues) => any;
 }
 
 type Props = InjectedFormProps & CardFormDefProps;
@@ -25,11 +25,8 @@ class CardFormDef extends React.Component<Props> {
         this.submit = this.submit.bind(this);
     }
 
-    componentDidMount() {
-        this.props.setViewInfoHeight(236);
-    }
-
     componentWillMount() {
+        this.props.setViewInfoHeight(236);
         this.props.setViewInfoError(false);
         const { formValues } = this.props;
         this.init(formValues);
@@ -61,7 +58,7 @@ class CardFormDef extends React.Component<Props> {
 
     private submit(values: CardFormValues) {
         (document.activeElement as HTMLElement).blur();
-        this.props.setForm(new ResultFormInfo());
+        this.props.bindCard(values);
     }
 
     private init(values: CardFormValues) {
@@ -72,13 +69,14 @@ class CardFormDef extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: State) => ({
-    formValues: get(state.form, 'cardForm.values')
+    insurancecFormValues: get(state.form, 'cardForm.values')
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     setForm: bindActionCreators(goToFormInfo, dispatch),
     setViewInfoHeight: bindActionCreators(setViewInfoHeight, dispatch),
-    setViewInfoError: bindActionCreators(setViewInfoError, dispatch)
+    setViewInfoError: bindActionCreators(setViewInfoError, dispatch),
+    bindCard: bindActionCreators(bindCard, dispatch)
 });
 
 const ReduxForm = reduxForm({

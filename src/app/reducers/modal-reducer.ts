@@ -1,6 +1,14 @@
 import cloneDeep from 'lodash-es/cloneDeep';
 import { FormInfo, ModalForms, ModalName, ModalState, SlideDirection } from 'app/state';
-import { Direction, InitializeModalCompleted, SetModalState, TypeKeys, GoToFormInfo, SetViewInfoHeight } from 'app/actions';
+import {
+    Direction,
+    GoToFormInfo,
+    InitializeModalCompleted,
+    SetModalState,
+    SetViewInfoHeight,
+    SetViewInfoProcess,
+    TypeKeys
+} from 'app/actions';
 import { Named } from 'app/state/modal';
 import { findNamed } from 'app/utils/find-named';
 
@@ -70,7 +78,23 @@ const addOrUpdate = (items: Named[], item: Named): Named[] => {
     return index === -1 ? add(items, item) : update(items, item, index);
 };
 
-type ModalReducerAction = InitializeModalCompleted | SetModalState | GoToFormInfo | SetViewInfoHeight;
+const setProcess = (s: ModalState[], inProcess: boolean): ModalState[] => {
+    const modal = findNamed(s, ModalName.modalForms) as ModalForms;
+    return addOrUpdate(s, {
+        ...modal,
+        viewInfo: {
+            ...modal.viewInfo,
+            inProcess
+        }
+    } as ModalForms);
+};
+
+type ModalReducerAction =
+    InitializeModalCompleted
+    | SetModalState
+    | GoToFormInfo
+    | SetViewInfoHeight
+    | SetViewInfoProcess;
 
 export function modalReducer(s: ModalState[] = null, action: ModalReducerAction): ModalState[] {
     switch (action.type) {
@@ -78,10 +102,12 @@ export function modalReducer(s: ModalState[] = null, action: ModalReducerAction)
         case TypeKeys.INITIALIZE_MODAL_COMPLETED:
             return addOrUpdate(s, action.payload);
         case TypeKeys.GO_TO_FORM_INFO:
-            const {formInfo, direction} = action.payload;
+            const { formInfo, direction } = action.payload;
             return goToFormInfo(s, formInfo, direction);
         case TypeKeys.SET_VIEW_INFO_HEIGHT:
             return updateViewInfo(s, 'height', action.payload);
+        case TypeKeys.SET_VIEW_INFO_PROCESS:
+            return setProcess(s, action.payload);
     }
     return s;
 }

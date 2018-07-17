@@ -22,7 +22,7 @@ const getCustomInput = (fieldProps: CustomInputType) => (
 export const BirthDate: React.SFC = () => (
     <div className={formGroup}>
         <Field
-            name='birthdate'
+            name='birthDate'
             component={getCustomInput}
             validate={validateBirthDate}/>
     </div>

@@ -19,10 +19,10 @@ const getCustomInput = (fieldProps: CustomInputType) => (
     />
 );
 
-export const Name: React.SFC = () => (
+export const FirstName: React.SFC = () => (
     <div className={formGroup}>
         <Field
-            name='name'
+            name='firstName'
             component={getCustomInput}
             validate={validateName}/>
     </div>

@@ -1,27 +1,28 @@
 import { call, CallEffect, put, PutEffect } from 'redux-saga/effects';
-import { InitConfig, IdentityChallengeInitConfig, ActionType } from 'app/config';
-import { getIdentityByID, Identity } from 'app/backend/index';
+import { ActionType, IdentityChallengeInitConfig, InitConfig } from 'app/config';
+import { getIdentityByID, getIdentityEventsByID, Identity, Event } from 'app/backend';
 import { InitializeModelCompleted, TypeKeys } from 'app/actions';
-import { ModelState } from 'app/state';
 
-export function* resolveIdentity(endpoint: string, config: IdentityChallengeInitConfig): Iterator<CallEffect | Identity> {
+interface ModelChunk {
+    identity?: Identity;
+    identityChallengeEvents?: Event[];
+}
+
+export function* resolveIdentity(endpoint: string, config: IdentityChallengeInitConfig): Iterator<CallEffect | ModelChunk> {
     const token = config.token;
     const id = config.params.identityID;
-    return yield call(getIdentityByID, endpoint, token, id);
+    const identity = yield call(getIdentityByID, endpoint, token, id);
+    let identityChallengeEvents;
+    if (identity.effectiveChallenge) {
+        identityChallengeEvents = yield call(getIdentityEventsByID, endpoint, token, id, identity.effectiveChallenge);
+    }
+    return { identity, identityChallengeEvents };
 }
 
-interface ResolvedActionType {
-    identity?: Identity;
-}
-
-function* resolveActionType(endpoint: string, config: InitConfig): Iterator<CallEffect | ResolvedActionType | ModelState> {
+function* resolveActionType(endpoint: string, config: InitConfig): Iterator<CallEffect | ModelChunk> {
     switch (config.type) {
         case ActionType.userIdentity:
-            // const identity = yield call(resolveIdentity, endpoint, config);
-            const identity = {hhaha: 'no'};
-            return {identity};
-        case ActionType.createOutput:
-            return;
+            return yield call(resolveIdentity, endpoint, config);
     }
 }
 
@@ -29,5 +30,6 @@ export type InitializeEffect = CallEffect | PutEffect<InitializeModelCompleted>;
 
 export function* initializeModel(endpoint: string, config: InitConfig): Iterator<InitializeEffect> {
     const modelChunk = yield call(resolveActionType, endpoint, config);
-    yield put({type: TypeKeys.INITIALIZE_MODEL_COMPLETED, payload: modelChunk} as InitializeModelCompleted);
+    yield put({ type: TypeKeys.INITIALIZE_MODEL_COMPLETED, payload: modelChunk } as InitializeModelCompleted);
+    return modelChunk;
 }

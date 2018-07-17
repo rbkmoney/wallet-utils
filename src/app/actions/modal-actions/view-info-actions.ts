@@ -19,3 +19,8 @@ export const setViewInfoError = (hasError: boolean): SetViewInfoError => ({
     type: TypeKeys.SET_VIEW_INFO_ERROR,
     payload: hasError
 });
+
+export interface SetViewInfoProcess extends AbstractAction<boolean> {
+    type: TypeKeys.SET_VIEW_INFO_PROCESS;
+    payload: boolean;
+}

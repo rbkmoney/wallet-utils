@@ -1,13 +1,10 @@
 import { call, CallEffect, ForkEffect, put, PutEffect, select, SelectEffect, takeLatest } from 'redux-saga/effects';
 import { loadAppConfig } from './load-app-config';
-import {
-    InitializeAppCompleted,
-    InitializeAppFailed,
-    TypeKeys
-} from 'app/actions';
+import { InitializeAppCompleted, InitializeAppFailed, TypeKeys } from 'app/actions';
 import { State } from 'app/state';
 import { initializeModel } from './initialize-model';
 import { initializeModal } from './initialize-modal';
+import { ActionType } from 'app/config';
 
 type InitializeAppPutEffect =
     InitializeAppCompleted |
@@ -18,13 +15,24 @@ export type InitializeAppEffect =
     PutEffect<InitializeAppPutEffect> |
     SelectEffect;
 
+const isInitializeModelRequired = (type: ActionType) => {
+    switch (type) {
+        case ActionType.userIdentity:
+            return true;
+    }
+    return false;
+};
+
 export function* initializeApp(): Iterator<InitializeAppEffect> {
     try {
         yield call(loadAppConfig);
         const config = yield select((state: State) => state.config);
-        const {appConfig: {endpoint}, initConfig} = config;
-        yield call(initializeModel, endpoint, initConfig);
-        yield call(initializeModal, initConfig);
+        const { appConfig: { wapiEndpoint }, initConfig } = config;
+        let model;
+        if (isInitializeModelRequired(initConfig.type)) {
+            model = yield call(initializeModel, wapiEndpoint, initConfig);
+        }
+        yield call(initializeModal, initConfig, model);
         yield put({
             type: TypeKeys.INITIALIZE_APP_COMPLETED
         } as InitializeAppCompleted);

@@ -4,7 +4,8 @@ import {
     ModelState,
     ResultState,
     FormsState,
-    ModalState
+    ModalState,
+    ErrorState
 } from '.';
 
 export interface State {
@@ -14,4 +15,5 @@ export interface State {
     readonly modals: ReadonlyArray<ModalState>;
     readonly result: ResultState;
     readonly form: FormsState;
+    readonly error: ErrorState;
 }

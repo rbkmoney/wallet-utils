@@ -3,6 +3,8 @@ import { getSuccessDescription } from './get-success-description';
 import { ResultFormContent } from './result-form-content';
 import { Checkmark, Cross } from '../result-icons';
 import { ActionType } from 'app/config';
+import { ErrorState } from 'app/state';
+import { text } from '../result-form.scss';
 
 const success = (): ResultFormContent => ({
     hasActions: false,
@@ -12,13 +14,14 @@ const success = (): ResultFormContent => ({
     icon: <Checkmark/>
 });
 
-const failed = (): ResultFormContent => ({
+const failed = (msg: string): ResultFormContent => ({
     hasActions: true,
     hasDone: false,
     header: 'Идентификация не удалась',
+    description: <p className={text}>{msg}</p>,
     icon: <Cross/>
 });
 
-export const makeContentFromUserIdentity = () => {
-    return success();
+export const makeContentFromUserIdentity = (error: ErrorState) => {
+    return error ? failed(error.error.message) : success();
 };
