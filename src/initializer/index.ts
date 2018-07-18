@@ -56,8 +56,6 @@ const toOutputInitializerData = (token: string, params: CreateOutputParams): Cre
     };
 };
 
-const timeBeforeClose = 5000;
-
 export class RbkmoneyWalletUtils {
 
     onCompleteIdentityChallenge: (event: IdentityChallengeEvent) => void;
@@ -79,12 +77,10 @@ export class RbkmoneyWalletUtils {
         const data = toIdentityInitializerData(this.token, params);
         this.initializer.open(data)
             .then((transport: Transport) => {
-                transport.on(PossibleEvents.onCompleteIdentityChallenge, (e) => {
+                transport.on(PossibleEvents.onCompleteIdentityChallenge, (e) =>
                     this.provideCallback(this.onCompleteIdentityChallenge, {
                         data: e.data
-                    });
-                    setTimeout(() => this.initializer.close(), timeBeforeClose);
-                });
+                    }));
                 transport.on(PossibleEvents.onFailIdentityChallenge, (e) =>
                     this.provideCallback(this.onFailIdentityChallenge, {
                         data: e.data
@@ -94,6 +90,7 @@ export class RbkmoneyWalletUtils {
                         data: e.data
                     }));
                 this.activateCancelEvent(transport);
+                this.activateDoneEvent(transport);
             })
             .catch((e) => this.provideCallback(this.onCancel, { error: e }));
     }
@@ -102,14 +99,12 @@ export class RbkmoneyWalletUtils {
         const data = toOutputInitializerData(this.token, params);
         this.initializer.open(data)
             .then((transport: Transport) => {
-                transport.on(PossibleEvents.onCreateOutput, (e) => {
-                        this.provideCallback(this.onCreateOutput, {
-                            data: e.data
-                        });
-                        setTimeout(() => this.initializer.close(), timeBeforeClose);
-                    }
-                );
+                transport.on(PossibleEvents.onCreateOutput, (e) =>
+                    this.provideCallback(this.onCreateOutput, {
+                        data: e.data
+                    }));
                 this.activateCancelEvent(transport);
+                this.activateDoneEvent(transport);
             })
             .catch((e) => this.provideCallback(this.onCancel, { error: e }));
     }
@@ -118,6 +113,12 @@ export class RbkmoneyWalletUtils {
         transport.on(PossibleEvents.close, () => {
             this.initializer.close();
             this.provideCallback(this.onCancel, {});
+        });
+    }
+
+    private activateDoneEvent(transport: Transport): void {
+        transport.on(PossibleEvents.done, () => {
+            this.initializer.close();
         });
     }
 

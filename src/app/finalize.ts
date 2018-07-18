@@ -13,9 +13,16 @@ class AppFinalizer {
         this.transport.destroy();
     }
 
-    done() {
-        ReactDOM.unmountComponentAtNode(this.walletUtilsEl);
-        this.transport.destroy();
+    done(inFrame: boolean) {
+        setTimeout(() => {
+            ReactDOM.unmountComponentAtNode(this.walletUtilsEl);
+            this.transport.emit(PossibleEvents.done);
+            this.transport.destroy();
+            if (inFrame) {
+                window.close();
+            }
+        }, 5000);
+
     }
 }
 
@@ -28,10 +35,11 @@ export function finalize(state: State, transport: Transport, walletUtilsEl: HTML
             break;
         case ResultState.identityChallengeCompleted:
             transport.emit(PossibleEvents.onCompleteIdentityChallenge, { data: state.model.identityChallenge });
-            transport.destroy();
+            finalizer.done(state.config.inFrame);
             break;
         case ResultState.onCreateOutput:
             transport.emit(PossibleEvents.onCreateOutput, { data: state.model.output });
+            finalizer.done(state.config.inFrame);
             break;
         case ResultState.identityChallengeFailed:
             transport.emit(PossibleEvents.onFailIdentityChallenge, { data: state.error });
