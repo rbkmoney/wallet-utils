@@ -5,3 +5,5 @@ export * from './tokenized-card';
 export * from './tokenized-passport';
 export * from './tokenized-insurance';
 export * from './event';
+export * from './output';
+export * from './identity-challenge';

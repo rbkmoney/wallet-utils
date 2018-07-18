@@ -5,7 +5,7 @@ type BindEffect = SelectEffect |
     CallEffect;
 
 export function* bind(tokenizedCard: TokenizedCard, name: string, wapiEndpoint: string, accessToken: string, identityID: string): Iterable<BindEffect> {
-    yield call(bindCard, wapiEndpoint, accessToken, {
+    return yield call(bindCard, wapiEndpoint, accessToken, {
         name,
         identity: identityID,
         currency: 'RUB', // TODO: Ожидаем ручку для получения валюты

@@ -5,16 +5,16 @@ import { Initializer } from './initializer';
 import { PopupInitializer } from './popup-initializer';
 import { IframeInitializer } from './iframe-initializer';
 import {
-    StartIdentityChallengeParams,
     CancelEvent,
-    IdentityChallengeEvent,
-    WalletUtilsEvent,
     CreateOutputEvent,
-    CreateOutputParams
+    CreateOutputParams,
+    IdentityChallengeEvent,
+    StartIdentityChallengeParams,
+    WalletUtilsEvent
 } from './model';
 import { getOrigin } from '../get-origin';
 import { PossibleEvents, Transport } from '../communication';
-import { ActionType, UserIdentityInitializerData, CreateOutputInitializerData } from '../communication/model';
+import { ActionType, CreateOutputInitializerData, UserIdentityInitializerData } from '../communication/model';
 
 const logPrefix = '[RBKmoney wallet utils]';
 
@@ -90,8 +90,9 @@ export class RbkmoneyWalletUtils {
                         data: e.data
                     }));
                 this.activateCancelEvent(transport);
+                this.activateDoneEvent(transport);
             })
-            .catch((e) => this.provideCallback(this.onCancel, {error: e}));
+            .catch((e) => this.provideCallback(this.onCancel, { error: e }));
     }
 
     createOutput(params: CreateOutputParams): void {
@@ -103,14 +104,21 @@ export class RbkmoneyWalletUtils {
                         data: e.data
                     }));
                 this.activateCancelEvent(transport);
+                this.activateDoneEvent(transport);
             })
-            .catch((e) => this.provideCallback(this.onCancel, {error: e}));
+            .catch((e) => this.provideCallback(this.onCancel, { error: e }));
     }
 
     private activateCancelEvent(transport: Transport): void {
         transport.on(PossibleEvents.close, () => {
             this.initializer.close();
             this.provideCallback(this.onCancel, {});
+        });
+    }
+
+    private activateDoneEvent(transport: Transport): void {
+        transport.on(PossibleEvents.done, () => {
+            this.initializer.close();
         });
     }
 

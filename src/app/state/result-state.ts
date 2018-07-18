@@ -1,4 +1,6 @@
 export enum ResultState {
     close = 'close',
-    onIdentityChallengeCompleted = 'onIdentityChallengeCompleted'
+    identityChallengeCompleted = 'identityChallengeCompleted',
+    identityChallengeFailed = 'identityChallengeFailed',
+    onCreateOutput = 'onCreateOutput'
 }
