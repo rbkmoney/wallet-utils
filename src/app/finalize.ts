@@ -42,7 +42,7 @@ export function finalize(state: State, transport: Transport, walletUtilsEl: HTML
             finalizer.done(state.config.inFrame);
             break;
         case ResultState.identityChallengeFailed:
-            transport.emit(PossibleEvents.onFailIdentityChallenge, { data: state.error });
+            transport.emit(PossibleEvents.onFailIdentityChallenge, { data: state.error.error });
             break;
     }
 }
