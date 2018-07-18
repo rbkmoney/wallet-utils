@@ -1,5 +1,5 @@
 import { AbstractAction, TypeKeys } from 'app/actions';
-import { DocumentTypeEnum, LogicError, TokenizedInsurance, TokenizedPassport } from 'app/backend';
+import { DocumentTypeEnum, IdentityChallenge, LogicError, TokenizedInsurance, TokenizedPassport } from 'app/backend';
 import { InsuranceFormValues, PassportFormValues } from 'app/state';
 
 export interface PassportSavingRequestedPayload {
@@ -55,8 +55,9 @@ export interface DocumentsBindingRequested extends AbstractAction<DocumentsBindi
     payload: DocumentsBindingRequestedPayload;
 }
 
-export interface DocumentsBindingCompleted extends AbstractAction {
+export interface DocumentsBindingCompleted extends AbstractAction<IdentityChallenge> {
     type: TypeKeys.DOCUMENTS_BINDING_COMPLETED;
+    payload: IdentityChallenge;
 }
 
 export interface DocumentsBindingFailed extends AbstractAction<LogicError> {

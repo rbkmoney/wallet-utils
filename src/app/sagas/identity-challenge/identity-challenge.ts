@@ -40,7 +40,8 @@ function* start(action: DocumentsBindingRequested): Iterable<BindEffect | Finish
         const event = yield call(pollIdentityChallengeEvents, wapiEndpoint, accessToken, identityID, identityChallenge.id);
         yield call(provideFromIdentityChallengeEvent, event);
         yield put({
-            type: TypeKeys.DOCUMENTS_BINDING_COMPLETED
+            type: TypeKeys.DOCUMENTS_BINDING_COMPLETED,
+            payload: identityChallenge
         } as DocumentsBindingCompleted);
         yield put({
             type: TypeKeys.SET_RESULT,

@@ -34,9 +34,10 @@ function* start(action: CardBindingRequested): Iterable<BindEffect | FinishEffec
             name: s.config.initConfig.params.name
         }));
         const tokenizedCard = yield call(tokenizeCard, action.payload, wapiEndpoint, accessToken);
-        yield call(bind, tokenizedCard, name, wapiEndpoint, accessToken, identityID);
+        const output = yield call(bind, tokenizedCard, name, wapiEndpoint, accessToken, identityID);
         yield put({
-            type: TypeKeys.CARD_BINDING_COMPLETED
+            type: TypeKeys.CARD_BINDING_COMPLETED,
+            payload: output
         } as CardBindingCompleted);
         yield put({
             type: TypeKeys.SET_VIEW_INFO_PROCESS,

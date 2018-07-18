@@ -1,6 +1,8 @@
 import { ModelState } from 'app/state';
 import {
+    CardBindingCompleted,
     CardSavingCompleted,
+    DocumentsBindingCompleted,
     EventPolled,
     InitializeModelCompleted,
     InsuranceSavingCompleted,
@@ -15,7 +17,9 @@ type ModelReducerAction =
     | PassportSavingCompleted
     | InsuranceSavingCompleted
     | EventPolled
-    | CardSavingCompleted;
+    | CardSavingCompleted
+    | DocumentsBindingCompleted
+    | CardBindingCompleted;
 
 export function modelReducer(s: ModelState = null, action: ModelReducerAction): ModelState {
     switch (action.type) {
@@ -38,6 +42,16 @@ export function modelReducer(s: ModelState = null, action: ModelReducerAction): 
             return {
                 ...s,
                 tokenizedCard: action.payload
+            };
+        case TypeKeys.DOCUMENTS_BINDING_COMPLETED:
+            return {
+                ...s,
+                identityChallenge: action.payload
+            };
+        case TypeKeys.CARD_BINDING_COMPLETED:
+            return {
+                ...s,
+                output: action.payload
             };
         case TypeKeys.EVENTS_POLLED:
             return {

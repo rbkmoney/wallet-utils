@@ -27,14 +27,14 @@ export function finalize(state: State, transport: Transport, walletUtilsEl: HTML
             finalizer.close();
             break;
         case ResultState.identityChallengeCompleted:
-            transport.emit(PossibleEvents.onCompleteIdentityChallenge, { identityChallenge: state.model.identityChallenge });
+            transport.emit(PossibleEvents.onCompleteIdentityChallenge, { data: state.model.identityChallenge });
             transport.destroy();
             break;
         case ResultState.onCreateOutput:
-            transport.emit(PossibleEvents.onCreateOutput, { output: state.model.output });
+            transport.emit(PossibleEvents.onCreateOutput, { data: state.model.output });
             break;
         case ResultState.identityChallengeFailed:
-            transport.emit(PossibleEvents.onFailIdentityChallenge, { error: state.error });
+            transport.emit(PossibleEvents.onFailIdentityChallenge, { data: state.error });
             break;
     }
 }
