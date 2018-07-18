@@ -1,20 +1,22 @@
 import { call, CallEffect, ForkEffect, put, PutEffect, select, SelectEffect, takeLatest } from 'redux-saga/effects';
 import {
+    Direction,
     DocumentsBindingCompleted,
     DocumentsBindingFailed,
     DocumentsBindingRequested,
     GoToFormInfo,
+    ResultAction,
     SetViewInfoProcess,
     TypeKeys
 } from 'app/actions';
-import { State } from 'app/state';
+import { ResultFormInfo, ResultState, State } from 'app/state';
 import { saveInsurance } from './save-insurance-number';
 import { savePassport } from './save-passport';
 import { bind } from './bind-documents';
 import { pollIdentityChallengeEvents } from '../poll-events';
 import { provideFromIdentityChallengeEvent } from '../provide-modal';
 
-type FinishEffect = PutEffect<GoToFormInfo | SetViewInfoProcess>;
+type FinishEffect = PutEffect<SetViewInfoProcess | ResultAction | GoToFormInfo>;
 
 type BindEffect = CallEffect |
     SelectEffect |
@@ -40,11 +42,23 @@ function* start(action: DocumentsBindingRequested): Iterable<BindEffect | Finish
         yield put({
             type: TypeKeys.DOCUMENTS_BINDING_COMPLETED
         } as DocumentsBindingCompleted);
+        yield put({
+            type: TypeKeys.SET_RESULT,
+            payload: ResultState.identityChallengeCompleted
+        } as ResultAction);
     } catch (e) {
         yield put({
             type: TypeKeys.DOCUMENTS_BINDING_FAILED,
             payload: e
         } as DocumentsBindingFailed);
+        yield put({
+            type: TypeKeys.SET_RESULT,
+            payload: ResultState.identityChallengeFailed
+        } as ResultAction);
+        yield put({
+            type: TypeKeys.GO_TO_FORM_INFO,
+            payload: { formInfo: new ResultFormInfo(), direction: Direction.forward }
+        } as GoToFormInfo);
     }
 }
 

@@ -23,10 +23,18 @@ export function finalize(state: State, transport: Transport, walletUtilsEl: HTML
     const finalizer = new AppFinalizer(transport, walletUtilsEl);
     switch (state.result) {
         case ResultState.close:
+            transport.emit(PossibleEvents.onCancel, 'Closed');
             finalizer.close();
             break;
-        case ResultState.onIdentityChallengeCompleted:
-            this.transport.emit(PossibleEvents.onCompleteIdentityChallenge);
-            finalizer.done();
+        case ResultState.identityChallengeCompleted:
+            transport.emit(PossibleEvents.onCompleteIdentityChallenge, { identityChallenge: state.model.identityChallenge });
+            transport.destroy();
+            break;
+        case ResultState.onCreateOutput:
+            transport.emit(PossibleEvents.onCreateOutput, { output: state.model.output });
+            break;
+        case ResultState.identityChallengeFailed:
+            transport.emit(PossibleEvents.onFailIdentityChallenge, { error: state.error });
+            break;
     }
 }

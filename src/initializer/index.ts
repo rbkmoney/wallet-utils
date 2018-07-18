@@ -5,16 +5,16 @@ import { Initializer } from './initializer';
 import { PopupInitializer } from './popup-initializer';
 import { IframeInitializer } from './iframe-initializer';
 import {
-    StartIdentityChallengeParams,
     CancelEvent,
-    IdentityChallengeEvent,
-    WalletUtilsEvent,
     CreateOutputEvent,
-    CreateOutputParams
+    CreateOutputParams,
+    IdentityChallengeEvent,
+    StartIdentityChallengeParams,
+    WalletUtilsEvent
 } from './model';
 import { getOrigin } from '../get-origin';
 import { PossibleEvents, Transport } from '../communication';
-import { ActionType, UserIdentityInitializerData, CreateOutputInitializerData } from '../communication/model';
+import { ActionType, CreateOutputInitializerData, UserIdentityInitializerData } from '../communication/model';
 
 const logPrefix = '[RBKmoney wallet utils]';
 
@@ -56,6 +56,8 @@ const toOutputInitializerData = (token: string, params: CreateOutputParams): Cre
     };
 };
 
+const timeBeforeClose = 5000;
+
 export class RbkmoneyWalletUtils {
 
     onCompleteIdentityChallenge: (event: IdentityChallengeEvent) => void;
@@ -77,10 +79,12 @@ export class RbkmoneyWalletUtils {
         const data = toIdentityInitializerData(this.token, params);
         this.initializer.open(data)
             .then((transport: Transport) => {
-                transport.on(PossibleEvents.onCompleteIdentityChallenge, (e) =>
+                transport.on(PossibleEvents.onCompleteIdentityChallenge, (e) => {
                     this.provideCallback(this.onCompleteIdentityChallenge, {
                         data: e.data
-                    }));
+                    });
+                    setTimeout(() => this.initializer.close(), timeBeforeClose);
+                });
                 transport.on(PossibleEvents.onFailIdentityChallenge, (e) =>
                     this.provideCallback(this.onFailIdentityChallenge, {
                         data: e.data
@@ -91,20 +95,23 @@ export class RbkmoneyWalletUtils {
                     }));
                 this.activateCancelEvent(transport);
             })
-            .catch((e) => this.provideCallback(this.onCancel, {error: e}));
+            .catch((e) => this.provideCallback(this.onCancel, { error: e }));
     }
 
     createOutput(params: CreateOutputParams): void {
         const data = toOutputInitializerData(this.token, params);
         this.initializer.open(data)
             .then((transport: Transport) => {
-                transport.on(PossibleEvents.onCreateOutput, (e) =>
-                    this.provideCallback(this.onCreateOutput, {
-                        data: e.data
-                    }));
+                transport.on(PossibleEvents.onCreateOutput, (e) => {
+                        this.provideCallback(this.onCreateOutput, {
+                            data: e.data
+                        });
+                        setTimeout(() => this.initializer.close(), timeBeforeClose);
+                    }
+                );
                 this.activateCancelEvent(transport);
             })
-            .catch((e) => this.provideCallback(this.onCancel, {error: e}));
+            .catch((e) => this.provideCallback(this.onCancel, { error: e }));
     }
 
     private activateCancelEvent(transport: Transport): void {
