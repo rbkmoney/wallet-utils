@@ -2,7 +2,7 @@ import {
     Event,
     Identity,
     IdentityChallenge,
-    Output,
+    Destination,
     TokenizedCard,
     TokenizedInsurance,
     TokenizedPassport
@@ -14,6 +14,6 @@ export class ModelState {
     tokenizedInsurance?: TokenizedInsurance;
     tokenizedPassport?: TokenizedPassport;
     tokenizedCard?: TokenizedCard;
-    output?: Output;
+    destination?: Destination;
     identityChallenge?: IdentityChallenge;
 }

@@ -37,8 +37,8 @@ export function finalize(state: State, transport: Transport, walletUtilsEl: HTML
             transport.emit(PossibleEvents.onCompleteIdentityChallenge, { data: state.model.identityChallenge });
             finalizer.done(state.config.inFrame);
             break;
-        case ResultState.onCreateOutput:
-            transport.emit(PossibleEvents.onCreateOutput, { data: state.model.output });
+        case ResultState.onCreateDestination:
+            transport.emit(PossibleEvents.onCreateDestination, { data: state.model.destination });
             finalizer.done(state.config.inFrame);
             break;
         case ResultState.identityChallengeFailed:

@@ -1,11 +1,11 @@
 import { TokenizedCard } from './tokenized-card';
 
-enum OutputStatusEnum {
+enum DestinationStatusEnum {
     Unauthorized = 'Unauthorized',
     Authorized = 'Authorized'
 }
 
-export class Output {
+export class Destination {
     id: string;
     name: string;
     createdAt: string;
@@ -14,6 +14,6 @@ export class Output {
     currency: string;
     resource: TokenizedCard;
     metadata: {};
-    status: OutputStatusEnum;
+    status: DestinationStatusEnum;
     validUntil?: string;
 }

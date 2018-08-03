@@ -37,7 +37,7 @@ interface FooterDef {
 
 export const FooterDef: React.SFC<FooterDef> = (props) => (
     <footer className={footer}>
-        {props.actionType === ActionType.createOutput ?
+        {props.actionType === ActionType.createDestination ?
             cardIcons()
             : null
         }

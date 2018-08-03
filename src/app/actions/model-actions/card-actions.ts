@@ -1,6 +1,6 @@
 import { AbstractAction, TypeKeys } from 'app/actions';
 import { CardFormValues } from 'app/state';
-import { LogicError, Output, TokenizedCard } from 'app/backend';
+import { LogicError, Destination, TokenizedCard } from 'app/backend';
 
 export interface CardSavingRequestedPayload {
     values: CardFormValues;
@@ -28,9 +28,9 @@ export interface CardBindingRequested extends AbstractAction<CardFormValues> {
     payload: CardFormValues;
 }
 
-export interface CardBindingCompleted extends AbstractAction<Output> {
+export interface CardBindingCompleted extends AbstractAction<Destination> {
     type: TypeKeys.CARD_BINDING_COMPLETED;
-    payload: Output;
+    payload: Destination;
 }
 
 export interface CardBindingFailed extends AbstractAction<LogicError> {

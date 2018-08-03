@@ -6,15 +6,15 @@ import { PopupInitializer } from './popup-initializer';
 import { IframeInitializer } from './iframe-initializer';
 import {
     CancelEvent,
-    CreateOutputEvent,
-    CreateOutputParams,
+    CreateDestinationEvent,
+    CreateDestinationParams,
     IdentityChallengeEvent,
     StartIdentityChallengeParams,
     WalletUtilsEvent
 } from './model';
 import { getOrigin } from '../get-origin';
 import { PossibleEvents, Transport } from '../communication';
-import { ActionType, CreateOutputInitializerData, UserIdentityInitializerData } from '../communication/model';
+import { ActionType, CreateDestinationInitializerData, UserIdentityInitializerData } from '../communication/model';
 
 const logPrefix = '[RBKmoney wallet utils]';
 
@@ -39,9 +39,9 @@ const toIdentityInitializerData = (token: string, params: StartIdentityChallenge
     };
 };
 
-const toOutputInitializerData = (token: string, params: CreateOutputParams): CreateOutputInitializerData => {
+const toDestinationInitializerData = (token: string, params: CreateDestinationParams): CreateDestinationInitializerData => {
     if (!params) {
-        throw new Error(`${logPrefix}: Missing CreateOutputParams`);
+        throw new Error(`${logPrefix}: Missing CreateDestinationParams`);
     }
     if (!isString(params.identityID)) {
         throw new Error(`${logPrefix}: Wrong identityID`);
@@ -52,7 +52,7 @@ const toOutputInitializerData = (token: string, params: CreateOutputParams): Cre
     return {
         token,
         params,
-        type: ActionType.createOutput
+        type: ActionType.createDestination
     };
 };
 
@@ -61,7 +61,7 @@ export class RbkmoneyWalletUtils {
     onCompleteIdentityChallenge: (event: IdentityChallengeEvent) => void;
     onFailIdentityChallenge: (event: IdentityChallengeEvent) => void;
     onCancelIdentityChallenge: (event: IdentityChallengeEvent) => void;
-    onCreateOutput: (event: CreateOutputEvent) => void;
+    onCreateDestination: (event: CreateDestinationEvent) => void;
     onCancel: (event: CancelEvent) => void;
     private initializer: Initializer;
 
@@ -95,12 +95,12 @@ export class RbkmoneyWalletUtils {
             .catch((e) => this.provideCallback(this.onCancel, { error: e }));
     }
 
-    createOutput(params: CreateOutputParams): void {
-        const data = toOutputInitializerData(this.token, params);
+    createDestination(params: CreateDestinationParams): void {
+        const data = toDestinationInitializerData(this.token, params);
         this.initializer.open(data)
             .then((transport: Transport) => {
-                transport.on(PossibleEvents.onCreateOutput, (e) =>
-                    this.provideCallback(this.onCreateOutput, {
+                transport.on(PossibleEvents.onCreateDestination, (e) =>
+                    this.provideCallback(this.onCreateDestination, {
                         data: e.data
                     }));
                 this.activateCancelEvent(transport);

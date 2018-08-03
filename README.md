@@ -9,7 +9,7 @@ declare class RbkmoneyWalletUtils {
 
     startIdentityChallenge(params: StartIdentityChallengeParams): void;
 
-    createOutput(params: CreateOutputParams): void;
+    createDestination(params: CreateDestinationsParams): void;
 
     abort(): void;
 
@@ -19,7 +19,7 @@ declare class RbkmoneyWalletUtils {
 
     onCancelIdentityChallenge(event: IdentityChallengeEvent) => void;
 
-    onCreateOutput(event: CreateOutputEvent) => void;
+    onCreateDestination(event: CreateDestinationEvent) => void;
 
     onCancel(event: CancelEvent) => void;
 }
@@ -33,7 +33,7 @@ declare enum IdentityLevel {
     partial = 'partial'
 }
 
-declare interface CreateOutputParams {
+declare interface CreateDestinationParams {
     identityID: string;
     name: string;
 }
@@ -46,7 +46,7 @@ declare interface IdentityChallengeEvent extends WalletUtilsEvent {
     identityChallenge: IdentityChallenge;
 }
 
-declare interface CreateOutputEvent extends WalletUtilsEvent {
+declare interface CreateDestinationEvent extends WalletUtilsEvent {
     output: Output;
 }
 

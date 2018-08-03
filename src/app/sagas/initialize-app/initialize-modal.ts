@@ -19,7 +19,7 @@ const resolveActionType = (config: InitConfig, identityChallengeEvents?: Event[]
                 return new ModalForms([new PassportFormInfo()], true);
             }
 
-        case ActionType.createOutput:
+        case ActionType.createDestination:
             return new ModalForms([new CardFormInfo()], true);
     }
 };
