@@ -9,7 +9,7 @@ declare class RbkmoneyWalletUtils {
 
     startIdentityChallenge(params: StartIdentityChallengeParams): void;
 
-    createOutput(params: CreateOutputParams): void;
+    createDestination(params: CreateDestinationsParams): void;
 
     abort(): void;
 
@@ -19,7 +19,7 @@ declare class RbkmoneyWalletUtils {
 
     onCancelIdentityChallenge(event: IdentityChallengeEvent) => void;
 
-    onCreateOutput(event: CreateOutputEvent) => void;
+    onCreateDestination(event: CreateDestinationEvent) => void;
 
     onCancel(event: CancelEvent) => void;
 }
@@ -33,7 +33,7 @@ declare enum IdentityLevel {
     partial = 'partial'
 }
 
-declare interface CreateOutputParams {
+declare interface CreateDestinationParams {
     identityID: string;
     name: string;
 }
@@ -46,8 +46,8 @@ declare interface IdentityChallengeEvent extends WalletUtilsEvent {
     identityChallenge: IdentityChallenge;
 }
 
-declare interface CreateOutputEvent extends WalletUtilsEvent {
-    output: Output;
+declare interface CreateDestinationEvent extends WalletUtilsEvent {
+    destination: Destination;
 }
 
 declare interface CancelEvent extends WalletUtilsEvent {
@@ -70,7 +70,7 @@ declare interface LogicError {
 
 declare type IdentityChallenge = any; // see swagger definition
 
-declare type Output = any; // see swagger definition
+declare type Destination = any; // see swagger definition
 ```
 
 ### Usage

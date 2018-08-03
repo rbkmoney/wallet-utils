@@ -1,4 +1,4 @@
 export enum ActionType {
     userIdentity = 'userIdentity',
-    createOutput = 'createOutput'
+    createDestination = 'createDestination'
 }

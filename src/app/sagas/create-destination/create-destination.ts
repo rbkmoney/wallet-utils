@@ -34,10 +34,10 @@ function* start(action: CardBindingRequested): Iterable<BindEffect | FinishEffec
             name: s.config.initConfig.params.name
         }));
         const tokenizedCard = yield call(tokenizeCard, action.payload, wapiEndpoint, accessToken);
-        const output = yield call(bind, tokenizedCard, name, wapiEndpoint, accessToken, identityID);
+        const destination = yield call(bind, tokenizedCard, name, wapiEndpoint, accessToken, identityID);
         yield put({
             type: TypeKeys.CARD_BINDING_COMPLETED,
-            payload: output
+            payload: destination
         } as CardBindingCompleted);
         yield put({
             type: TypeKeys.SET_VIEW_INFO_PROCESS,
@@ -49,7 +49,7 @@ function* start(action: CardBindingRequested): Iterable<BindEffect | FinishEffec
         } as GoToFormInfo);
         yield put({
             type: TypeKeys.SET_RESULT,
-            payload: ResultState.onCreateOutput
+            payload: ResultState.onCreateDestination
         } as ResultAction);
     } catch (e) {
         yield put({
@@ -63,6 +63,6 @@ function* start(action: CardBindingRequested): Iterable<BindEffect | FinishEffec
     }
 }
 
-export function* watchCreateOutput(): Iterator<ForkEffect> {
+export function* watchCreateDestination(): Iterator<ForkEffect> {
     yield takeLatest(TypeKeys.CARD_BINDING_REQUESTED, start);
 }

@@ -10,7 +10,7 @@ const success = (): ResultFormContent => ({
     hasActions: false,
     hasDone: true,
     header: 'Успешная привязка',
-    description: getSuccessDescription(ActionType.createOutput),
+    description: getSuccessDescription(ActionType.createDestination),
     icon: <Checkmark/>
 });
 
@@ -22,6 +22,6 @@ const failed = (msg: string): ResultFormContent => ({
     icon: <Cross/>
 });
 
-export const makeContentFromCreateOutput = (error: ErrorState) => {
+export const makeContentFromCreateDestination = (error: ErrorState) => {
     return error ? failed(error.error.message) : success();
 };

@@ -51,7 +51,7 @@ export function modelReducer(s: ModelState = null, action: ModelReducerAction): 
         case TypeKeys.CARD_BINDING_COMPLETED:
             return {
                 ...s,
-                output: action.payload
+                destination: action.payload
             };
         case TypeKeys.EVENTS_POLLED:
             return {

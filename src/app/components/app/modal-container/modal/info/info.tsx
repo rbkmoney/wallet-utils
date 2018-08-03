@@ -16,7 +16,7 @@ const getInfoContent = (type: ActionType): InfoContent => {
                 title: 'Процедура идентификации',
                 description: 'Необходимо ввести паспортные данные и номер СНИЛС'
             };
-        case ActionType.createOutput:
+        case ActionType.createDestination:
             return {
                 title: 'Заведение инструмента вывода средств',
                 description: 'Необходимо ввести реквизиты карты на которую будут производиться выплаты'

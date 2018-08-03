@@ -6,7 +6,7 @@ import { setViewInfoHeight } from 'app/actions';
 import { ErrorState
     , State } from 'app/state';
 import { ActionType } from '../../../../../../../communication/model';
-import { makeContentFromUserIdentity, makeContentFromCreateOutput, ResultFormContent } from './make-content';
+import { makeContentFromUserIdentity, makeContentFromCreateDestination, ResultFormContent } from './make-content';
 
 interface ResultFormDefProps {
     actionType: ActionType;
@@ -36,8 +36,8 @@ export class ResultFormDef extends React.Component<ResultFormDefProps> {
         switch (this.props.actionType) {
             case ActionType.userIdentity:
                 return makeContentFromUserIdentity(this.props.error);
-            case ActionType.createOutput:
-                return makeContentFromCreateOutput(this.props.error);
+            case ActionType.createDestination:
+                return makeContentFromCreateDestination(this.props.error);
         }
     }
 }
