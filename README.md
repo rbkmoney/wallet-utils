@@ -47,7 +47,7 @@ declare interface IdentityChallengeEvent extends WalletUtilsEvent {
 }
 
 declare interface CreateDestinationEvent extends WalletUtilsEvent {
-    output: Output;
+    destination: Destination;
 }
 
 declare interface CancelEvent extends WalletUtilsEvent {
@@ -70,7 +70,7 @@ declare interface LogicError {
 
 declare type IdentityChallenge = any; // see swagger definition
 
-declare type Output = any; // see swagger definition
+declare type Destination = any; // see swagger definition
 ```
 
 ### Usage
