@@ -1,8 +1,7 @@
-import { Transport } from 'cross-origin-communicator';
+import { Transport, initialize } from 'cross-origin-communicator';
 import { Initializer } from './initializer';
 import { InitializerData } from '../communication/model';
 import isObject from 'lodash-es/isObject';
-import { initialize } from 'cross-origin-communicator';
 import { communicatorInstanceName } from '../communicator-constants';
 
 const serialize = (params: any): string => {

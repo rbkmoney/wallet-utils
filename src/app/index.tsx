@@ -9,12 +9,11 @@ import { Provider } from 'react-redux';
 import { finalize } from './finalize';
 import { initialize } from './initialize';
 
-let isFinalized = false;
-
 initialize().then((res) => {
     const [transport, config] = res;
     const app = document.getElementById('app');
     const store = configureStore({config});
+    let isFinalized = false;
     store.subscribe(() => {
         const state = store.getState();
         if (state.result && !isFinalized) {

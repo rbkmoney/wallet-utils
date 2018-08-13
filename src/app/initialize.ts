@@ -3,8 +3,7 @@ import { isInFrame } from '../is-in-iframe';
 import { getOrigin } from '../get-origin';
 import { communicatorInstanceName } from '../communicator-constants';
 import { deserialize } from 'app/utils/uri-serializer';
-import { Config } from 'app/config';
-import { resolveInitConfig } from 'app/config/config-resolver/resolve-init-config';
+import { Config, resolveInitConfig } from 'app/config';
 import { PossibleEvents, StubTransport } from '../communication';
 
 const isUriContext = !!location.search;

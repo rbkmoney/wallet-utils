@@ -1,7 +1,6 @@
-import { Transport } from 'cross-origin-communicator';
+import { Transport, initialize } from 'cross-origin-communicator';
 import { IframeContainer } from './iframe-container';
 import { Initializer } from './initializer';
-import { initialize } from 'cross-origin-communicator';
 import { communicatorInstanceName } from '../communicator-constants';
 
 export class IframeInitializer extends Initializer {
