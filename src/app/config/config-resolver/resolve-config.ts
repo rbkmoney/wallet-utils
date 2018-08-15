@@ -1,4 +1,5 @@
-import { PossibleEvents, Transport } from '../../../communication';
+import { Transport } from 'cross-origin-communicator';
+import { PossibleEvents } from '../../../communication';
 import { Config } from '../config';
 import { getOrigin } from '../../../get-origin';
 import { UserConfig } from './user-config';
@@ -13,7 +14,7 @@ const resolveUserConfig = (transport: Transport): Promise<UserConfig> => {
         isUriContext
             ? resolve(deserialize(location.search))
             : transport.on(PossibleEvents.init, (config) => resolve(config)));
-    };
+};
 
 export const resolveConfig = (transport: Transport): Promise<Config> =>
     resolveUserConfig(transport).then((userConfig) => ({

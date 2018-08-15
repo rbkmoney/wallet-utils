@@ -1,4 +1,4 @@
-import { Transport } from '../communication';
+import { Transport } from 'cross-origin-communicator';
 import { InitializerData } from '../communication/model';
 
 export abstract class Initializer {
@@ -6,7 +6,7 @@ export abstract class Initializer {
     protected constructor(protected readonly token: string, protected readonly origin: string) {
     }
 
-    abstract open(data: InitializerData): Promise<Transport>;
+    abstract open(data?: InitializerData): Promise<Transport>;
 
     abstract close(): void;
 }

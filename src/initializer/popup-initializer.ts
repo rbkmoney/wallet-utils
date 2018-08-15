@@ -1,7 +1,8 @@
-import { Parent, Transport } from '../communication';
+import { Transport, initialize } from 'cross-origin-communicator';
 import { Initializer } from './initializer';
 import { InitializerData } from '../communication/model';
 import isObject from 'lodash-es/isObject';
+import { communicatorInstanceName } from '../communicator-constants';
 
 const serialize = (params: any): string => {
     let urlParams = '';
@@ -32,13 +33,9 @@ export class PopupInitializer extends Initializer {
     open(data: InitializerData): Promise<Transport> {
         const url = `${this.origin}/v1/app.html?${serialize(data)}`;
         const target = window.open(url);
-        const parent = new Parent(target, this.origin);
-        return new Promise((resolve) => {
-            return parent.sendHandshake().then((transport) => {
-                resolve(transport);
-            });
-        });
+        return initialize(target, this.origin, communicatorInstanceName);
     }
 
-    close(): void {}
+    close(): void {
+    }
 }

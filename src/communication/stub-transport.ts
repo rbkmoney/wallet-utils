@@ -1,4 +1,5 @@
-import { PossibleEvents, Transport } from '.';
+import { Transport } from 'cross-origin-communicator';
+import { PossibleEvents } from '.';
 
 export class StubTransport implements Transport {
 

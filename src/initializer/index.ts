@@ -1,6 +1,7 @@
 import * as isMobile from 'ismobilejs';
 import isString from 'lodash-es/isString';
 import isFunction from 'lodash-es/isFunction';
+import { Transport } from 'cross-origin-communicator';
 import { Initializer } from './initializer';
 import { PopupInitializer } from './popup-initializer';
 import { IframeInitializer } from './iframe-initializer';
@@ -13,8 +14,12 @@ import {
     WalletUtilsEvent
 } from './model';
 import { getOrigin } from '../get-origin';
-import { PossibleEvents, Transport } from '../communication';
-import { ActionType, CreateDestinationInitializerData, UserIdentityInitializerData } from '../communication/model';
+import { PossibleEvents } from '../communication';
+import {
+    ActionType,
+    CreateDestinationInitializerData,
+    UserIdentityInitializerData
+} from '../communication/model';
 
 const logPrefix = '[RBKmoney wallet utils]';
 
@@ -77,40 +82,36 @@ export class RbkmoneyWalletUtils {
         const data = toIdentityInitializerData(this.token, params);
         this.initializer.open(data)
             .then((transport: Transport) => {
-                transport.on(PossibleEvents.onCompleteIdentityChallenge, (e) =>
-                    this.provideCallback(this.onCompleteIdentityChallenge, {
-                        data: e.data
-                    }));
-                transport.on(PossibleEvents.onFailIdentityChallenge, (e) =>
-                    this.provideCallback(this.onFailIdentityChallenge, {
-                        data: e.data
-                    }));
-                transport.on(PossibleEvents.onCancelIdentityChallenge, (e) =>
-                    this.provideCallback(this.onCancelIdentityChallenge, {
-                        data: e.data
-                    }));
+                transport.emit(PossibleEvents.init, data);
+                transport.on(PossibleEvents.onCompleteIdentityChallenge, (eventData) =>
+                    this.provideCallback(this.onCompleteIdentityChallenge, eventData));
+                transport.on(PossibleEvents.onFailIdentityChallenge, (eventData) =>
+                    this.provideCallback(this.onFailIdentityChallenge, eventData));
+                transport.on(PossibleEvents.onCancelIdentityChallenge, (eventData) =>
+                    this.provideCallback(this.onCancelIdentityChallenge, eventData));
                 this.activateCancelEvent(transport);
                 this.activateDoneEvent(transport);
             })
-            .catch((e) => this.provideCallback(this.onCancel, { error: e }));
+            .catch((e) => this.provideCallback(this.onCancel, {error: e}));
     }
 
     createDestination(params: CreateDestinationParams): void {
         const data = toDestinationInitializerData(this.token, params);
         this.initializer.open(data)
             .then((transport: Transport) => {
-                transport.on(PossibleEvents.onCreateDestination, (e) =>
-                    this.provideCallback(this.onCreateDestination, {
-                        data: e.data
-                    }));
+                transport.emit(PossibleEvents.init, data);
+                transport.on(PossibleEvents.onCreateDestination, (eventData) => {
+                    return this.provideCallback(this.onCreateDestination, eventData);
+                });
                 this.activateCancelEvent(transport);
                 this.activateDoneEvent(transport);
             })
-            .catch((e) => this.provideCallback(this.onCancel, { error: e }));
+            .catch((e) => this.provideCallback(this.onCancel, {error: e}));
     }
 
     private activateCancelEvent(transport: Transport): void {
         transport.on(PossibleEvents.close, () => {
+            transport.destroy();
             this.initializer.close();
             this.provideCallback(this.onCancel, {});
         });
@@ -118,6 +119,7 @@ export class RbkmoneyWalletUtils {
 
     private activateDoneEvent(transport: Transport): void {
         transport.on(PossibleEvents.done, () => {
+            transport.destroy();
             this.initializer.close();
         });
     }
