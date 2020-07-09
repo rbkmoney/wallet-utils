@@ -24,7 +24,7 @@ build('wallet-utils', 'docker-host') {
     runStage('build image') {
       sh 'make build_image'
     }
-
+    runFESecurityTools()
     try {
       if (env.BRANCH_NAME == 'master') {
         runStage('push image') {
@@ -37,6 +37,6 @@ build('wallet-utils', 'docker-host') {
       }
     }
   }
-  pipeDefault(pipeline, 'dr2.rbkmoney.com', 'jenkins_harbor')
+  pipeDefault(pipeline)
 }
 
