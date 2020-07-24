@@ -60,7 +60,7 @@
     "lodash-es": "~4.17.14",
     "react": "~16.3.2",
     "react-addons-css-transition-group": "~15.6.2",
-    "react-dom": "~16.3.2",
+    "react-dom": "~16.3.3",
     "cross-origin-communicator": "git+ssh://git@github.com/rbkmoney/cross-origin-communicator.git#9ae9e9b85517e2abc0a8c8ea60c35d4c6b1f5aff",
     "react-redux": "~5.0.5",
     "redux": "~3.7.2",
